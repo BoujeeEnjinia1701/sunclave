@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: SunClave
+slug: sunclave
+area: BioMedical
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  Solar concentrator that heats a modified pressure-cooker autoclave, with a validated temperature and time logger to prove each cycle.
+problem: >-
+  Rural clinics lack power to sterilize instruments in an autoclave.
+budget_usd: 400
+difficulty: 3  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [biomedical, open-hardware, cern-ohl-s]
