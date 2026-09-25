@@ -1,5 +1,65 @@
 # Review note: SunClave
 
+## Session 2026-09-25: TRL 3
+
+TRL 4 is on hold by Amish's instruction ("Make sure we don't proceed to TRL 4 on any of them"). This session took SunClave from TRL 2 to TRL 3 and stopped there.
+
+### What was done
+
+- `docs/decisions/0001-trl2-review-decisions.md` (SCL-DDR-001 v0.1): records items 1 to 4 and 6 to 11 of the TRL 2 review as "Decided by Amish, 2026-09-25: go with recommendation", the cross-cutting approvals (SwapCell does not apply), and the open items 5, 12 and 13 to 18.
+- `docs/04-calcs/01-sizing.md` (SCL-CAL-001 v0.1) with `docs/04-calcs/sizing.py` and `docs/04-calcs/results.csv`: IAPWS-IF97 steam and altitude, a Monte Carlo ray trace of the dish onto the level cooker, heat loss, cycle and clear-day simulation, measurement uncertainty, relief and vent capacity for both lid options, boil-dry, masses, wind and castor grip, logger power, cost, and a results table for R1 to R17. The script reads `cad/src/model.py` and `bom/bom.csv`.
+- `cad/src/model.py`: parametric build123d model (paraboloid reflector, ribs, rim, yoke, timber stand, fixed pot holder, 12 L cooker with lid fittings, jacket, water, basket, logger and power bank). Exports `cad/step/sunclave-{assembly,dish,stand,vessel}.step` and matching STL files in `cad/stl/`.
+- `cad/src/sheets.py` and `cad/drawings/SCL-DWG-001.svg`, `.pdf`, `.png`: general arrangement, Rev P1, marked "CONCEPT, NOT FOR FABRICATION" and "PRELIMINARY, NOT FOR FABRICATION". The concept sheet keeps SCL-DWG-010, so SCL-DWG-001 was the next free number.
+- `bom/bom.csv` and `bom/bom-notes.md`: 20 lines, every line priced with a supplier type; parts total $430 against $450.
+- `cad/src/concept_media.py` now builds the media from the model: `media/hero.png`, `exploded.png`, `cutaway.png`, `flow.png` (SCL-CAL-001 numbers), `concept-blueprint.png`, `.pdf`, `.svg`, `model.glb` and `viewer.html`. Each image was inspected; exploded offsets were adjusted so the stand and dish callouts no longer overlap. No `media/_views*` folders remain.
+- SCL-PRB-001, SCL-PRC-001 and SCL-REQ-001 moved to v0.3 with the decisions and the TRL 3 numbers. `project.yaml`: `trl: 3`, `trl_target: 3`, evidence list, new pitch, `budget_usd: 450`. `README.md`: new pitch, TRL 3 badge and summary.
+
+### Requirements (SCL-CAL-001 Table 10)
+
+9 met, 4 at risk, 1 not verifiable at TRL 3, 3 not met.
+
+- **Not met: R11 burn and glare.** No focal-zone guard is defined, and the black base and 80 mm wall band (above 60 °C) are within reach. Goggles and a parking cover were added to the BOM.
+- **Not met: R14 tracking.** Absorbed power stays within 10 % of on-target for about 13 min of sun motion (3.2° of pointing error), not 15 min.
+- **Not met: R16 mass.** About 41.0 kg empty against 40 kg, mostly because the decided timber stand weighs about 19.4 kg. Every handling piece is within 20 kg.
+- At risk: R4 cycle time (80 min central, 109 min unfavourable, against 90 min); R10 boil-dry (option B holds at 1,800 m in strong sun leave 0.14 L without trimming); R12 air-removal check (0.89 °C uncertainty against 2 °C); R15 stability (tipping factor 1.30 at 15° sun, and the stand rolls on two locked castors).
+- Not verifiable at TRL 3: R1, because the equivalent-exposure method of option B needs biological indicators.
+- Met: R2, R3, R5 (4 cycles), R6, R7 (0.44 °C with a 0.05 % reference), R8 (relief 5.1 times the worst steam generation), R9, R13 (8.7 days), R17 ($430).
+
+Corrections to TRL 2 numbers (SCL-CAL-001 section 14): the regulator gives 120.95 °C at sea level, so 121 °C holds only at sea level, not below 300 m; absorbed power is 669 W, not 710 W; heat loss at 121 °C is 395 W, not 200 W; peak flux is about 270 kW/m², not 30 to 50; the 270 x 180 mm basket did not fit a 12 L cooker and is now 250 x 150 mm.
+
+### Decisions recorded (SCL-DDR-001)
+
+Decided by Amish, 2026-09-25, going with the recommendation: altitude option B; budget option (b) then (a), so `budget_usd` is now $450 after the cuts saved about $29; the pitch wording; the household 12 L aluminum cooker; the level cooker at the focus (the holder is fixed to the stand, because a swinging holder would be top-heavy); the petal dish; manual gnomon aiming; the load limits; the logger pass criteria; backup heat on a stove. The problem line had no recommended rewording and is unchanged.
+
+### Still awaiting Amish
+
+- **Item 5: drilling the cooker lid** versus a factory-ported cooker or an adapter plate. No recommendation; it is a safety trade-off. The model shows the fittings without choosing, and SCL-CAL-001 section 8 lists both options side by side.
+- **Item 12:** first partner and site (per area later).
+- **New items 13 to 18,** each with a recommendation: R14 (relax to 12 min), R16 (relax to 45 kg total), R11 (treat the whole vessel as a hot zone, no physical guard), R15 (four locking castors, about $4), R10 (trimming rule and logger water warning), R12 (0 to 300 kPa transducer).
+
+### Safety concerns
+
+- The focal spot is far hotter than the TRL 2 documents said: about 270 kW/m² in its hottest 20 mm. Goggles, gnomon aiming, the parking cover and turning the dish at least 15° away before reaching in are essential. R11 is not met.
+- The lid-fitting method (item 5) must be decided before anything is built. Relief and vent capacity are ample for both options, but no calculation can show whether a drilled lid keeps the maker's rating.
+- Option B at altitude lengthens holds; in strong sun the cooker can boil nearly dry at 1,800 m and fully dry at 2,400 m unless the dish is trimmed. A dry base would pass 200 °C.
+- The base thermocouple must sit at the base edge, out of the focal spot, or the boil-dry alarm will misread. Normal boiling leaves only 6.5 K of margin to the 140 °C alarm.
+- The quadrant lock carries up to about 38 N·m of gravity torque plus wind; the stand can roll in a 10 m/s wind on two locked castors.
+- The timber stand can scorch from stray reflections; the power bank is a lithium pack and must stay shaded.
+- Medical claims: the documents still state that SunClave is a research and educational prototype, not a medical device, and that a PASS does not prove sterility.
+
+### Problems and notes
+
+- The kit's exploded-view callouts still cover the smallest parts (gauge 8, relief valve 9, gland 10 and power bank 15) at this scale. A kit change (offset labels with leader lines) would fix it; not made here.
+- The kit's cutaway cutter is centered on Z = 0, so `concept_media.py` still lowers the vessel before cutting (as at TRL 2).
+- The reflector is modelled 3 mm thick for visibility; mass uses 0.5 mm.
+- No citations were flagged as unchecked in the TRL 2 review; none were re-verified. The new CAL cites Watmuff, Charters and Proctor (1977) for wind convection and uses IAPWS-IF97, checked in the script against steam-table values.
+- No TRL 4 material exists in this repo (`build-log/` holds only its README; `electronics/` and `firmware/` are empty).
+- Suggestions, not changes: an insulated lid cover could recover up to about 80 W of the 101 W lid loss and shorten heat-up; a kit fix for callouts.
+
+### Recommended next step
+
+Decide item 5 (lid fittings) and items 13 to 18, then update SCL-REQ-001 and the BOM on paper. TRL 4 is on hold by Amish's instruction and no TRL 4 work should start. For the record only, TRL 4 would need: a built prototype with the lid-fitting decision implemented; a lab test report (TST, `environment: lab`) covering a hydrostatic check of the vessel as fitted, the relief valve lift, heat-up and hold timing, logger calibration against a reference thermometer and barometer, the air-removal check with a deliberate leak, and biological and chemical indicators for the option B equivalence; and dated build log entries.
+
 ## Session 2026-09-25: /populate to a strong TRL 2 (overnight batch)
 
 ### What was done

@@ -1,14 +1,14 @@
 # SunClave
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** BioMedical · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $400 USD · **Difficulty:** 3 of 5
+**Area:** BioMedical · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** $450 USD · **Difficulty:** 3 of 5
 
-Solar concentrator that heats a modified pressure-cooker autoclave, with a validated temperature and time logger to prove each cycle.
+Solar concentrator that heats a modified pressure-cooker autoclave, with a calibrated temperature, pressure and time logger that records every cycle.
 
 ![SunClave concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement SCL-DWG-001 (PDF)](cad/drawings/SCL-DWG-001.pdf) · [Calculation note](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Problem
 
@@ -16,20 +16,20 @@ Rural clinics lack power to sterilize instruments in an autoclave. Close to 1 bi
 
 ## Concept
 
-A 1.4 m parabolic dish of aluminum petals focuses about 700 W of sunlight onto the blackened base of a 12 L pressure cooker that hangs level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. First-order estimates: about 35 to 60 min from cold to 121 °C and about three cycles on a clear day. A 103 kPa (15 psi) cooker reaches 121 °C only below about 300 m altitude, and the parts cost about $437 against the $400 budget; both are open decisions in the [review note](docs/REVIEW.md).
+A 1.4 m parabolic dish of aluminum petals focuses sunlight onto the blackened base of a 12 L pressure cooker held level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. The TRL 3 calculation note puts about 670 W into the cooker at 700 W/m² of direct sun, about 80 min from a cold start to the end of a 30 min hold, and about four cycles on a clear day, for about $430 in parts against a $450 budget. A 103.4 kPa (15 psi) cooker reaches 121 °C only at sea level, so above it the logger extends the hold and records the real temperature. On paper the design misses three requirements: no focal-zone guard yet, retargeting about every 13 min rather than 15 min, and about 41 kg against 40 kg; the options are in the [review note](docs/REVIEW.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md)
 
 ## Key components
 
-- 1.4 m petal dish on a tilting yoke and castored stand
-- 12 L aluminum pressure cooker with weighted regulator, level holder and insulated jacket
+- 1.4 m petal dish on a tilting yoke and a castored timber stand
+- 12 L aluminum pressure cooker with weighted regulator, fixed level holder and insulated jacket
 - Pressure gauge and independent relief valve
 - Pt100 load-zone probe and absolute pressure transducer through a lid gland
-- Solar-powered cycle logger with pass or fail per cycle
+- Cycle logger on a USB power bank with pass or fail per cycle
 - Shadow gnomon for aiming without looking at the sun
 
-The working bill of materials is in [bom/bom.csv](bom/bom.csv).
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv); the parametric model is `cad/src/model.py`.
 
 ## Safety
 

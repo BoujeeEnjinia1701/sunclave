@@ -3,7 +3,7 @@ doc_id: SCL-PRB-001
 title: SunClave problem statement
 project: SunClave
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Populate to TRL 2 (users, context, constraints, out of scope, cited prior work, open questions)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Apply SCL-DDR-001 (budget $450, altitude option B, backup heat) and correct the altitude figures from SCL-CAL-001
 ---
 
 # SunClave problem statement
@@ -33,7 +37,7 @@ The energy is the first barrier. WHO and partners estimate that close to 1 billi
 
 The evidence is the second barrier. A household pressure cooker on a fire can reach sterilizing conditions if instruments sit above the water and the cycle is long enough, but results depend on the vessel, its seal and the operator, and constant monitoring with biological indicators is recommended ([Baez, pressure cookers for clinical instruments](https://cdn.ymaws.com/sites/adint.site-ym.com/resource/resmgr/NewsArticles/Use_of_pressure_cookers_for_.pdf?hhSearchTerms=%22pressure%22)). Clinics rarely have a thermometer inside the vessel, let alone a record per load.
 
-A third, less obvious barrier is altitude. A cooker regulated at 103 kPa (15 psi) above ambient reaches 121 °C only near sea level. At 1,800 m (Nairobi) the same cooker reaches only about 118 °C (SCL-PRC-001 gives the calculation), which is not a 121 °C cycle.
+A third, less obvious barrier is altitude. A cooker regulated at 103.4 kPa (15 psi) above ambient reaches about 121.0 °C only at sea level (120.95 °C). At 1,800 m (Nairobi) the same cooker reaches only about 117.7 °C (SCL-CAL-001 gives the calculation), which is not a 121 °C cycle. The decided response (SCL-DDR-001 item 1) is a longer hold, recorded at its real temperature.
 
 ## Users and context
 
@@ -55,7 +59,7 @@ A third, less obvious barrier is altitude. A cooker regulated at 103 kPa (15 psi
 
 ## Constraints
 
-- Garage-buildable prototype, about $400 USD in parts (`project.yaml`).
+- Garage-buildable prototype, $450 USD in parts (`project.yaml`; raised from $400 by Amish on 2026-09-25, SCL-DDR-001 item 2).
 - Uses a commercially made pressure vessel rated for its working pressure. No homemade pressure vessel.
 - Buildable and repairable by a district workshop with hand tools, a drill and simple welding or bolted joints.
 - Operable by one trained person; movable by two.
@@ -81,10 +85,10 @@ A third, less obvious barrier is altitude. A cooker regulated at 103 kPa (15 psi
 
 ## Open questions
 
-- Which partner and first site (a district health office, a maternity program, a university biomedical engineering department, or an outreach dental team)? Proposed, awaiting Amish.
+- Which partner and first site (a district health office, a maternity program, a university biomedical engineering department, or an outreach dental team)? Proposed, awaiting Amish; partners are chosen per area later (SCL-DDR-001 item 12).
 - How large is a typical daily load, and are packs wrapped or unwrapped? This sets vessel size and hold time.
-- What is the site altitude? Above about 300 m a 103 kPa cooker cannot reach 121 °C, which forces a design choice (see SCL-PRC-001).
-- What backup heat source is used on cloudy days (wood, charcoal or LPG), and should the logger also record those cycles? Assumed yes.
+- What is the site altitude? Above sea level a 103.4 kPa cooker cannot reach 121 °C; the decided extended hold (option B) grows from 30 min to about 63 min at 1,800 m for a wrapped load (SCL-CAL-001).
+- Which backup heat source is available on cloudy days (wood, charcoal or LPG)? The same cooker on a stove, logged the same way, is decided (SCL-DDR-001 item 11).
 - Who would own the cycle records, and in what form do supervisors want them (printed ticket, register entry, phone export)?
 
 ## User research and co-design

@@ -1,0 +1,18 @@
+id,requirement,value,target,status,note
+R1,Sterilizing condition (redefined),"120.95 C and 30.3 min at 0 m; 117.7 C and 63 min at 1,800 m","exposure equal to 20/30 min at 121 C (z = 10 C), 115 to 124 C, real temperature recorded",Not verifiable at TRL 3,Temperature and hold met by calculation; a 103.4 kPa cooker gives 120.95 C at sea level and less above it; equivalence needs biological indicators
+R2,Load capacity,basket 250 x 150 mm in a 12.3 L cooker; 16 mm over the water,basket 250 x 150 mm or more; 2.0 kg,Met,Model check; TRL 2 basket 270 x 180 mm did not fit a 12 L cooker
+R3,Load type,"solid instruments, unwrapped or single-wrapped","no lumened, hollow or textile loads",Met,By definition
+R4,Cycle time,80 min central (71 to 109),90 min or less,At risk,Precedent 93 to 183 min heat-up (larger vessels)
+R5,Daily throughput,"4 (equator), 4 (15 N winter), 4 (600 W/m2)",3 or more,Met,"09:00 to 15:00, warm restarts"
+R6,Cycle record,"173 kB per cycle; about 23,148 cycles on 4 GB","1 s logging; 1,000 cycles",Met,Design check
+R7,Measurement accuracy,0.44 K with the 0.05 % reference (0.55 K with 0.1 %); pressure 5 kPa,0.5 K; 5 kPa,Met,"With the 0.05 % reference now in the BOM; field check needs a barometer, not the logger's own transducer"
+R8,Pressure safety,relief 5.1 x worst steam generation; vent 2.6 x,relief 125 kPa gauge or less; vessel rated by its maker,Met,Capacity met for both lid options; vessel rating to confirm from the maker for the chosen model
+R9,Heat input control,power below 5 % at 15 deg of tilt,stop within 10 s; dish shaded when parked,Met,Parking cover added (item 20)
+R10,Boil-dry protection,"1.26 kg left (design); 0.80 kg at 1000 W/m2; 0.14 kg at 1,800 m, 1000 W/m2",0.5 L left; alarm at 140 C,At risk,Design case met; extended holds at altitude in strong sun need trimming
+R11,Burn and glare protection,focal-zone guard not defined; black band and base above 60 C within reach,no surface above 60 C within reach except lid and handles; guard; eye protection,Not met,Goggles and parking cover added; guard open
+R12,Air-removal check,uncertainty 0.89 K against the 2 K threshold,flag a hold more than 2 K below saturation,At risk,Sure to flag 9 % air; may flag from 3 %
+R13,Off-grid logger power (redefined),"9 days on a 10,000 mAh bank",3 days without charging; USB recharge,Met,Bank must not switch off at low load
+R14,Tracking effort,90 % power held for 13 min,retarget no more often than every 15 min,Not met,Worst-case sun motion 15 deg/h
+R15,Stability,"tipping factor 1.30 (worst, elevation 15 deg)",does not tip at 10 m/s,At risk,Sliding: 153 N wind vs 109 N grip on two locked castors
+R16,Portability and build,41.0 kg empty; largest piece 19.4 kg,"40 kg or less; pieces 20 kg or less; hand tools, drill, bolts",Not met,Timber stand heavier than the TRL 2 steel estimate
+R17,Cost (redefined),$430,"$450 or less for parts, validation consumables excluded",Met,Budget raised to $450 per SCL-DDR-001 item 2
