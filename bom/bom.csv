@@ -1,6 +1,19 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Parabolic reflector segments,,,,,,
-Pressure cooker rated to 15 psi,,,,,,
-Pressure gauge,,,,,,
-Thermocouple logger,,,,,,
-Tracking stand,,,,,,
+1 Reflector petals,12,"Polished or anodized aluminum reflector sheet 0.5 mm, reflectance 85 % or more, cut to petal gores for a 1.4 m aperture, focal length about 500 mm (about 1.8 m² of sheet with offcuts)",Aluminum stockist or solar reflector sheet supplier,6.25,make,Indicative price (about $75 for the set); SK14-style petal layout
+2 Dish ribs rim and hub,1,"12 steel flat-bar ribs bent to the paraboloid profile, rolled rim ring and bolted hub plate",Local steel stockist and fabricator,30.00,make,Indicative material cost; bending jig needed
+3 Tilt yoke and quadrant lock,1,"Two steel tube arms from the pivots to the dish rim, pivot pins on the focal axis, slotted quadrant plate with lock knob, 15 to 90 degree tilt",Local fabricator,18.00,make,Indicative material cost
+4 Stand with castors,1,"25 mm square steel tube base about 1,840 x 1,100 mm, two uprights to about 1.0 m pivot height, four 75 mm castors (two locking)",Local fabricator and hardware shop,55.00,make,Indicative price; azimuth set by turning the whole stand
+5 Level pot holder,1,"Steel ring hung from the pivot axis so the cooker stays level while the dish tilts",Local fabricator,12.00,make,Indicative material cost
+6 Pressure cooker,1,"12 L aluminum household pressure cooker, 103 kPa (15 psi) weighted regulator, overpressure plug, about 300 mm diameter; base painted with high-temperature matte black",Regional household goods market,55.00,buy,Indicative price; brand and rating to be confirmed at TRL 3; vessel must not be welded or modified beyond drilled fitting holes approved in the design review
+7 Lid with weighted regulator,1,"Supplied with item 6; drilled for items 8 to 10 with reinforcing washers",Supplied with item 6,0.00,buy,Cost in item 6; drilling a pressure vessel lid is a design decision awaiting Amish
+8 Pressure gauge,1,"0 to 250 kPa (0 to 36 psi), 100 mm dial, stainless case, bottom 1/4 in NPT with siphon",Instrument or plumbing supplier,15.00,buy,Indicative price; independent of the logger
+9 Independent relief valve,1,"Spring safety valve, set 125 kPa gauge or less, brass, 1/4 in NPT, rated for steam",Boiler or steam fittings supplier,20.00,buy,Indicative price; certified set pressure preferred
+10 Lid gland Pt100 probe and pigtail,1,"1/8 in NPT compression gland for a 3 mm probe; Pt100 class A, 3 mm x 150 mm, PTFE leads; brass tee and pigtail to the pressure transducer",Instrument supplier,30.00,buy,Indicative price
+11 Insulated jacket,1,"Mineral wool or glass fiber blanket 25 mm with aluminized glass cloth skin, wraps the upper wall; base left bare",Insulation supplier,12.00,make,Indicative price
+12 Water charge,1,"1.5 L of clean water per cycle, boiled or distilled where available",Site supply,0.00,buy,Consumable; no cost
+13 Instrument basket and trivet,1,"Stainless wire basket about 270 x 180 mm on a trivet that keeps the load above the water",Kitchen or lab supplier,14.00,buy,Indicative price
+14 Cycle logger,1,"ESP32-class board, MAX31865 Pt100 interface, 0 to 500 kPa absolute stainless ratiometric pressure transducer, K-type thermocouple and interface on the pot base (boil-dry alarm), RTC, microSD, e-paper display, buzzer, IP65 box",Electronics distributor,66.00,buy,Indicative price (transducer about $18); firmware at TRL 3 only as a labeled sketch
+15 Logger solar panel and battery,1,"5 W panel on a bracket, one protected 18650 cell (about 12 Wh), solar charge board",Electronics distributor,18.00,buy,Indicative price
+16 Sighting gnomon,1,"Pin parallel to the dish axis over a 120 mm target plate on the rim",Local fabricator,2.00,make,Indicative price
+17 Hardware and consumables,1,"Bolts, rivets, thread sealant rated for steam, high-temperature paint, cable glands",Local hardware shop,15.00,buy,Indicative price; no exploded-view callout
+18 Validation consumables,1,"Class 5 chemical integrators (ISO 11140-1) and self-contained Geobacillus stearothermophilus biological indicators for commissioning and weekly checks",Medical supplier,45.00,buy,Not in the parts cost; used only at TRL 4 and later; no exploded-view callout

@@ -6,29 +6,34 @@
 
 Solar concentrator that heats a modified pressure-cooker autoclave, with a validated temperature and time logger to prove each cycle.
 
+![SunClave concept](media/hero.png)
+
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+
 ## Problem
 
-Rural clinics lack power to sterilize instruments in an autoclave.
+Rural clinics lack power to sterilize instruments in an autoclave. Close to 1 billion people are served by health facilities with no or unreliable electricity, and where instruments are steamed in a pressure cooker on a fire, nothing records whether each load reached sterilizing conditions. Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-Solar concentrator that heats a modified pressure-cooker autoclave, with a validated temperature and time logger to prove each cycle.
+A 1.4 m parabolic dish of aluminum petals focuses about 700 W of sunlight onto the blackened base of a 12 L pressure cooker that hangs level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. First-order estimates: about 35 to 60 min from cold to 121 °C and about three cycles on a clear day. A 103 kPa (15 psi) cooker reaches 121 °C only below about 300 m altitude, and the parts cost about $437 against the $400 budget; both are open decisions in the [review note](docs/REVIEW.md).
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md)
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md)
 
 ## Key components
 
-- Parabolic reflector segments
-- Pressure cooker rated to 15 psi
-- Pressure gauge
-- Thermocouple logger
-- Tracking stand
+- 1.4 m petal dish on a tilting yoke and castored stand
+- 12 L aluminum pressure cooker with weighted regulator, level holder and insulated jacket
+- Pressure gauge and independent relief valve
+- Pt100 load-zone probe and absolute pressure transducer through a lid gland
+- Solar-powered cycle logger with pass or fail per cycle
+- Shadow gnomon for aiming without looking at the sun
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ## Safety
 
-> This is a research and educational prototype. It is not a medical device, has not been cleared or approved by any regulator, and must not be used to diagnose, treat or monitor any person. This design involves heat and pressurized steam. Keep operating pressure and water volume below local boiler and pressure vessel code thresholds, fit a certified relief valve, and never operate it unattended.
+> This is a research and educational prototype. It is not a medical device, has not been cleared or approved by any regulator, and must not be used to diagnose, treat or monitor any person. This design involves concentrated sunlight that can burn skin and eyes and start fires, and heat and pressurized steam. Keep operating pressure and water volume below local boiler and pressure vessel code thresholds, fit a certified relief valve, and never operate it unattended.
 
 ## Repository layout
 
