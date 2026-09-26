@@ -50,7 +50,7 @@ if __name__ == "__main__":
                      "Cold start to end of 30 min hold about 80 min (estimate)",
                      "About 4 cycles in a 6 h clear window (estimate)",
                      "Logger: Pt100 plus pressure, checks saturated steam",
-                     "About $430 in parts against $450 (indicative)"],
+                     "About $440 in parts against $450 (indicative)"],
         cut=False,
         flow={"title": "power during heat-up at 700 W/m² DNI, W (SCL-CAL-001 central estimates)", "unit": "W",
               "stages": [("Sun on 1.54 m² dish", 1078), ("Reflected, unshaded", 819), ("Onto the vessel", 784),

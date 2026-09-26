@@ -3,7 +3,7 @@ doc_id: SCL-PRC-001
 title: SunClave design precis
 project: SunClave
 doc_type: Design precis
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,11 +21,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Apply SCL-DDR-001 decisions (option B, $450 budget and cuts, vessel, holder, dish, aiming, load limits, pass criteria, backup heat); replace first-order numbers with SCL-CAL-001; TRL 3 model, drawing and media
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # SunClave design precis
 
-SunClave is a 1.4 m parabolic dish of aluminum petals that focuses sunlight onto the blackened base of a 12 L household pressure cooker held level at the focus, with a cycle logger that measures temperature in the load zone and chamber pressure and flags each cycle as pass or fail. The TRL 3 calculations (SCL-CAL-001) put about 670 W into the cooker on a clear day, enough to go from cold to the end of a 30 min hold in about 80 min and to run about four cycles between 09:00 and 15:00. Three requirements are not met on paper: there is no focal-zone guard yet (R11), the dish needs retargeting about every 13 min rather than 15 min (R14), and the prototype weighs about 41 kg against 40 kg (R16). Parts cost about $430 against the $450 budget Amish set on 2026-09-25.
+SunClave is a 1.4 m parabolic dish of aluminum petals that focuses sunlight onto the blackened base of a 12 L household pressure cooker held level at the focus, with a cycle logger that measures temperature in the load zone and chamber pressure and flags each cycle as pass or fail. The TRL 3 calculations (SCL-CAL-001) put about 670 W into the cooker on a clear day, enough to go from cold to the end of a 30 min hold in about 79 min and to run about four cycles between 09:00 and 15:00. On 2026-09-25 Amish accepted the recommendations on the TRL 3 findings (SCL-DDR-002): the dish is retargeted every 12 min, the mass limit is 45 kg, the whole vessel is treated as a marked hot zone instead of guarding the focus, all four castors lock, a trimming rule protects the water at altitude and the pressure transducer spans 0 to 300 kPa. On paper no requirement is now missed; cycle time (R4) and wind stability (R15) remain at risk. Parts cost about $440 against the $450 budget Amish set on 2026-09-25.
 
 > **Safety:** SunClave is a research and educational prototype, not a medical device. It has not been cleared or approved by any regulator and must not be relied on to sterilize instruments used on patients. It combines concentrated sunlight that can burn skin, blind and start fires, with a pressure vessel holding steam at about 121 °C (250 °F). See the safety section before building or operating anything.
 
@@ -36,9 +40,9 @@ SunClave is a 1.4 m parabolic dish of aluminum petals that focuses sunlight onto
 ## How it works
 
 1. **Load.** The operator puts 1.5 L of water in the cooker, sets cleaned instruments in the basket on its trivet above the water, closes the lid and sets the cooker in the level holder at the focus.
-2. **Aim.** The operator turns the stand on its castors to face the sun and tilts the dish until the shadow of the sighting gnomon falls on the center of its target. Nobody needs to look at the sun or at the bright focus. Retargeting about every 12 to 15 min keeps the focal spot on the cooker base (SCL-CAL-001 section 3).
+2. **Aim.** The operator unlocks the four castors, turns the stand to face the sun, locks them again and tilts the dish until the shadow of the sighting gnomon falls on the center of its target. Nobody needs to look at the sun or at the bright focus. The logger sounds a reminder every 12 min, and retargeting at that interval keeps the absorbed power within 10 % of on-target (SCL-CAL-001 section 3; decided, SCL-DDR-002 item 13).
 3. **Heat and purge air.** About 670 W is absorbed by the blackened base and the black band of wall above it. The water boils, and steam leaves through the open vent for at least 5 min to push air out of the chamber before the weighted regulator is fitted. The logger recognizes this purge as a plateau at the local boiling point.
-4. **Pressurize and hold.** With the regulator fitted, pressure rises to 103.4 kPa gauge and the regulator vents the excess. The hold is 20 min (unwrapped) or 30 min (wrapped) at sea level, and longer above it (decided option B): the logger computes the hold that gives the same exposure as 121 °C with z = 10 °C and records the real temperature. The operator trims the dish slightly off the sun if the regulator vents hard, to save water.
+4. **Pressurize and hold.** With the regulator fitted, pressure rises to 103.4 kPa gauge and the regulator vents the excess. The hold is 20 min (unwrapped) or 30 min (wrapped) at sea level, and longer above it (decided option B): the logger computes the hold that gives the same exposure as 121 °C with z = 10 °C and records the real temperature. Whenever the computed hold exceeds 40 min (every site at 1,000 m and above), the logger shows a trim reminder and the operator trims the dish off the sun until the regulator only just vents, which keeps at least 0.5 L of water in strong sun up to 2,400 m (decided, SCL-DDR-002 item 17).
 5. **Record.** Throughout, the logger reads a Pt100 probe in the load zone and an absolute pressure transducer on the lid. It checks that the load-zone temperature matches the saturation temperature for the measured pressure (air left in the chamber shows up as a lower temperature), times the hold, and at the end shows PASS or FAIL with a cycle number to copy into the register.
 6. **Cool and unload.** The operator turns the dish away from the sun, fits the parking cover if the session is over, lets the pressure fall to zero on the gauge (about 10 min), removes the regulator, opens the lid and lets the load dry in the residual heat.
 
@@ -57,7 +61,7 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`. The general arrang
 | 1 | Reflector | 12 petals of polished aluminum sheet 0.5 mm, 1.4 m aperture, focal length 500 mm | SK14-style petal layout (decided) |
 | 2 | Dish ribs, rim and hub | Bent 20 x 3 mm steel flat-bar ribs, 20 x 4 mm rim, bolted hub | Holds the petal shape |
 | 3 | Tilt yoke and quadrant lock | Two short arms from collars on the focal-axis stub axles to the dish rim; lock lever on a slotted quadrant | Dish-axis elevation 15 to 90 degrees; lock holds up to about 38 N·m of gravity torque |
-| 4 | Stand with castors | Treated timber base 1.75 x 1.10 m, uprights to 1.12 m, braces; steel bearing blocks; four castors | Timber decided to save cost (SCL-DDR-001 item 2); azimuth by turning the whole stand |
+| 4 | Stand with castors | Treated timber base 1.75 x 1.10 m, uprights to 1.12 m, braces; steel bearing blocks; four locking castors | Timber decided to save cost (SCL-DDR-001 item 2); all four castors lock (SCL-DDR-002 item 16); azimuth by turning the whole stand |
 | 5 | Level pot holder | Steel ring under the body handles on two arms bolted to the uprights | Fixed to the stand: the loaded cooker's centre of mass is about 98 mm above the axis, so a swinging holder would be top-heavy |
 | 6 | Pressure cooker | 12 L aluminum household cooker, 280 mm inside diameter x 200 mm deep, 103.4 kPa weighted regulator, overpressure plug; base and lowest 80 mm of wall painted matte black | Decided (SCL-DDR-001 item 4) |
 | 7 | Lid with regulator | Supplied with item 6; carries items 8 to 10 | How items 8 to 10 are mounted is **open for Amish** (item 5) |
@@ -67,15 +71,16 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`. The general arrang
 | 11 | Insulated jacket | 25 mm mineral wool with aluminized skin on the upper wall | Black band and base stay bare to take the focus |
 | 12 | Water charge | 1.5 L per cycle | About 1.26 L left after a central sea-level cycle |
 | 13 | Instrument basket and trivet | Stainless basket 250 mm diameter x 150 mm deep on a 40 mm trivet | Resized from 270 x 180 mm, which did not fit a 12 L cooker |
-| 14 | Cycle logger | ESP32-class board, Pt100 interface with 0.05 % reference, 16-bit ADC, absolute pressure transducer, base-edge thermocouple, RTC, microSD, OLED display | 1 s logging, pass or fail per cycle, boil-dry alarm; OLED decided to save cost |
+| 14 | Cycle logger | ESP32-class board, Pt100 interface with 0.05 % reference, 16-bit ADC, 0 to 300 kPa absolute pressure transducer, base-edge thermocouple, RTC, microSD, OLED display, buzzer | 1 s logging, pass or fail per cycle, boil-dry alarm, 12 min retarget reminder, trim reminder for holds over 40 min; OLED decided to save cost; transducer span decided (SCL-DDR-002 item 18) |
 | 15 | Logger power bank | 10,000 mAh USB bank with a low-current mode, kept in the shaded logger box | About 8.7 days per charge; replaces the panel and cell (decided) |
 | 16 | Sighting gnomon | Pin parallel to the dish axis over a target plate | Aiming by shadow (decided) |
 | 19 | Eye protection | Two pairs of shade 5 goggles | Added for R11 |
 | 20 | Parking cover | Opaque cover for the dish | Added for R9 and R11 |
+| 21 | Keep-out marking | Barrier tape and four ground pegs marking 2 m around the dish and vessel | Added for the restated R11 (SCL-DDR-002 item 15) |
 
 ![Exploded view](../media/exploded.png)
 
-*Figure 3. Exploded view with numbered callouts matching the BOM. The cooker parts are lifted out along the vertical axis. Items 17 to 20 are not modelled.*
+*Figure 3. Exploded view with numbered callouts matching the BOM. The cooker parts are lifted out along the vertical axis. Items 17 to 21 are not modelled.*
 
 ![Cutaway](../media/cutaway.png)
 
@@ -93,18 +98,18 @@ All values are paper estimates from SCL-CAL-001 (`python docs/04-calcs/sizing.py
 | Absorbed by the cooker | 669 W on target (580 to 723 W across scenarios); 559 W at 15° sun, 755 W overhead | |
 | Peak flux on the base | about 270 kW/m² in the hottest 20 mm cell; mean 11 kW/m² | |
 | Heat loss at 121 °C | 395 W (black base and band 245 W, lid 101 W) | |
-| Cold start to end of 30 min hold | 80 min (71 to 109 min) | R4 at risk |
+| Cold start to end of 30 min hold | 79 min (70 to 107 min) | R4 at risk |
 | Cycles, 09:00 to 15:00 | 4 | R5 met |
-| Water left after a 30 min hold | 1.26 L; 0.14 L at 1,800 m in strong sun without trimming | R10 at risk |
+| Water left after a 30 min hold | 1.25 L; with the trimming rule 1.31 L at 1,800 m in strong sun (0.14 L untrimmed) | R10 met (restated) |
 | Steam temperature at 103.4 kPa gauge | 120.95 °C at sea level; 117.7 °C at 1,800 m (hold 63 min) | R1 not verifiable at TRL 3 |
-| Temperature and pressure accuracy | 0.44 °C; 5 kPa | R7 met |
-| Air-removal check uncertainty | 0.89 °C against a 2 °C threshold | R12 at risk |
-| Retarget interval for 90 % of on-target power | about 13 min | R14 not met |
+| Temperature and pressure accuracy | 0.44 °C; 3 kPa | R7 met |
+| Air-removal check uncertainty | 0.64 °C against a 2 °C threshold (0 to 300 kPa transducer) | R12 met, narrowly |
+| Retarget interval for 90 % of on-target power | about 13 min, against a 12 min target | R14 met (relaxed) |
 | Relief valve capacity | 5.1 times the worst steam generation | R8 met |
-| Tipping factor at 10 m/s | 1.30 at 15° sun | R15 at risk |
-| Mass, empty | 41.0 kg; largest piece 19.4 kg | R16 not met |
+| Tipping factor at 10 m/s | 1.30 at 15° sun; four locked castors grip 218 N against 153 N | R15 at risk |
+| Mass, empty | 41.0 kg against 45 kg; largest piece 19.4 kg | R16 met (relaxed) |
 | Logger autonomy | 8.7 days | R13 met |
-| Parts cost | $430 against $450 | R17 met |
+| Parts cost | $440 against $450 | R17 met |
 
 ### Altitude and sterilizing temperature
 
@@ -127,11 +132,12 @@ The TRL 2 version of this table gave 121.1 °C at sea level and a 300 m limit; t
 
 Decided by Amish on 2026-09-25 (SCL-DDR-001): option B for altitude; the budget cuts and a $450 budget; the pitch wording; the household 12 L aluminum cooker; the level cooker at the focus with the dish tilting about it; the locally built petal dish; manual aiming by gnomon; solid, unwrapped or single-wrapped loads only; the logger pass criteria (purge plateau of 5 min or more, hold temperature and equivalent time met, and measured temperature within 2 °C of saturation throughout the hold); and backup heat on a stove.
 
-Still **proposed, awaiting Amish** (SCL-DDR-001):
+Decided by Amish on 2026-09-25, going with the recommendation (SCL-DDR-002): R14 relaxed to retargeting every 12 min with a logger reminder (item 13); R16 relaxed to 45 kg in total with the 20 kg piece limit kept (item 14); R11 restated so the whole vessel and its fittings are a hot zone, with no physical guard, relying on turning the dish off the sun, the parking cover, goggles and a marked keep-out (item 15); four locking castors and a rule to park the dish face-up in high wind (item 16); a trimming rule with a logger trim reminder (item 17); and a 0 to 300 kPa absolute transducer (item 18).
+
+Still **proposed, awaiting Amish**:
 
 - **Item 5: mounting the lid fittings.** Drill the maker's lid (option i), or use a cooker with factory ports or an adapter plate on the regulator stem (option ii). This is a pressure-safety trade-off and has no recommendation. SCL-CAL-001 section 8 compares the options on holes, ligaments and relief and vent capacity; neither choice changes the relief sizing.
-- **Item 12:** first partner and site, chosen per area later.
-- **Items 13 to 18:** the TRL 3 findings on tracking (R14), mass (R16), the guard (R11), castors (R15), water at altitude (R10) and the transducer span (R12), each with options and a recommendation.
+- **Item 12:** first partner and site, chosen per area later. No recommendation.
 
 ## Safety
 
@@ -141,14 +147,14 @@ Still **proposed, awaiting Amish** (SCL-DDR-001):
 - **Timber stand.** The stand is timber (decided). It is outside the converging light cone, but a mis-aimed dish or stray reflections can scorch it; keep the steel bearing blocks and holder between the focus and the timber, and inspect for scorching.
 - **Pressure and steam.** Use only a commercially made cooker rated for the working pressure, keep its overpressure plug, fit the independent relief valve, and check that the vent is clear before every cycle. Never force the lid open; wait until the gauge reads zero and the regulator has been lifted with a tool. Steam from the regulator and relief valve can scald, so point vents away from people. Do not modify the regulator weight. How the fittings are mounted on the lid (item 5) is undecided and must be settled before anything is built.
 - **Boil-dry.** A dry base under concentrated sun would pass 200 °C, where aluminum loses much of its strength. Fill 1.5 L before every cycle and trim the dish during long holds; the base-edge thermocouple alarm at 140 °C prompts the operator to turn the dish away.
-- **Hot surfaces.** The lid, handles, fittings, black lower wall, base and instruments reach 121 °C or more. Use heat-resistant gloves and handle the cooker only when the dish is turned away.
-- **Tipping, rolling and pinch points.** Lock the castors and the tilt quadrant; in high wind park the dish face-up. The stand can roll before it tips (SCL-CAL-001 section 10). Keep hands clear of the yoke collars and quadrant when tilting.
+- **Hot surfaces.** The lid, handles, fittings, black lower wall, base and instruments reach 121 °C or more. The whole vessel is treated as a hot zone (decided, SCL-DDR-002 item 15): mark a 2 m keep-out on the ground with the barrier tape, use heat-resistant gloves and handle the cooker only when the dish is turned at least 15° away.
+- **Tipping, rolling and pinch points.** Lock all four castors and the tilt quadrant; in high wind park the dish face-up. The tipping margin at low sun is thin (factor 1.30 at 10 m/s, SCL-CAL-001 section 10). Keep hands clear of the yoke collars and quadrant when tilting.
 - **Lithium cells.** The power bank contains lithium cells; keep it shaded inside the logger box and do not charge it above 45 °C.
 - **Medical claims.** A PASS on the logger shows the recorded conditions, not that the load is sterile. A cycle below 121 °C is recorded at its real temperature. Biological and chemical indicators remain the reference, and no load from this prototype should be used on a patient.
 
 ## Open questions after TRL 3
 
-- Decide item 5 (lid fittings) and items 13 to 18.
+- Decide item 5 (lid fittings).
 - Confirm the cooker brand, dimensions and maker's rating in the first target area, and whether a factory-ported 12 L model exists.
 - Validate the equivalent-exposure method (option B) with biological indicators; this is TRL 4 work and is on hold by Amish's instruction.
 - Choose a partner and site to learn real loads, altitude and records practice.

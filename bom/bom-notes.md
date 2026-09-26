@@ -1,8 +1,8 @@
 # BOM notes
 
-Prices are indicative estimates by supplier type (TRL 3), not quotes; they will be confirmed with named suppliers once a partner area is chosen. Row numbers match the exploded view (`media/exploded.png`) and the model (`cad/src/model.py`). Items 7 and 12 have no separate cost; items 17 to 20 are not modelled.
+Prices are indicative estimates by supplier type (TRL 3), not quotes; they will be confirmed with named suppliers once a partner area is chosen. Row numbers match the exploded view (`media/exploded.png`) and the model (`cad/src/model.py`). Items 7 and 12 have no separate cost; items 17 to 21 are not modelled.
 
-Parts for one prototype (every line except 18) total **$430**, within the **$450** budget in `project.yaml` (raised from $400 by Amish on 2026-09-25, SCL-DDR-001 item 2), a margin of $20. The total is computed from this file by `docs/04-calcs/sizing.py`.
+Parts for one prototype (every line except 18) total **$440**, within the **$450** budget in `project.yaml` (raised from $400 by Amish on 2026-09-25, SCL-DDR-001 item 2), a margin of $10. The total is computed from this file by `docs/04-calcs/sizing.py`.
 
 Changes at TRL 3:
 
@@ -14,4 +14,10 @@ Changes at TRL 3:
 
 Item 18 (chemical and biological indicators, about $45) is not in the parts total because it is needed only for testing at TRL 4 and later, which is on hold by Amish's instruction.
 
-Open items that would change this BOM if Amish accepts them (SCL-DDR-001): four locking castors instead of two (open item 16, about $4 more) and a 0 to 300 kPa transducer instead of 0 to 500 kPa (open item 18, similar price). How BOM items 8 to 10 are mounted on the lid (open item 5) is undecided and does not change the prices listed.
+Changes from Amish's acceptance of the recommendations (SCL-DDR-002, 2026-09-25):
+
+- Item 4: all four castors lock instead of two ($40 to $44; item 16).
+- Item 14: a 0 to 300 kPa absolute transducer with an overpressure rating of 600 kPa or more instead of 0 to 500 kPa, at a similar price (item 18). The 12 min retarget reminder and the trim reminder are firmware rules for the existing buzzer and display (items 13 and 17).
+- Item 21: keep-out marking for the restated R11 ($6; item 15).
+
+These add $10, from $430 to $440. How BOM items 8 to 10 are mounted on the lid (open item 5) is still undecided and does not change the prices listed.

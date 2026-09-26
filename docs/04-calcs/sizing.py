@@ -83,7 +83,10 @@ T_AMB = 25.0
 ELEV_DESIGN = 60.0   # sun elevation for the design case (degrees)
 SUN_HALF = 4.65e-3   # rad, solar disc half-angle (pillbox sunshape)
 RATE = 15.0          # degrees per hour, worst-case apparent sun motion
-RETARGET_MIN = 15.0  # minutes between retargets (R14)
+RETARGET_MIN = 12.0  # minutes between retargets (R14, relaxed from 15 min by SCL-DDR-002 item 13)
+TRANSDUCER_KPA = 300.0  # absolute pressure transducer span (SCL-DDR-002 item 18; was 500 kPa)
+MASS_MAX = 45.0      # kg, R16 total (relaxed from 40 kg by SCL-DDR-002 item 14)
+TRIM_HOLD_MIN = 40.0  # logger trim reminder when the computed hold exceeds this (SCL-DDR-002 item 17)
 N_RAYS = 60000
 
 A_AP = math.pi * D["R"] ** 2 / 1e6          # m2
@@ -439,7 +442,7 @@ if __name__ == "__main__":
         say(f"  at {T:5.1f} C: total {tot:5.0f} W (base and band {dd['base_band']:.0f}, lid {dd['lid']:.0f}, fittings {dd['fittings']:.0f}, jacket {dd['jacket']:.0f}); jacket skin {dd['jacket_skin_T']:.0f} C")
 
     # ---------- design cycle
-    say("\n5. Design cycle, sea level, 30 min hold, retarget every 15 min")
+    say(f"\n5. Design cycle, sea level, 30 min hold, retarget every {RETARGET_MIN:.0f} min")
     cyc = {}
     for name, s in SCEN.items():
         qa = mean_absorbed(ELEV_DESIGN, s) * DNI * A_AP
@@ -471,6 +474,10 @@ if __name__ == "__main__":
             f"(at 1000 W/m2 with favourable optics {c_hi['water_left']:.2f} kg)")
     ct = cycle(lambda t: hi, SCEN["favourable"]["wind"], alt_m=1800, trim=True)
     say(f"  1,800 m, 1000 W/m2, dish trimmed to about 50 W of venting during the hold: water left {ct['water_left']:.2f} kg")
+    ct24 = cycle(lambda t: hi, SCEN["favourable"]["wind"], alt_m=2400, trim=True)
+    say(f"  2,400 m, 1000 W/m2, dish trimmed the same way: water left {ct24['water_left']:.2f} kg")
+    say(f"  trimming rule (decided): the logger shows a trim reminder whenever the computed hold exceeds {TRIM_HOLD_MIN:.0f} min;"
+        f" untrimmed, the 46 min hold at 1,000 m leaves {alt_cyc[1000][1]['water_left']:.2f} kg in strong sun")
 
     # ---------- day
     say("\n6. Cycles in the clear-day window, 09:00 to 15:00 solar time")
@@ -520,17 +527,20 @@ if __name__ == "__main__":
     say(f"  temperature uncertainty (root sum square): {u01:.2f} K with a 0.1 % reference, {u005:.2f} K with 0.05 %")
     p_abs = p_amb_kpa(0) + P_REG
     dTdp = (tsat_c(p_abs + 1) - tsat_c(p_abs - 1)) / 2
-    e_p = 0.01 * 500
+    e_p = 0.01 * TRANSDUCER_KPA
     u_sat = math.sqrt((dTdp * e_p) ** 2 + u005 ** 2)
-    say(f"  pressure 1 % of 500 kPa = {e_p:.1f} kPa; dTsat/dp {dTdp:.3f} K/kPa at {p_abs:.0f} kPa -> {dTdp * e_p:.2f} K; saturation check uncertainty {u_sat:.2f} K")
+    say(f"  pressure 1 % of {TRANSDUCER_KPA:.0f} kPa = {e_p:.1f} kPa; dTsat/dp {dTdp:.3f} K/kPa at {p_abs:.0f} kPa -> {dTdp * e_p:.2f} K; saturation check uncertainty {u_sat:.2f} K")
     # air fraction for a 2 K deficit
     for dT in (2.0, u_sat, 2.0 + u_sat):
         x_air = 1 - psat_kpa(tsat_c(p_abs) - dT) / p_abs
         say(f"  a {dT:.2f} K deficit means {x_air * 100:.1f} % air by volume in the chamber")
     dTdp_b = (tsat_c(p_amb_kpa(0) + 1) - tsat_c(p_amb_kpa(0) - 1)) / 2
-    u300 = math.sqrt((dTdp * 3.0) ** 2 + u005 ** 2)
-    say(f"  with the 0.05 % reference: saturation check {math.sqrt((dTdp * e_p) ** 2 + u005 ** 2):.2f} K on a 0 to 500 kPa transducer, {u300:.2f} K on 0 to 300 kPa (3 kPa)")
-    say(f"  field check in boiling water: {dTdp_b:.3f} K/kPa, so a 5 kPa pressure error is {dTdp_b * 5:.1f} K and a 0.2 kPa barometer {dTdp_b * 0.2:.2f} K")
+    u500 = math.sqrt((dTdp * 5.0) ** 2 + u005 ** 2)
+    say(f"  with the 0.05 % reference: saturation check {u_sat:.2f} K on the decided 0 to {TRANSDUCER_KPA:.0f} kPa transducer, {u500:.2f} K on the earlier 0 to 500 kPa (5 kPa)")
+    say(f"  highest absolute pressure in normal use {p_amb_kpa(0) + P_REG:.0f} kPa, at relief lift {p_amb_kpa(0) + P_RELIEF:.0f} kPa, inside the {TRANSDUCER_KPA:.0f} kPa span;"
+        " the transducer's overpressure rating must exceed the relief set point")
+    say(f"  check uncertainty is {u_sat / 2 * 100:.0f} % of the 2 K threshold (a 3:1 ratio needs 33 % or less)")
+    say(f"  field check in boiling water: {dTdp_b:.3f} K/kPa, so a {e_p:.0f} kPa pressure error is {dTdp_b * e_p:.1f} K and a 0.2 kPa barometer {dTdp_b * 0.2:.2f} K")
 
     # ---------- pressure safety
     say("\n8. Pressure safety (R8), both lid options")
@@ -672,7 +682,8 @@ if __name__ == "__main__":
         say(f"  gravity torque on the tilt axis at elevation {el:2d}: {m_dish_tilt * G * dy:5.1f} N m (dish centre of mass {math.hypot(cg[1], cg[2] - P['F_Z']):.0f} mm from the axis)")
     mu_c = 0.5
     F_slide2 = mu_c * worst[6] / 2
-    say(f"  sliding: wind force {worst[3]:.0f} N against {F_slide2:.0f} N of grip with two locked castors (mu 0.5) and {2 * F_slide2:.0f} N with four")
+    F_slide4 = mu_c * worst[6]
+    say(f"  sliding: wind force {worst[3]:.0f} N against {F_slide4:.0f} N of grip with the four locked castors (mu 0.5); two would give {F_slide2:.0f} N")
 
     # ---------- logger power
     say("\n11. Logger power (R13)")
@@ -718,24 +729,29 @@ if __name__ == "__main__":
         ("R5", "Daily throughput", f"{n_eq} (equator), {n_15} (15 N winter), {n_600} (600 W/m2)", "3 or more",
          "Met" if min(n_eq, n_15, n_600) >= 3 else ("At risk" if n_eq >= 3 else "Not met"), "09:00 to 15:00, warm restarts"),
         ("R6", "Cycle record", f"{rec_kb:.0f} kB per cycle; about {4e6 / rec_kb:,.0f} cycles on 4 GB", "1 s logging; 1,000 cycles", "Met", "Design check"),
-        ("R7", "Measurement accuracy", f"{u005:.2f} K with the 0.05 % reference ({u01:.2f} K with 0.1 %); pressure {e_p:.0f} kPa", "0.5 K; 5 kPa",
+        ("R7", "Measurement accuracy", f"{u005:.2f} K with the 0.05 % reference ({u01:.2f} K with 0.1 %); pressure {e_p:.0f} kPa (0 to {TRANSDUCER_KPA:.0f} kPa)", "0.5 K; 5 kPa",
          "Met" if u005 <= 0.5 else "At risk", "With the 0.05 % reference now in the BOM; field check needs a barometer, not the logger's own transducer"),
         ("R8", "Pressure safety", f"relief {cap_relief / m_max:.1f} x worst steam generation; vent {cap_vent / m_max:.1f} x", "relief 125 kPa gauge or less; vessel rated by its maker",
          "Met", "Capacity met for both lid options; vessel rating to confirm from the maker for the chosen model"),
         ("R9", "Heat input control", f"power below 5 % at {off:.0f} deg of tilt", "stop within 10 s; dish shaded when parked", "Met", "Parking cover added (item 20)"),
-        ("R10", "Boil-dry protection", f"{c['water_left']:.2f} kg left (design); {cw['water_left']:.2f} kg at 1000 W/m2; {alt_cyc[1800][1]['water_left']:.2f} kg at 1,800 m, 1000 W/m2", "0.5 L left; alarm at 140 C",
-         "At risk" if min(alt_cyc[1800][1]["water_left"], cw["water_left"]) < 0.5 <= c["water_left"] else ("Met" if c["water_left"] >= 0.5 else "Not met"),
-         "Design case met; extended holds at altitude in strong sun need trimming"),
-        ("R11", "Burn and glare protection", "focal-zone guard not defined; black band and base above 60 C within reach", "no surface above 60 C within reach except lid and handles; guard; eye protection",
-         "Not met", "Goggles and parking cover added; guard open"),
-        ("R12", "Air-removal check", f"uncertainty {u_sat:.2f} K against the 2 K threshold", "flag a hold more than 2 K below saturation", "At risk",
-         f"Sure to flag {100 * (1 - psat_kpa(tsat_c(p_abs) - 2 - u_sat) / p_abs):.0f} % air; may flag from {100 * (1 - psat_kpa(tsat_c(p_abs) - 2 + u_sat) / p_abs):.0f} %"),
+        ("R10", "Boil-dry protection (restated)", f"{c['water_left']:.2f} kg left (design); {cw['water_left']:.2f} kg at 1000 W/m2; with the trimming rule {ct['water_left']:.2f} kg at 1,800 m and {ct24['water_left']:.2f} kg at 2,400 m, 1000 W/m2",
+         "0.5 L left in the design case and, with the trimming rule, at altitude; trim reminder; alarm at 140 C",
+         "Met" if min(c["water_left"], cw["water_left"], ct["water_left"], ct24["water_left"]) >= 0.5 else "At risk",
+         f"Untrimmed, {alt_cyc[1800][1]['water_left']:.2f} kg at 1,800 m; the rule depends on the operator (SCL-DDR-002 item 17)"),
+        ("R11", "Burn and glare protection (restated)", f"whole vessel and fittings treated as a hot zone; dish turned {off:.0f} deg off the sun before reaching in; parking cover, goggles and ground keep-out marking in the BOM",
+         "vessel and fittings a marked hot zone reached only with the dish off the sun; focus reached only through the dish; eye protection; keep-out marked",
+         "Met", "By design review (SCL-DDR-002 item 15); no physical guard, which could not close the light cone without shading the dish"),
+        ("R12", "Air-removal check", f"uncertainty {u_sat:.2f} K against the 2 K threshold", "flag a hold more than 2 K below saturation",
+         "Met" if u_sat <= 2 / 3 else "At risk",
+         f"0 to {TRANSDUCER_KPA:.0f} kPa transducer; sure to flag {100 * (1 - psat_kpa(tsat_c(p_abs) - 2 - u_sat) / p_abs):.0f} % air; may flag from {100 * (1 - psat_kpa(tsat_c(p_abs) - 2 + u_sat) / p_abs):.0f} %"),
         ("R13", "Off-grid logger power (redefined)", f"{bank_wh / e_day:.0f} days on a 10,000 mAh bank", "3 days without charging; USB recharge", "Met", "Bank must not switch off at low load"),
-        ("R14", "Tracking effort", f"90 % power held for {t_tol:.0f} min", "retarget no more often than every 15 min", "Met" if t_tol >= 15 else "Not met", "Worst-case sun motion 15 deg/h"),
+        ("R14", "Tracking effort (relaxed)", f"90 % power held for {t_tol:.0f} min", f"retarget no more often than every {RETARGET_MIN:.0f} min; logger reminder",
+         "Met" if t_tol >= RETARGET_MIN else "Not met", "Worst-case sun motion 15 deg/h; relaxed from 15 min (SCL-DDR-002 item 13)"),
         ("R15", "Stability", f"tipping factor {worst[0]:.2f} (worst, elevation {worst[1]} deg)", "does not tip at 10 m/s",
-         "Met" if worst[0] >= 1.5 else ("At risk" if worst[0] >= 1.0 else "Not met"), f"Sliding: {worst[3]:.0f} N wind vs {F_slide2:.0f} N grip on two locked castors"),
-        ("R16", "Portability and build", f"{m_empty:.1f} kg empty; largest piece {max(pieces.values()):.1f} kg", "40 kg or less; pieces 20 kg or less; hand tools, drill, bolts",
-         "Met" if m_empty <= 40 and max(pieces.values()) <= 20 else "Not met", "Timber stand heavier than the TRL 2 steel estimate"),
+         "Met" if worst[0] >= 1.5 else ("At risk" if worst[0] >= 1.0 else "Not met"),
+         f"Sliding: {worst[3]:.0f} N wind vs {F_slide4:.0f} N grip on four locked castors; park face-up in high wind"),
+        ("R16", "Portability and build (relaxed)", f"{m_empty:.1f} kg empty; largest piece {max(pieces.values()):.1f} kg", f"{MASS_MAX:.0f} kg or less; pieces 20 kg or less; hand tools, drill, bolts",
+         "Met" if m_empty <= MASS_MAX and max(pieces.values()) <= 20 else "Not met", "Total relaxed from 40 kg (SCL-DDR-002 item 14); timber stand heavier than the TRL 2 steel estimate"),
         ("R17", "Cost (redefined)", f"${parts_cost:.0f}", f"${budget:.0f} or less for parts, validation consumables excluded",
          "Met" if parts_cost <= budget else "Not met", "Budget raised to $450 per SCL-DDR-001 item 2"),
     ]

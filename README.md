@@ -10,24 +10,66 @@ Solar concentrator that heats a modified pressure-cooker autoclave, with a calib
 
 [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement SCL-DWG-001 (PDF)](cad/drawings/SCL-DWG-001.pdf) · [Calculation note](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
+## Concept rationale
+
+A pressure cooker already reaches autoclave conditions, and a 1.4 m solar dish of the kind used for cooking already delivers several hundred watts of heat to a pot. What clinics without power lack is not only the heat but proof that each load was treated, so SunClave pairs a household cooker at the focus of a petal dish with a small logger that checks for saturated steam and times the hold. The cooker stays level while the dish tilts around it, and the operator aims by a shadow, so nobody looks into the focus.
+
+The design is open and garage-buildable because the people who would maintain it are district workshops and biomedical technicians, not a manufacturer's service network. Every structural part is bent flat bar, timber and aluminum sheet joined with bolts and rivets, the only bought pressure part is a commercially rated cooker, and the logger uses common modules. Publishing the geometry, the calculations and the logger's pass criteria lets anyone check the safety case before building one.
+
+## Burning platform
+
+The World Health Organization estimates that close to 1 billion people in low- and lower-middle-income countries are served by health facilities without reliable electricity; in sub-Saharan Africa about 15 % of facilities have no electricity at all and only about 40 % have a reliable supply ([WHO, 2023](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)). An electric autoclave is out of reach in those facilities, so instruments are boiled, soaked or steamed without any record of the conditions reached.
+
+The consequences show up in infection rates. WHO reports that in low- and middle-income countries 11 % of patients who undergo surgery are infected in the process, and that in Africa up to 20 % of women who have a caesarean section contract a wound infection ([WHO, surgical site infections](https://www.who.int/news-room/questions-and-answers/item/surgical-site-infections)). Instrument reprocessing is one of several links in that chain, and the one that heat plus a record can address directly.
+
+## Where it could be used
+
+As a research and educational prototype, SunClave is a platform for studying off-grid steam sterilization and cycle records; it is not a medical device.
+
+### By industry
+
+| Industry | Use |
+| --- | --- |
+| Rural primary health care | Research on solar steam cycles and per-load records at health posts without grid power |
+| Maternity and midwifery programs | Studying how delivery kits could be reprocessed and logged during daylight |
+| Dental and eye outreach | Temporary camps that need instrument reprocessing for a few days at a site |
+| Humanitarian and disaster response | Field clinics after grid failures, alongside the stove backup the design already allows |
+| Veterinary field practice | Rural livestock and animal-health services reprocessing surgical instruments |
+| Biomedical engineering education | Teaching optics, steam thermodynamics, pressure safety and measurement uncertainty on one open design |
+
+### By country or region
+
+| Country or region | Why it matters there |
+| --- | --- |
+| Kenya and the East African highlands | Many facilities sit at 1,000 to 2,000 m, where a 103.4 kPa cooker cannot reach 121 °C; in sub-Saharan Africa only about 40 % of facilities have reliable electricity ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)) |
+| Nepal | Hill and mountain health posts combine altitude with weak grids; about 12 % of health facilities in South Asia have no electricity ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)) |
+| Sahel (Niger, Mali, Chad) | Strong, dependable direct sun for much of the year ([Global Solar Atlas](https://globalsolaratlas.info/)) and sparse grid coverage outside towns |
+| Andean Peru and Bolivia | High, sunny sites that test the extended-hold method at its 2,400 m design limit and beyond |
+| Puerto Rico, United States | A high-income case: Hurricane Maria in 2017 caused the longest blackout in US history ([US Army Corps of Engineers](https://www.usace.army.mil/Media/Fact-Sheets/Fact-Sheets-View/Article/4463352/154-the-longest-blackout-in-us-history-hurricane-maria/)), a reminder that grid failure also reaches health systems in wealthy economies |
+
+## What sparked the idea
+
+The starting point was two French inventions a year apart. At the 1878 Paris Exposition, Augustin Mouchot won a gold medal for what was then the world's largest parabolic solar collector, which focused sunlight onto a blackened copper vessel of water to raise steam ([Bureau International des Expositions](https://bureauinternationaldesexpositions.bie-paris.org/site/en/latest/blog/entry/expo-1878-paris-the-revelation-of-sun-power)). In 1879 Charles Chamberland, working with Louis Pasteur, introduced the autoclave for medical and scientific use, a descendant of Denis Papin's 1679 high-pressure cooker ([Smithsonian National Museum of American History](https://americanhistory.si.edu/collections/object/nmah_536)). SunClave puts the two back together: a blackened vessel at the focus of a parabolic dish, where the vessel is Papin's pressure cooker doing Chamberland's job, with a logger added so every cycle leaves a record.
+
 ## Problem
 
 Rural clinics lack power to sterilize instruments in an autoclave. Close to 1 billion people are served by health facilities with no or unreliable electricity, and where instruments are steamed in a pressure cooker on a fire, nothing records whether each load reached sterilizing conditions. Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-A 1.4 m parabolic dish of aluminum petals focuses sunlight onto the blackened base of a 12 L pressure cooker held level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. The TRL 3 calculation note puts about 670 W into the cooker at 700 W/m² of direct sun, about 80 min from a cold start to the end of a 30 min hold, and about four cycles on a clear day, for about $430 in parts against a $450 budget. A 103.4 kPa (15 psi) cooker reaches 121 °C only at sea level, so above it the logger extends the hold and records the real temperature. On paper the design misses three requirements: no focal-zone guard yet, retargeting about every 13 min rather than 15 min, and about 41 kg against 40 kg; the options are in the [review note](docs/REVIEW.md).
+A 1.4 m parabolic dish of aluminum petals focuses sunlight onto the blackened base of a 12 L pressure cooker held level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. The TRL 3 calculation note puts about 670 W into the cooker at 700 W/m² of direct sun, about 79 min from a cold start to the end of a 30 min hold, and about four cycles on a clear day, for about $440 in parts against a $450 budget. A 103.4 kPa (15 psi) cooker reaches 121 °C only at sea level, so above it the logger extends the hold, records the real temperature and reminds the operator to trim the dish to save water. With Amish's decisions of 2026-09-25 (retarget every 12 min, a 45 kg limit, the whole vessel treated as a marked hot zone, four locking castors and a 0 to 300 kPa transducer), no requirement is missed on paper; cycle time and wind stability remain at risk. Details are in the [review note](docs/REVIEW.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md)
 
 ## Key components
 
-- 1.4 m petal dish on a tilting yoke and a castored timber stand
+- 1.4 m petal dish on a tilting yoke and a timber stand on four locking castors
 - 12 L aluminum pressure cooker with weighted regulator, fixed level holder and insulated jacket
 - Pressure gauge and independent relief valve
 - Pt100 load-zone probe and absolute pressure transducer through a lid gland
-- Cycle logger on a USB power bank with pass or fail per cycle
+- Cycle logger on a USB power bank with pass or fail per cycle, and retarget and trim reminders
 - Shadow gnomon for aiming without looking at the sun
+- Goggles, a parking cover and keep-out marking for the hot zone
 
 The priced bill of materials is in [bom/bom.csv](bom/bom.csv); the parametric model is `cad/src/model.py`.
 
@@ -58,4 +100,4 @@ Controlled documents follow the portfolio [documentation standard](.kit/STANDARD
 - **Hardware** (CAD, drawings, BOM, electronics): [CERN-OHL-S v2](LICENSE)
 - **Software** (firmware, scripts, notebooks): [MIT](LICENSE-SOFTWARE)
 
-Part of the open hardware portfolio at [amishchadha.com](https://amishchadha.com).
+A project of the [Design Molecule](https://designmolecule.com) lab.

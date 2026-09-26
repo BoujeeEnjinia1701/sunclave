@@ -1,5 +1,52 @@
 # Review note: SunClave
 
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote, in chat on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation (items 13 to 18) is now **Decided by Amish, 2026-09-25: go with recommendation**, recorded in `docs/decisions/0002-recommendations-accepted.md` (SCL-DDR-002 v0.1). Items 1 to 4 and 6 to 11 were already decided (SCL-DDR-001).
+
+### Decisions applied and what changed
+
+| # | Decision | Before | After |
+| --- | --- | --- | --- |
+| 13 | R14 relaxed to retargeting every 12 min, with a logger reminder | Target 15 min; 13 min achieved; not met | Target 12 min; met. Mean absorbed power 630 W to 638 W; central cycle 79.9 min to 79.0 min; unfavourable 109.2 min to 106.6 min |
+| 14 | R16 total relaxed to 45 kg, 20 kg piece limit kept | 41.0 kg against 40 kg; not met | 41.0 kg against 45 kg; met |
+| 15 | R11 restated: whole vessel a marked hot zone, no physical guard | Guard undefined; not met | Met by design review; BOM item 21 keep-out marking added ($6) |
+| 16 | Four locking castors; park face-up in high wind | Two locking; grip 109 N against 153 N of wind | Four locking; grip 218 N; castors $40 to $44; model adds brake pedals; SCL-DWG-001 Rev P1 to P2. Tipping factor still 1.30, R15 still at risk |
+| 17 | Trimming rule with a logger trim reminder for holds over 40 min | 0.14 kg of water left at 1,800 m in strong sun; at risk | 1.31 kg at 1,800 m and 1.28 kg at 2,400 m with trimming; met (R10 restated) |
+| 18 | 0 to 300 kPa absolute transducer, overpressure rating 600 kPa or more | Check uncertainty 0.89 K, pressure 5 kPa; at risk | 0.64 K (32 % of the 2 K threshold), pressure 3 kPa; met, narrowly |
+
+Budget: unchanged at $450 in `project.yaml`. Parts rose from $430 to $440, a margin of $10.
+
+Files changed: `docs/03-requirements.md` (SCL-REQ-001 v0.4: R10, R11, R14 and R16 restated or relaxed; status column), `docs/02-concept.md` (SCL-PRC-001 v0.4), `docs/04-calcs/sizing.py`, `results.csv` and `01-sizing.md` (SCL-CAL-001 v0.2), `docs/decisions/0001-trl2-review-decisions.md` (SCL-DDR-001 v0.2, items 13 to 18 marked decided), `bom/bom.csv` and `bom-notes.md`, `cad/src/model.py` (four castor brake pedals; STEP and STL re-exported), `cad/src/sheets.py` (SCL-DWG-001 Rev P2, notes), `cad/src/concept_media.py` (cost figure; all media regenerated and inspected), `project.yaml` (DDR-002 added to the evidence list) and `README.md`.
+
+README: added "Concept rationale", "Burning platform" (WHO electricity and surgical site infection figures), "Where it could be used" and "What sparked the idea". The inspiration is Augustin Mouchot's parabolic solar collector heating a blackened boiler at the 1878 Paris Exposition, together with Chamberland's 1879 autoclave descended from Papin's pressure cooker. `docs/01-problem.md` did not attribute the idea to any session and was not changed. All generated files were re-rendered with the designmolecule.com footer.
+
+### Requirement status (SCL-CAL-001 v0.2)
+
+14 met, 2 at risk, 1 not verifiable at TRL 3, 0 not met.
+
+- Not met: none. R11, R14 and R16 are met because their targets were restated or relaxed by decision, not because the design improved.
+- At risk: R4 cycle time (79 min central, 107 min unfavourable, against 90 min); R15 stability (tipping factor 1.30 at 15° sun in a 10 m/s wind).
+- Not verifiable at TRL 3: R1, because the equivalent-exposure method needs biological indicators.
+- Met: R2, R3, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R16, R17.
+
+### Still awaiting Amish
+
+- **Item 5: mounting the lid fittings** (drilled lid, factory ports or adapter plate). No recommendation; a pressure-safety trade-off. Must be decided before anything is built.
+- **Item 12: first partner and site.** No recommendation; chosen per area later.
+
+### Cross-repo actions
+
+None. No SunClave decision needs another repo to change.
+
+### Safety
+
+The restated R11 relies on procedure (turning the dish 15° off the sun, the parking cover, goggles and a marked keep-out) rather than a physical guard, and the restated R10 relies on the operator following the trim reminder. Both keep the 140 °C base alarm and the safety sections unchanged. SunClave remains a research and educational prototype, not a medical device.
+
+### TRL
+
+`trl: 3` and `trl_target: 3`. TRL 4 remains on hold by Amish's instruction. The retarget and trim reminders are recorded as firmware rules only; no firmware, purchasing, build or test work was done.
+
 ## Session 2026-09-25: TRL 3
 
 TRL 4 is on hold by Amish's instruction ("Make sure we don't proceed to TRL 4 on any of them"). This session took SunClave from TRL 2 to TRL 3 and stopped there.
@@ -35,7 +82,7 @@ Decided by Amish, 2026-09-25, going with the recommendation: altitude option B; 
 
 - **Item 5: drilling the cooker lid** versus a factory-ported cooker or an adapter plate. No recommendation; it is a safety trade-off. The model shows the fittings without choosing, and SCL-CAL-001 section 8 lists both options side by side.
 - **Item 12:** first partner and site (per area later).
-- **New items 13 to 18,** each with a recommendation: R14 (relax to 12 min), R16 (relax to 45 kg total), R11 (treat the whole vessel as a hot zone, no physical guard), R15 (four locking castors, about $4), R10 (trimming rule and logger water warning), R12 (0 to 300 kPa transducer).
+- **New items 13 to 18,** each with a recommendation: R14 (relax to 12 min), R16 (relax to 45 kg total), R11 (treat the whole vessel as a hot zone, no physical guard), R15 (four locking castors, about $4), R10 (trimming rule and logger water warning), R12 (0 to 300 kPa transducer). **Decided by Amish, 2026-09-25: go with recommendation** (SCL-DDR-002; see the session below).
 
 ### Safety concerns
 
@@ -99,6 +146,8 @@ Requirements not met or at risk:
 - **R12 (air-removal check)** is feasible, but the 5 kPa pressure accuracy leaves little margin on the 2 °C threshold.
 
 ### Proposed, awaiting Amish
+
+Status update: items 1 to 4 and 6 to 11 are **Decided by Amish, 2026-09-25: go with recommendation** (SCL-DDR-001). Items 5 and 12 had no recommendation and remain proposed, awaiting Amish.
 
 1. **Altitude strategy.** Option A: a vessel rated by its maker for about 130 kPa gauge. Option B: keep the 103 kPa cooker and extend the hold by an equivalent-exposure calculation (unvalidated; needs biological indicators). Option C: sites below about 300 m only. Recommendation: B for the research prototype, recorded plainly as a lower-temperature cycle, with a search for A.
 2. **Budget.** Option (a): raise `budget_usd` to $450. Option (b): cut about $40 (timber stand instead of steel, OLED instead of e-paper, a USB power bank instead of the logger panel). Option (c): accept the overrun for the prototype and state it. Recommendation: (b), then (a) if the savings fall short. `project.yaml` is unchanged.

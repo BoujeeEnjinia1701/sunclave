@@ -7,8 +7,8 @@ Massing-plus level of detail: correct interfaces and main dimensions, not fabric
 detail. Coordinates in mm, Z up, ground at Z = 0. The tilt (elevation) axis runs along X
 through the focal point F. The level pot holder is fixed to the stand, so the cooker never
 tilts; the dish, ribs and yoke turn on bearings about the same axis. Azimuth is set by
-turning the whole stand on its castors. The pose shown has the sun SUN_ELEV degrees above
-the horizon toward -Y.
+turning the whole stand on its castors, all four of which lock (SCL-DDR-002). The pose
+shown has the sun SUN_ELEV degrees above the horizon toward -Y.
 
 Lid fittings (items 8 to 10) are shown at the positions they would take on the lid. The
 model does not decide how they are mounted: drilling the maker's lid, a cooker with
@@ -51,6 +51,7 @@ PARAMS = {
     "BRACE_W": 45.0, "BRACE_T": 35.0,  # diagonal braces
     "BRACE_Z": 600.0,                  # brace top height on the upright
     "CASTOR_D": 75.0,
+    "CASTOR_LOCKS": 4,                 # locking castors (all four, SCL-DDR-002 item 16)
     # 6 cooker: 12 L household aluminum pressure cooker (decided vessel, SCL-DDR-001 item 4)
     "POT_ID": 280.0, "POT_IH": 200.0,  # inside diameter and depth
     "POT_WALL": 4.0, "POT_BASE": 6.0,
@@ -226,6 +227,10 @@ def build_parts(p=PARAMS, elev=None):
             cx, cy = sx * (BX / 2 - 60), sy * (BY / 2 - 60)
             stand += [Pos(cx, cy, p["CASTOR_D"] / 2) * Rot(0, 90, 0) * Cylinder(p["CASTOR_D"] / 2, 25),
                       Pos(cx, cy, p["CASTOR_D"] + 2) * Box(60, 60, 6)]
+    locks = [(sx, sy) for sx in (-1, 1) for sy in (-1, 1)][:int(p["CASTOR_LOCKS"])]
+    for sx, sy in locks:                                   # brake pedal on each locking castor, on the outboard side
+        cx, cy = sx * (BX / 2 - 60), sy * (BY / 2 - 60)
+        stand.append(Pos(cx, cy + sy * (p["CASTOR_D"] / 2 + 12), 0.7 * p["CASTOR_D"]) * Box(24, 30, 8))
     parts[4] = ("Timber stand with castors", Compound(stand))
 
     # 5 Level pot holder, fixed to the uprights: ring under the body handles and two arms
