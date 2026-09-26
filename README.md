@@ -41,11 +41,11 @@ As a research and educational prototype, SunClave is a platform for studying off
 
 | Country or region | Why it matters there |
 | --- | --- |
-| Kenya and the East African highlands | Many facilities sit at 1,000 to 2,000 m, where a 103.4 kPa cooker cannot reach 121 °C; in sub-Saharan Africa only about 40 % of facilities have reliable electricity ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)) |
+| Kenya and the East African highlands | Highland facilities sit above sea level, where a 103.4 kPa cooker falls short of 121 °C and the logger extends the hold; in sub-Saharan Africa only about 40 % of facilities have reliable electricity ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)) |
 | Nepal | Hill and mountain health posts combine altitude with weak grids; about 12 % of health facilities in South Asia have no electricity ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)) |
-| Sahel (Niger, Mali, Chad) | Strong, dependable direct sun for much of the year ([Global Solar Atlas](https://globalsolaratlas.info/)) and sparse grid coverage outside towns |
-| Andean Peru and Bolivia | High, sunny sites that test the extended-hold method at its 2,400 m design limit and beyond |
-| Puerto Rico, United States | A high-income case: Hurricane Maria in 2017 caused the longest blackout in US history ([US Army Corps of Engineers](https://www.usace.army.mil/Media/Fact-Sheets/Fact-Sheets-View/Article/4463352/154-the-longest-blackout-in-us-history-hurricane-maria/)), a reminder that grid failure also reaches health systems in wealthy economies |
+| Niger (Sahel) | Daily solar irradiation averages about 7 kWh/m², and in 2018 only about 13 % of the population, and about 1 % in rural areas, had access to electricity ([African Development Bank, Desert to Power roadmap for Niger, 2020](https://www.afdb.org/sites/default/files/2024/08/23/desert-to-power_dtp_roadmap_for_niger_en_oct2020.pdf)) |
+| Peru and Bolivia (Andes) | In Latin America and the Caribbean about 8 % of health facilities have no electricity and only about 72 % have a reliable supply ([WHO](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities)); highland sites would test the extended-hold method at high altitude |
+| Puerto Rico, United States | A high-income case: after Hurricanes Irma and Maria in 2017 it took about 11 months to restore power to all customers in Puerto Rico ([US Government Accountability Office, GAO-19-296](https://www.gao.gov/products/gao-19-296)), a reminder that grid failure also reaches health systems in wealthy economies |
 
 ## What sparked the idea
 
@@ -94,6 +94,12 @@ The priced bill of materials is in [bom/bom.csv](bom/bom.csv); the parametric mo
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (SCL-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `SCL-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 

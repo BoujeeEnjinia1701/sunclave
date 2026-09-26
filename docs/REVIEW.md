@@ -1,5 +1,18 @@
 # Review note: SunClave
 
+## Session 2026-09-26: sources strengthened
+
+Amish, 2026-09-26: "Fix the weaker sources." All README source links in the Concept rationale, Burning platform, Where it could be used and What sparked the idea sections were fetched and checked against the claims they support.
+
+| Where | Old source | New source |
+| --- | --- | --- |
+| By country or region: Andean Peru and Bolivia | None (row uncited) | Row rewritten as Peru and Bolivia (Andes) and cited to the [WHO fact sheet on electricity in health-care facilities](https://www.who.int/news-room/fact-sheets/detail/electricity-in-health-care-facilities): in Latin America and the Caribbean about 8 % of facilities have no electricity and about 72 % have a reliable supply. No altitude figure is claimed. |
+| By country or region: Sahel (Niger, Mali, Chad) | Global Solar Atlas (could not be fetched for verification); grid claim uncited | Narrowed to Niger and cited to the [African Development Bank Desert to Power roadmap for Niger (2020)](https://www.afdb.org/sites/default/files/2024/08/23/desert-to-power_dtp_roadmap_for_niger_en_oct2020.pdf): daily irradiation about 7 kWh/m², electricity access about 13 % nationally and about 1 % in rural areas in 2018. |
+| By country or region: Puerto Rico | US Army Corps of Engineers fact sheet (returned HTTP 403, could not be verified) | [GAO-19-296](https://www.gao.gov/products/gao-19-296): about 11 months to restore power to all customers after Hurricanes Irma and Maria in 2017. |
+| By country or region: Kenya | Uncited claim that many facilities sit at 1,000 to 2,000 m | Removed; the row keeps the cited WHO figure and the cooker physics from the calculation note. |
+
+Links kept after verification: WHO fact sheet on electricity in health-care facilities, WHO questions and answers on surgical site infections, Bureau International des Expositions on Mouchot at Expo 1878, Smithsonian National Museum of American History (Papin 1679, Chamberland 1879). The inspiration already rests on primary and museum sources, so it and INSPIRATIONS.md are unchanged. docs/01-problem.md cites the Global Solar Atlas (World Bank and ESMAP data) for a different claim (clear-sky DNI) and is unchanged. No controlled document changed, so no version was bumped.
+
 ## Session 2026-09-25: recommendations accepted
 
 Amish wrote, in chat on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation (items 13 to 18) is now **Decided by Amish, 2026-09-25: go with recommendation**, recorded in `docs/decisions/0002-recommendations-accepted.md` (SCL-DDR-002 v0.1). Items 1 to 4 and 6 to 11 were already decided (SCL-DDR-001).
