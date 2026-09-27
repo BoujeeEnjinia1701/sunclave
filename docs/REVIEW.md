@@ -1,5 +1,37 @@
 # Review note: SunClave
 
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26.
+
+### What was added
+
+`cad/src/product_model.py` exposes `product_parts()` (94 parts: 61 shell, 28 internal, 4 accessory, 1 context), `TITLE` and `RENDER_VIEWS` (hero, exploded, and a detail view of the cooker at the focus without the dish, stand or ground). It imports PARAMS, derived(), dish_local(), to_world(), point_world() and tilt_of() from `cad/src/model.py`; the dish diameter and focal length, the tilt pose, the focal height, the stand, castor and bearing positions, the cooker, lid, jacket, basket and lid fitting positions and the logger position are as model.py. It adds:
+
+- Dish: the reflector split into 12 petals with visible seams over the ribs, paired rivet rows along each seam, a hub cap with bolts; painted steel ribs, rim and hub; the gnomon with a white target plate, teal target rings and a stainless pin. In the exploded view the petals move radially outward so the ribs show between them.
+- Tilt yoke with bearing collars and grease bosses, the lock lever and a knurled black knob; the slotted quadrant plate with white tick marks.
+- Timber stand with rounded arrises, carriage bolts, painted steel bearing blocks with bolt heads and axle caps, and four castors with rubber wheels, zinc forks and teal brake pedals.
+- Level pot holder ring and arms.
+- Cooker: aluminum body with a rolled rim, the blackened base and lower wall band, handle brackets with black phenolic grips; the aluminized jacket with stitched seams, two straps and buckles; the lid with a gasket line, boss, phenolic handle, vent pipe and weighted regulator.
+- Lid fittings: the pressure gauge with stainless case, dial, scale marks, red zone, needle and clear glass; the brass relief valve with its test ring; the brass lid gland, Pt100 sheath and tee; the pressure transducer with its connector.
+- Inside the cooker: water charge, perforated stainless basket on its trivet, and a wrapped instrument pack with indicator tape in place of model.py's instrument load block (same size and position).
+- Logger: IP65 enclosure with side ribs, lid and screws, OLED display with a lit readout, two teal buttons, a lit green PASS light and an unlit red FAIL light, buzzer grille, rating label, teal name band, cable glands and mounting straps round the upright; inside, the logger board and modules, microSD holder and the USB power bank (exploded view only); the cable from the logger to the lid.
+- Context (not in the BOM): a compact paved ground patch under the stand. No mannequin, because SunClave is used standing still at a fixed spot.
+
+`README.md` now shows `media/render-hero.png` and links `media/render-exploded.png`; the orchestrator produces both files.
+
+### Differences from model.py (Proposed, awaiting Amish)
+
+1. **Logger enclosure height.** BOM line 15 says the power bank is kept in the logger box, but model.py draws a 60 x 150 x 110 mm logger box with the 50 x 140 x 60 mm power bank hanging below it, outside. The appearance model extends the enclosure downward to 60 x 150 x 183 mm (bottom at 862 mm, top unchanged at 1,045 mm) so the power bank sits inside at its model.py position. Proposed, awaiting Amish. Recommendation: adopt the taller single enclosure in model.py and BOM line 14 at the next revision; option: a separate small box for the power bank.
+2. **Pressure transducer on the tee.** BOM line 14 includes a stainless pressure transducer on the lid tee (BOM line 10), but model.py ends the logger cable at the tee without a transducer body. The appearance model shows a 22 mm diameter transducer standing on the tee end with its connector, and the cable ends there. Proposed, awaiting Amish. Recommendation: add the transducer envelope to model.py at the next revision.
+3. **Cooker handles.** model.py's handle bar is one massing block that passes through the cooker interior. The appearance model shows two handles outboard of the wall with the same overall span (458 mm) and height. Proposed, awaiting Amish. Recommendation: accept as appearance detail.
+4. **Petal seams and hub.** model.py's reflector is one revolved sheet to the axis. The appearance model cuts 2.4 mm seams at the rib angles and a central opening inside the 75 mm hub radius, covered by a hub cap. Proposed, awaiting Amish. Recommendation: accept; it matches the 12-petal build in BOM line 1.
+5. **Not shown.** The base-edge K-type thermocouple lead (BOM line 14), eye protection, parking cover, keep-out marking and validation consumables (BOM lines 18 to 21) are not modelled, as in model.py. Screws, straps, glands and bolts are appearance detail under BOM line 17; no new BOM lines are implied.
+
+### Status
+
+This is an appearance model only: no tolerances, no fabrication detail, nothing past TRL 3. `trl: 3` and `trl_target: 3` are unchanged, and TRL 4 remains on hold. model.py, the BOM and the other documents were not edited.
+
 ## Session 2026-09-26: sources strengthened
 
 Amish, 2026-09-26: "Fix the weaker sources." All README source links in the Concept rationale, Burning platform, Where it could be used and What sparked the idea sections were fetched and checked against the claims they support.
