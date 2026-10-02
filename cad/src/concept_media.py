@@ -45,17 +45,17 @@ parts = [Part(name, shape, STYLE[k][0], k or None, STYLE[k][1]) for k, (name, sh
 if __name__ == "__main__":
     render_all(
         parts, project="SunClave", title="Solar steam sterilizer concept", dwg_no="SCL-DWG-010",
-        key_figures=["1.4 m dish: about 670 W absorbed at 700 W/m² DNI, 60 deg sun (SCL-CAL-001)",
+        key_figures=["1.4 m dish: about 660 W absorbed at 700 W/m² DNI, 60 deg sun (SCL-CAL-001)",
                      "12 L cooker, 103.4 kPa gauge: 121.0 °C at sea level only",
                      "Cold start to end of 30 min hold about 80 min (estimate)",
                      "About 4 cycles in a 6 h clear window (estimate)",
                      "Logger: Pt100 plus pressure, checks saturated steam",
-                     "About $440 in parts against $450 (indicative)"],
+                     "About $497 in parts; value-engineering target $450"],
         cut=False,
         flow={"title": "power during heat-up at 700 W/m² DNI, W (SCL-CAL-001 central estimates)", "unit": "W",
-              "stages": [("Sun on 1.54 m² dish", 1078), ("Reflected, unshaded", 819), ("Onto the vessel", 784),
-                         ("Absorbed", 669), ("Into the load", 484)],
-              "losses": [(0, "Shading and reflectance", 258), (1, "Spillage", 36), (2, "Reflected off paint", 115),
+              "stages": [("Sun on 1.54 m² dish", 1078), ("Reflected, unshaded", 812), ("Onto the vessel", 777),
+                         ("Absorbed", 663), ("Into the load", 478)],
+              "losses": [(0, "Shading and reflectance", 265), (1, "Spillage", 36), (2, "Reflected off paint", 114),
                          (3, "Surface loss (mean)", 184)]},
     )
 

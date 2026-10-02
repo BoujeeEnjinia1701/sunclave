@@ -1,5 +1,56 @@
 # Review note: SunClave
 
+## Session 2026-10-01: kit 1.7.0, constructable design and prototype build plan
+
+Following Amish's 2026-09-30 approval of the build plan format ("this is the correct build plan ... Extend this across all the other repos"), his instruction to make each design physically buildable, and his 2026-10-01 note that budgets are value-engineering targets.
+
+### What was done
+
+- Kit 1.7.0 installed (`.kit/`, `.claude/commands/`); `CLAUDE.md` replaced with `.kit/CLAUDE.md`.
+- Constructability review with build123d of the TRL 3 model: nine problems found (overlaps, floating parts, parts with no fixing, no feasible assembly order), listed in `docs/decisions/0003-design-for-construction.md` (SCL-DDR-003 v0.1, Draft: made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review).
+- `cad/src/model.py` rewritten as a part-by-part constructable model with `python cad/src/model.py --check`: 66 checks (contacts, clearances and a 15 to 90 degree tilt sweep), all passing. STEP and STL regenerated in `cad/step/` and `cad/stl/`.
+- `bom/bom.csv` lines 1 to 5, 14, 16 and 17 respecified and repriced; `bom/bom-notes.md` updated.
+- `docs/04-calcs/sizing.py` now takes the structure's masses and the tilting group's centre of mass from the model, adds the holder ring and handles to the ray trace, computes the lock clamp force, and reports cost against the value-engineering target. SCL-CAL-001 v0.3, SCL-REQ-001 v0.5 and SCL-PRC-001 v0.5 updated.
+- `cad/src/sheets.py`: SCL-DWG-001 Rev P3.
+- `cad/src/build_plan_media.py` (new): overview, 18 making sketches (SCL-DWG-101 to 118), petal flat pattern and yoke plate layout, 14 joint close-ups and 19 assembly step pictures in `docs/05-build-plan/` and `cad/drawings/`.
+- `docs/05-build-plan.md` (SCL-BLD-001 v0.1) and `docs/06-design-decisions.md` (SCL-DEC-001 v0.1) written; `project.yaml` has `design_state: constructable` and both in `trl_evidence`; README links line and "Building the prototype" section added; concept media regenerated.
+
+### Design changes made for construction
+
+1. Pivots: steel axle plates on the uprights, fixed 20 mm axles with collars, PTFE thrust washers, and 6 mm yoke plates that turn on the axles (replacing the bearing blocks, stub axles and collars, which overlapped).
+2. Tilt lock: a slotted fan on each yoke plate clamped by a star knob on a fixed M10 stud, both sides (replacing the quadrant plate and lever, which passed through the bearing block).
+3. Yoke to dish: a rectangular tube stand-off each side, clamped to the rim band by two M8 countersunk screws (the tube arms stopped short of the rim, and one bolt per side would have let the dish swing).
+4. Pot holder: a flat steel ring the cooker handles rest on, on tube arms carried on the upright tops and angle brackets (the ring ran through the jacket and sat 28 mm below the handles).
+5. Stand: side rails on edge across the cross rails, uprights turned 90 degrees on angle brackets, braces lapped and bolted, real 102 mm castors bolted inboard of the side rails, cross rails 40 mm longer for bolt end distance.
+6. Dish frame: petals with folded flanges riveted through the ribs and tabs riveted to the rim; rib clips at the hub and rim; hub plate 200 x 4 mm; rim band 25 x 4 mm; ribs offset 15 degrees from the stand-offs.
+7. Gnomon on a bracket outside the rim band (it sat on the reflector face with no fixing).
+8. Logger box sized to hold the power bank, below the lock stud; transducer on the tee; plug-in sensor leads; thermocouple band clamp.
+9. Assembly order made possible: a 2 mm gap at each pivot, one axle plate fitted after the dish is in.
+
+### Key results (SCL-CAL-001 v0.3)
+
+- Absorbed power 663 W in the design case (was 669 W); cycle 80 min central, 71 to 109 min (R4 at risk).
+- Mass 44.4 kg against 45 kg (R16 met, 0.6 kg margin, was 41.0 kg); largest piece 15.4 kg; the stand now comes apart.
+- Tipping factor 1.38 at 15 degrees (was 1.30; R15 at risk). Lock torque up to 45 N·m, 252 N clamp per knob needed.
+- Value-engineering target: USD 450. Estimated cost of the constructable design: USD 497 (USD 47 over the target; was USD 440).
+- Requirement status: 13 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1), 0 not met; R17 reported against the value-engineering target.
+
+### Decisions proposed and awaiting Amish
+
+All are in the design decisions register (`docs/06-design-decisions.md`): accept SCL-DDR-003 (recommended; it also settles the four appearance-model differences of 2026-09-26); the 0.6 kg mass margin (A1); friction locks or a back-up pin (A2); and, unchanged, the lid-fitting method (item 5) and the first partner and site (item 12).
+
+### Safety
+
+No change to the pressure vessel, regulator, relief valve, lid fittings or hot-zone rules. The new pivots and locks are pinch points (the fans close like scissors as the dish tilts) and the locks are friction clamps; they are covered by safety stop S2, and the choice of a back-up pin is open as A2. The build plan stops before the cooker is pressurised (S6). SunClave remains a research and educational prototype, not a medical device.
+
+### Stale until refreshed on Amish's Mac
+
+The design changed visibly, so `media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`, `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept's tube yoke, quadrant, bearing blocks, holder and stand. They were not regenerated here.
+
+### Recommended next step
+
+Amish reviews SCL-DDR-003 and the register. TRL 4 remains on hold.
+
 ## Session 2026-09-26: product appearance model and photoreal renders
 
 Amish chose this repo for the first batch of product renders on 2026-09-26.

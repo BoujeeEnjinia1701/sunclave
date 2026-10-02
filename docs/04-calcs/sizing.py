@@ -4,7 +4,8 @@ Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes docs/04-calcs/results.csv.
 
 Geometry comes from PARAMS in cad/src/model.py and prices from bom/bom.csv, so the
-model, the drawing SCL-DWG-001 and the note agree. Everything here is a paper estimate
+model, the drawing SCL-DWG-001 and the note agree. Since v0.3 the masses of the dish, yoke,
+stand and holder are taken from the constructable model's parts (SCL-DDR-003). Everything here is a paper estimate
 for a research and educational prototype, not a medical device. Nothing is measured.
 """
 import csv
@@ -17,7 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "cad" / "src"))
-from model import PARAMS as P, derived, point_world  # noqa: E402
+from model import PARAMS as P, derived, point_world, masses as model_masses, dish_components, yoke_components  # noqa: E402
 
 D = derived(P)
 SIGMA = 5.670374e-8
@@ -133,11 +134,14 @@ def optics(elev, sc, delta=0.0, ddir="elev", seed=1, flux_map=False):
     Sw = rot(s)
     Dw = rot(dout)
 
-    # shading of the incoming sun by the vessel, holder ring and holder arms
+    # shading of the incoming sun by the vessel and lid fittings, the holder ring, the handles and the holder arms
     r_sh = ro + 30
     shaded = _hits_cyl(Pw, Sw, r_sh, FZ, FZ + D["pot_oh"] + 60)
-    z_arm = FZ + P["HOLDER_Z"] - P["HOLDER_W"] / 2
-    shaded |= _hits_box(Pw, Sw, (-P["UPR_X"], P["UPR_X"]), (-10, 10), (z_arm - 12.5, z_arm + 12.5))
+    shaded |= _hits_cyl(Pw, Sw, P["RING_R"][1], D["arm_top"], D["ring_top"])
+    hx, hw, ht, hd = P["HANDLE"]
+    shaded |= _hits_box(Pw, Sw, (-hx, hx), (-hw / 2, hw / 2), (D["ring_top"], D["ring_top"] + ht))
+    aw = P["HOLDER_W"]
+    shaded |= _hits_box(Pw, Sw, (-D["xo"], D["xo"]), (-aw / 2, aw / 2), (D["z_arm"] - aw / 2, D["z_arm"] + aw / 2))
 
     # receiver: base disk, bare band (absorbing), jacket (lost)
     INF = np.full(N, np.inf)
@@ -592,74 +596,74 @@ if __name__ == "__main__":
 
     # ---------- masses, wind, stability
     say("\n10. Masses, handling pieces and wind stability (R15, R16)")
-    # dish group in the dish frame: (mass, local z of centroid)
-    rs = np.linspace(0, D["R"], 400)
-    zs = rs ** 2 / (4 * P["FOCAL"])
-    ds = np.sqrt(1 + (rs / (2 * P["FOCAL"])) ** 2)
-    zc_refl = float(np.trapezoid(zs * rs * ds, rs) / np.trapezoid(rs * ds, rs))
-    m_refl = A_para * P["REFL_T"] / 1000 * RHO_AL
-    r_rib = np.linspace(P["HUB_R0"], D["R"] - 10, 200)
-    z_rib = r_rib ** 2 / (4 * P["FOCAL"])
-    s_rib = float(np.trapezoid(np.sqrt(1 + (r_rib / (2 * P["FOCAL"])) ** 2), r_rib)) / 1000
-    m_ribs = P["N_PETALS"] * s_rib * P["RIB_W"] * P["RIB_T"] / 1e6 * RHO_ST
-    zc_rib = float(np.mean(z_rib)) - 15
-    m_rim = 2 * math.pi * (D["R"] + 2) / 1000 * P["RIM_W"] * P["RIM_T"] / 1e6 * RHO_ST
-    m_hub = math.pi * (P["HUB_D"] / 2000) ** 2 * P["HUB_T"] / 1000 * RHO_ST
-    m_gn = 0.12 * 0.12 * 0.002 * RHO_ST + 0.2
-    xb = P["UPR_X"] - P["UPR_W"] / 2 - 40
-    rim_w = point_world((D["R"] + P["RIM_T"] + 12, 0, D["depth"] - P["RIM_W"] / 2))
-    arm_len = math.dist((xb, 0, P["F_Z"]), rim_w) / 1000
-    m_yoke = 2 * arm_len * 0.86 + 2 * 0.35 + 0.5     # two arms of 20 x 20 x 1.5 tube, two collars, lock lever and knob
-    m_fast = 0.8                                     # rivets and bolts on the dish
-    dish_items = [(m_refl, zc_refl), (m_ribs, zc_rib), (m_rim, D["depth"]), (m_hub, -20), (m_gn, D["depth"]), (m_fast, 150)]
-    m_dish_tilt = sum(m for m, _ in dish_items)
-    zc_dish = sum(m * z for m, z in dish_items) / m_dish_tilt
-    # stand
-    BX, BY = D["base_x"] / 1000, P["BASE_Y"] / 1000
-    v_rails = 2 * BX * P["RAIL_W"] * P["RAIL_H"] / 1e6 + 2 * (BY - 2 * P["RAIL_W"] / 1000) * P["RAIL_W"] * P["RAIL_H"] / 1e6
-    h_up = (P["F_Z"] + P["HOLDER_Z"] + 20 - P["CASTOR_D"] - 5 - P["RAIL_H"]) / 1000
-    v_up = 2 * h_up * P["UPR_W"] * P["UPR_D"] / 1e6
-    brace = math.hypot(BY / 2 - P["RAIL_W"] / 1000, (P["BRACE_Z"] - P["CASTOR_D"] - 40) / 1000)
-    v_br = 4 * brace * P["BRACE_W"] * P["BRACE_T"] / 1e6
-    m_timber = (v_rails + v_up + v_br) * RHO_TIMBER
-    m_quad = math.pi * (P["QUAD_R"] / 1000) ** 2 / 2 * P["QUAD_T"] / 1000 * RHO_ST
-    m_stand = m_timber + 2 * 1.2 + m_quad + 4 * 0.45 + 0.8      # bearing blocks with stub axles, quadrant, castors, bolts
-    m_holder = math.pi * (2 * D["pot_or"] + 60) / 1000 * 0.025 * 0.004 * RHO_ST + 2 * (P["UPR_X"] - D["pot_or"] - 60) / 1000 * 1.36
+    # Masses of the structure come from the constructable model (cad/src/model.py, SCL-DDR-003): each
+    # part's volume times its density, the petals at their real 0.5 mm thickness, bought castors and
+    # lock studs at catalogue masses. Rivets on the dish are added here.
+    MM = model_masses()
+    m_refl = MM["petals"]
+    m_rivets = 0.35                                  # about 300 rivets of 3.2 mm and the clip bolts
+    tilt_keys = ("petals", "ribs", "hub", "rim", "hub_clips", "rim_clips", "gnomon")
+    yoke_keys = ("yoke_plates", "standoffs", "standoff_screws")
+    stand_keys = ("cross_rails", "side_rails", "uprights", "braces", "castors", "foot_brackets", "axle_plates", "axles",
+                  "collars", "lock_studs", "plate_bolts", "stand_bolts")
+    holder_keys = ("ring", "arms", "arm_brackets", "holder_bolts")
+    m_dish = sum(MM[k] for k in tilt_keys) + m_rivets
+    m_yoke = sum(MM[k] for k in yoke_keys)
+    m_tilt = m_dish + m_yoke
+    # centre of mass of everything that tilts, in the dish frame (vertex at the origin, axis +z)
+    loc = {**dish_components(P), **yoke_components(P)}
+    cy = cz = 0.0
+    for k in tilt_keys + yoke_keys:
+        c = loc[k][1].center()
+        mk = MM[k] + (m_rivets if k == "petals" else 0.0)
+        cy += mk * c.Y; cz += mk * c.Z
+    yc_tilt, zc_tilt = cy / m_tilt, cz / m_tilt
+    m_timber = sum(MM[k] for k in ("cross_rails", "side_rails", "uprights", "braces"))
+    m_stand = sum(MM[k] for k in stand_keys)
+    m_holder = sum(MM[k] for k in holder_keys)
     m_jkt = (math.pi * ((D["jkt_or"] / 1000) ** 2 - ro ** 2) * H_JKT) * 100 + 2 * math.pi * D["jkt_or"] / 1000 * H_JKT * 0.25
     m_vessel = m_body + m_lid + m_fit + m_jkt + M_BASKET
-    m_logger = 0.9
-    groups = {"dish, ribs, rim and gnomon": m_dish_tilt, "yoke": m_yoke, "stand with quadrant and castors": m_stand,
-              "pot holder": m_holder, "vessel with fittings, jacket and basket": m_vessel, "logger and power bank": m_logger}
+    m_logger = 1.0                                   # IP65 box, board, display, transducer, probe leads, cable
+    groups = {"dish: petals, ribs, rim, hub, clips, gnomon, rivets": m_dish, "yoke plates and stand-offs": m_yoke,
+              "stand: timber, castors, axle plates, axles, brackets, bolts": m_stand,
+              "pot holder: ring, arms, brackets": m_holder, "vessel with fittings, jacket and basket": m_vessel,
+              "logger and power bank": m_logger}
     m_empty = sum(groups.values())
     for k, v in groups.items():
-        say(f"  {k:42s} {v:5.1f} kg")
-    say(f"  timber in the stand {m_timber:.1f} kg; empty total {m_empty:.1f} kg; loaded (+1.5 kg water, +2.0 kg instruments) {m_empty + 3.5:.1f} kg")
-    say(f"  yoke arm length {arm_len * 1000:.0f} mm each (bearing collar to rim)")
+        say(f"  {k:58s} {v:5.1f} kg")
+    say(f"  timber in the stand {m_timber:.1f} kg; reflector petals {m_refl:.2f} kg; empty total {m_empty:.1f} kg; "
+        f"loaded (+1.5 kg water, +2.0 kg instruments) {m_empty + 3.5:.1f} kg")
+    say(f"  tilting group {m_tilt:.1f} kg; centre of mass in the dish frame {yc_tilt:.0f} mm off the axis line, "
+        f"{zc_tilt:.0f} mm above the vertex ({P['FOCAL'] - zc_tilt:.0f} mm behind the focus)")
     zl = P["POT_BASE"] + P["POT_IH"]
     vz = [(math.pi * ro ** 2 * P["POT_BASE"] / 1000 * RHO_AL, P["POT_BASE"] / 2), (m_body - math.pi * ro ** 2 * P["POT_BASE"] / 1000 * RHO_AL, P["POT_BASE"] + P["POT_IH"] / 2),
           (m_lid, zl + 3), (m_fit, zl + 40), (m_jkt, P["BARE_BAND"] + H_JKT * 500), (M_BASKET, P["POT_BASE"] + P["TRIVET_H"] + 40),
           (M_INSTR, P["POT_BASE"] + P["TRIVET_H"] + 32), (1.5, P["POT_BASE"] + D["water_depth"] / 2)]
     z_cgv = sum(m * z for m, z in vz) / sum(m for m, _ in vz)
     say(f"  loaded vessel centre of mass {z_cgv:.0f} mm above the base, which sits on the tilt axis: a holder free to swing on that axis would be top-heavy, so it is fixed")
-    pieces = {"dish lift (dish, ribs, rim, gnomon, yoke)": m_dish_tilt + m_yoke,
-              "stand with quadrant and castors": m_stand,
+    side_frame = (sum(MM[k] for k in ("side_rails", "uprights", "braces", "foot_brackets", "axle_plates", "axles", "collars",
+                                      "lock_studs", "plate_bolts")) + 0.5 * MM["stand_bolts"]) / 2
+    cross = (MM["cross_rails"] + MM["castors"] + 0.5 * MM["stand_bolts"]) / 2
+    pieces = {"dish lift (dish, ribs, rim, gnomon, yoke plates)": m_tilt,
+              "stand side frame, each (side rail, upright, braces, axle plate)": side_frame,
+              "cross rail with two castors, each": cross,
               "pot holder and logger (bolted on)": m_holder + m_logger,
               "vessel (empty)": m_vessel}
     for k, v in pieces.items():
-        say(f"  piece: {k:44s} {v:5.1f} kg")
+        say(f"  piece: {k:62s} {v:5.1f} kg")
+    say(f"  the stand bolts together, so it comes apart into the side frames and cross rails; assembled it weighs {m_stand:.1f} kg")
     # stability
     rho_air = 1.2
     q10 = 0.5 * rho_air * 10 ** 2
-    y_edge = BY / 2 - 0.060
+    BY = P["BASE_Y"] / 1000
+    y_edge = (P["BASE_Y"] / 2 - P["RAIL_W"] / 2) / 1000 - 0.025     # castor centres, less a 25 mm swivel offset
     worst = None
     say("  tipping at 10 m/s (dynamic pressure {:.0f} Pa), about the lee castor line at +/-{:.2f} m:".format(q10, y_edge))
     for el in (15, 30, 45, 60, 75, 90):
         t = math.radians(90 - el)
-        cg_d = point_world((0, 0, zc_dish), P, el)
+        cg_d = point_world((0, yc_tilt, zc_tilt), P, el)
         ap = point_world((0, 0, D["depth"]), P, el)
-        cg_y = point_world((D["R"] + 16, 0, D["depth"] - 10), P, el)
-        items = [(m_dish_tilt, cg_d[1] / 1000), (m_yoke, 0.5 * cg_y[1] / 1000),
-                 (m_stand + m_holder + m_logger, 0.0), (m_vessel + 3.5, 0.0)]
+        items = [(m_tilt, cg_d[1] / 1000), (m_stand + m_holder + m_logger, 0.0), (m_vessel + 3.5, 0.0)]
         W = sum(m for m, _ in items) * G
         y_cg = sum(m * y for m, y in items) / sum(m for m, _ in items)
         A_side = 2 / 3 * (D["R"] * 2 / 1000) * D["depth"] / 1000
@@ -676,10 +680,16 @@ if __name__ == "__main__":
             if worst is None or sf < worst[0]:
                 worst = (sf, el, wdir, F_d + F_o, M_o, M_r, W)
     say(f"  worst: factor {worst[0]:.2f} at elevation {worst[1]} deg, wind {worst[2]}")
-    for el in (15, 50, 90):
-        cg = point_world((0, 0, zc_dish), P, el)
-        dy = math.hypot(cg[1], cg[2] - P["F_Z"]) * math.sin(math.radians(90 - el)) / 1000
-        say(f"  gravity torque on the tilt axis at elevation {el:2d}: {m_dish_tilt * G * dy:5.1f} N m (dish centre of mass {math.hypot(cg[1], cg[2] - P['F_Z']):.0f} mm from the axis)")
+    tq_max = 0.0
+    for el in (15, 30, 50, 70, 90):
+        cg = point_world((0, yc_tilt, zc_tilt), P, el)
+        tq = m_tilt * G * abs(cg[1]) / 1000
+        tq_max = max(tq_max, tq)
+        say(f"  gravity torque on the tilt axis at elevation {el:2d}: {tq:5.1f} N m (tilting group centre of mass {math.hypot(cg[1], cg[2] - P['F_Z']):.0f} mm from the axis)")
+    mu_lock = 0.3
+    n_lock = tq_max / (P["SLOT_R"] / 1000) / (2 * mu_lock * 2)
+    say(f"  locks: two star knobs on M10 studs at {P['SLOT_R']:.0f} mm radius, steel on steel (mu {mu_lock}), two faces each:"
+        f" clamp force needed {n_lock:.0f} N per knob for {tq_max:.0f} N m; a hand-tight M10 gives about 2,000 N")
     mu_c = 0.5
     F_slide2 = mu_c * worst[6] / 2
     F_slide4 = mu_c * worst[6]
@@ -707,7 +717,10 @@ if __name__ == "__main__":
             excl += v
         else:
             parts_cost += v
-    say(f"  parts (all lines except 18) ${parts_cost:.2f}; budget ${budget:.0f}; margin ${budget - parts_cost:.2f}; validation consumables (18) ${excl:.2f}, excluded")
+    over = parts_cost - budget
+    say(f"  estimated cost of the constructable design (all lines except 18) ${parts_cost:.2f}; value-engineering target ${budget:.0f} "
+        f"(a hypothetical control target, not a limit); ${abs(over):.2f} {'over' if over > 0 else 'under'} the target; "
+        f"validation consumables (18) ${excl:.2f}, excluded")
 
     # ---------- results table
     c = cc
@@ -752,8 +765,9 @@ if __name__ == "__main__":
          f"Sliding: {worst[3]:.0f} N wind vs {F_slide4:.0f} N grip on four locked castors; park face-up in high wind"),
         ("R16", "Portability and build (relaxed)", f"{m_empty:.1f} kg empty; largest piece {max(pieces.values()):.1f} kg", f"{MASS_MAX:.0f} kg or less; pieces 20 kg or less; hand tools, drill, bolts",
          "Met" if m_empty <= MASS_MAX and max(pieces.values()) <= 20 else "Not met", "Total relaxed from 40 kg (SCL-DDR-002 item 14); timber stand heavier than the TRL 2 steel estimate"),
-        ("R17", "Cost (redefined)", f"${parts_cost:.0f}", f"${budget:.0f} or less for parts, validation consumables excluded",
-         "Met" if parts_cost <= budget else "Not met", "Budget raised to $450 per SCL-DDR-001 item 2"),
+        ("R17", "Cost (redefined)", f"${parts_cost:.0f}", f"${budget:.0f} value-engineering target for parts, validation consumables excluded",
+         (f"Over target by ${parts_cost - budget:.0f}" if parts_cost > budget else f"Under target by ${budget - parts_cost:.0f}"),
+         "budget_usd is a hypothetical value-engineering target, not a limit; constructable design (SCL-DDR-003)"),
     ]
     say("\n13. Requirement status")
     for r in RESULTS:

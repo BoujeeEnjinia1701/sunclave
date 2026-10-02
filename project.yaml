@@ -11,6 +11,7 @@ trl_evidence:
   - docs/03-requirements.md
   - docs/decisions/0001-trl2-review-decisions.md
   - docs/decisions/0002-recommendations-accepted.md
+  - docs/decisions/0003-design-for-construction.md
   - docs/04-calcs/01-sizing.md
   - docs/04-calcs/sizing.py
   - docs/04-calcs/results.csv
@@ -25,6 +26,10 @@ trl_evidence:
   - cad/drawings/SCL-DWG-001.pdf
   - bom/bom.csv
   - bom/bom-notes.md
+  - docs/05-build-plan.md
+  - docs/06-design-decisions.md
+  - cad/src/build_plan_media.py
+design_state: constructable
 shortlisted: false
 pitch: >-
   Solar concentrator that heats a modified pressure-cooker autoclave, with a calibrated temperature, pressure and time logger that records every cycle.
