@@ -20,9 +20,9 @@ Changes from Amish's acceptance of the recommendations (SCL-DDR-002, 2026-09-25)
 - Item 14: a 0 to 300 kPa absolute transducer with an overpressure rating of 600 kPa or more instead of 0 to 500 kPa, at a similar price (item 18). The 12 min retarget reminder and the trim reminder are firmware rules for the existing buzzer and display (items 13 and 17).
 - Item 21: keep-out marking for the restated R11 ($6; item 15).
 
-These add $10, from $430 to $440. How BOM items 8 to 10 are mounted on the lid (open item 5) is still undecided and does not change the prices listed.
+These add $10, from $430 to $440. How BOM items 8 to 10 are mounted on the lid (item 5) was decided on 2026-10-02: the lid is not drilled; item 6 becomes a pressure canner sold with a factory gauge and relief valve, and the probe gland (item 10) goes on an adapter plate on the vent stem with a bore of 3 mm or more. Items 6, 8, 9 and 10 are to be respecified and repriced; the prices listed are unchanged until then.
 
-Changes for the constructable design (SCL-DDR-003, 2026-10-01, open for Amish's review), USD 440 to USD 497:
+Changes for the constructable design (SCL-DDR-003, 2026-10-01, accepted by Amish on 2026-10-02, with a back-up drop pin to be added to item 3), USD 440 to USD 497:
 
 - Item 1: petals with folded flanges and rim tabs, riveted (price unchanged).
 - Item 2: ribs at 15 degree offsets, 25 x 4 mm rim band, 200 x 4 mm hub plate and 24 rib clips (USD 30 to 36).

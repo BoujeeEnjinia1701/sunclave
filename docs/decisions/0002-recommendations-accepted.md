@@ -3,9 +3,9 @@ doc_id: SCL-DDR-002
 title: SunClave recommendations accepted
 project: SunClave
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's acceptance of all open recommendations (items 13 to 18) and the items that remain open
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Items 5 and 12 decided by Amish on 2026-10-02 (recommendations approved, SCL-DEC-001)
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 13 to 18); items 5 and 12 remain proposed, awaiting Amish
+- **Status:** accepted (items 13 to 18); items 5 and 12 were decided on 2026-10-02 (SCL-DEC-001)
 
 > **Safety:** SunClave is a research and educational prototype, not a medical device. It concentrates sunlight to a burning intensity and holds steam at about 121 °C (250 °F) in a pressure vessel. Item 5 (mounting the lid fittings) is a pressure-safety trade-off with no recommendation and stays open.
 
@@ -49,12 +53,12 @@ The budget is unchanged at $450 (`project.yaml`). Parts rise from $430 to $440 (
 
 ### Items that remain open
 
-*Table 2. Items with no recommendation, still proposed, awaiting Amish.*
+*Table 2. Items with no recommendation here, decided on 2026-10-02.*
 
 | # | Item | Status |
 | --- | --- | --- |
-| 5 | Mounting the gauge, relief valve and probe gland: drill the maker's lid, or a cooker with factory ports or an adapter plate on the regulator stem | Proposed, awaiting Amish. No recommendation was made; it is a pressure-safety trade-off. SCL-CAL-001 section 8 compares both options |
-| 12 | First partner and site for co-design | Proposed, awaiting Amish. No recommendation; partners are chosen per area later |
+| 5 | Mounting the gauge, relief valve and probe gland: drill the maker's lid, or a cooker with factory ports or an adapter plate on the regulator stem | Decided by Amish, 2026-10-02 (recommendation approved, SCL-DEC-001): the maker's lid is not drilled; a pressure canner sold with a factory gauge and relief valve is used, and the probe gland goes on an adapter plate on the vent stem that keeps a bore of 3 mm or more and leaves the overpressure plug untouched; a lid is drilled only with the maker's written approval. |
+| 12 | First partner and site for co-design | Decided by Amish, 2026-10-02 (recommendation approved, SCL-DEC-001): first partner to approach is a university biomedical or global health engineering group with an established rural clinic partner in a sunny region below 2,400 m, for example through an Engineering World Health university chapter. |
 
 ### Cross-repo actions
 

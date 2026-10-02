@@ -3,9 +3,9 @@ doc_id: SCL-REQ-001
 title: SunClave requirements
 project: SunClave
 doc_type: Requirements
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Status from SCL-CAL-001 v0.3 for the constructable design (SCL-DDR-003); R17 reported against the value-engineering target
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R15 note: back-up drop pin decided on 2026-10-02 (SCL-DEC-001); no requirement changed status"
 ---
 
 # SunClave requirements
@@ -55,7 +59,7 @@ The **design case** is a clear day with 700 W/m² direct normal irradiance (DNI)
 | R12 | Air removal check | Logger flags any hold where measured temperature is more than 2 °C below the saturation temperature for the measured pressure | Calculation; later test with deliberate air leak | Met, narrowly: check uncertainty 0.64 °C with the 0 to 300 kPa transducer (SCL-DDR-002 item 18), 32 % of the threshold; sure to flag about 8 % air |
 | R13 | Off-grid logger power (redefined 2026-09-25, SCL-DDR-001 item 2) | Logger runs 3 or more days on its own USB power bank without recharging; the bank recharges from any USB source and does not switch off at the logger's low current | Power budget | Met: about 8.7 days |
 | R14 | Tracking effort (relaxed 2026-09-25, SCL-DDR-002 item 13) | Retarget no more often than every 12 min, with a logger reminder at each interval; aim by a shadow gnomon without looking at the sun or the focus | Optics calculation | Met: power stays within 10 % of on-target for about 13 min |
-| R15 | Stability | Does not tip in a 10 m/s wind with the dish at any tilt and the cooker loaded | Moment calculation | **At risk:** tipping factor 1.38 at 15° elevation. Four locking castors (SCL-DDR-002 item 16) grip 235 N against 153 N of wind; park the dish face-up in high wind |
+| R15 | Stability | Does not tip in a 10 m/s wind with the dish at any tilt and the cooker loaded | Moment calculation | **At risk:** tipping factor 1.38 at 15° elevation. Four locking castors (SCL-DDR-002 item 16) grip 235 N against 153 N of wind; park the dish face-up in high wind. A back-up drop pin through the yoke plate fans stops a slipping tilt lock (decided 2026-10-02) |
 | R16 | Portability and build (relaxed 2026-09-25, SCL-DDR-002 item 14) | Total mass 45 kg or less; separates into pieces of 20 kg or less; built with hand tools, a drill and bolted joints | Mass estimate; model check | Met: about 44.4 kg empty (0.6 kg margin); the bolted stand comes apart, largest piece 15.4 kg |
 | R17 | Cost (redefined 2026-09-25, SCL-DDR-001 item 2; a value-engineering target, 2026-10-01) | Parts for one prototype against a value-engineering target of USD 450, validation consumables excluded | Priced BOM (`bom/bom.csv`) | Value-engineering target: USD 450. Estimated cost of the constructable design: USD 497 (USD 47 over the target) |
 

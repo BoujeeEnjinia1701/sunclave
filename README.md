@@ -63,7 +63,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 
 ## Key components
 
-- 1.4 m petal dish on two yoke plates turning on fixed axles, with two tilt locks, in a bolted timber stand on four locking castors
+- 1.4 m petal dish on two yoke plates turning on fixed axles, with two tilt locks and a back-up drop pin, in a bolted timber stand on four locking castors
 - 12 L aluminum pressure cooker hanging by its handles from a fixed holder ring, with weighted regulator and insulated jacket
 - Pressure gauge and independent relief valve
 - Pt100 load-zone probe and absolute pressure transducer through a lid gland
@@ -75,13 +75,13 @@ The priced bill of materials is in [bom/bom.csv](bom/bom.csv); the parametric mo
 
 ## Building the prototype
 
-The design is constructable: every part can be cut, bent, drilled or bought, and every joint is bolted or riveted, with nothing welded. The [prototype build plan](docs/05-build-plan.md) takes a maker through 18 made components and 19 assembly steps, each with a picture drawn from the model, and stops before the cooker is ever pressurised. The changes that made the concept buildable are recorded in [SCL-DDR-003](docs/decisions/0003-design-for-construction.md), and the decisions still open are in the [design decisions register](docs/06-design-decisions.md).
+The design is constructable: every part can be cut, bent, drilled or bought, and every joint is bolted or riveted, with nothing welded. The [prototype build plan](docs/05-build-plan.md) takes a maker through 18 made components and 19 assembly steps, each with a picture drawn from the model, and stops before the cooker is ever pressurised. The changes that made the concept buildable are recorded in [SCL-DDR-003](docs/decisions/0003-design-for-construction.md), and every decision is indexed in the [design decisions register](docs/06-design-decisions.md).
 
 ![SunClave prototype: every component, pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 
-> This is a research and educational prototype. It is not a medical device, has not been cleared or approved by any regulator, and must not be used to diagnose, treat or monitor any person. This design involves concentrated sunlight that can burn skin and eyes and start fires, and heat and pressurized steam. Keep operating pressure and water volume below local boiler and pressure vessel code thresholds, fit a certified relief valve, and never operate it unattended.
+> This is a research and educational prototype. It is not a medical device, has not been cleared or approved by any regulator, and must not be used to diagnose, treat or monitor any person. This design involves concentrated sunlight that can burn skin and eyes and start fires, and heat and pressurized steam. Keep operating pressure and water volume below local boiler and pressure vessel code thresholds, fit a certified relief valve, do not drill the cooker lid (use a pressure canner with factory-fitted gauge and relief valve), and never operate it unattended.
 
 ## Repository layout
 

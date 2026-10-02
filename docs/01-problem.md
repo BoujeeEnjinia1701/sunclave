@@ -3,9 +3,9 @@ doc_id: SCL-PRB-001
 title: SunClave problem statement
 project: SunClave
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Apply SCL-DDR-001 (budget $450, altitude option B, backup heat) and correct the altitude figures from SCL-CAL-001
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: First partner to approach, decided on 2026-10-02 (SCL-DEC-001)
 ---
 
 # SunClave problem statement
@@ -85,7 +89,7 @@ A third, less obvious barrier is altitude. A cooker regulated at 103.4 kPa (15 p
 
 ## Open questions
 
-- Which partner and first site (a district health office, a maternity program, a university biomedical engineering department, or an outreach dental team)? Proposed, awaiting Amish; partners are chosen per area later (SCL-DDR-001 item 12).
+- Which partner and first site? Decided by Amish on 2026-10-02 (SCL-DDR-001 item 12): the first candidate to approach is a university biomedical or global health engineering group with an established rural clinic partner in a sunny region below 2,400 m, for example through an Engineering World Health university chapter. Not yet agreed with any partner.
 - How large is a typical daily load, and are packs wrapped or unwrapped? This sets vessel size and hold time.
 - What is the site altitude? Above sea level a 103.4 kPa cooker cannot reach 121 °C; the decided extended hold (option B) grows from 30 min to about 63 min at 1,800 m for a wrapped load (SCL-CAL-001).
 - Which backup heat source is available on cloudy days (wood, charcoal or LPG)? The same cooker on a stove, logged the same way, is decided (SCL-DDR-001 item 11).
@@ -95,7 +99,7 @@ A third, less obvious barrier is altitude. A cooker regulated at 103.4 kPa (15 p
 
 This design is for health workers in settings the author is not part of, so requirements must come from the people who will use it.
 
-- [ ] Identify a local partner organization (Helpful Engineering network, NGO or university)
+- [ ] Identify a local partner organization. First candidate to approach (decided 2026-10-02, not yet agreed): a university biomedical or global health engineering group with an established rural clinic partner in a sunny region below 2,400 m, for example through an Engineering World Health university chapter
 - [ ] Run co-design sessions with intended users; record who, where and what was learned
 - [ ] Validate load, cycle count, altitude and cost assumptions in the field
 - [ ] Revise requirements (REQ) from findings before freezing the design

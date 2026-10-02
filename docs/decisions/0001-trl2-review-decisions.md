@@ -3,9 +3,9 @@ doc_id: SCL-DDR-001
 title: SunClave TRL 2 review decisions
 project: SunClave
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Items 5 and 12 decided by Amish on 2026-10-02 (recommendations approved, SCL-DEC-001)
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 1 to 4 and 6 to 11; items 13 to 18 accepted later the same day, see SCL-DDR-002); items 5 and 12 remain proposed, awaiting Amish
+- **Status:** accepted (items 1 to 4 and 6 to 11; items 13 to 18 accepted later the same day, see SCL-DDR-002); items 5 and 12 were decided on 2026-10-02 (SCL-DEC-001)
 
 > **Safety:** SunClave is a research and educational prototype, not a medical device. It concentrates sunlight to a burning intensity and holds steam at about 121 °C in a pressure vessel. Item 5 (drilling the cooker lid) is a pressure-safety trade-off and is deliberately left open.
 
@@ -63,12 +67,12 @@ Cross-cutting approvals from the same instruction, recorded here:
 
 ### Items that remain open
 
-*Table 2. Items left open by this record. Items 13 to 18 were later decided by Amish on 2026-09-25 (SCL-DDR-002); items 5 and 12 remain proposed, awaiting Amish.*
+*Table 2. Items left open by this record. Items 13 to 18 were later decided by Amish on 2026-09-25 (SCL-DDR-002); items 5 and 12 were decided on 2026-10-02 (SCL-DEC-001).*
 
 | # | Item | Status and options |
 | --- | --- | --- |
-| 5 | Mounting the gauge, relief valve and probe gland: (i) drill the maker's lid with reinforcing washers, or (ii) a cooker with factory ports, or an adapter plate on the regulator stem | Proposed, awaiting Amish. No recommendation is recorded: it is a pressure-safety trade-off for Amish. The TRL 3 model shows the fittings on the lid without choosing a method, and SCL-CAL-001 section 8 compares both options on calculable points (holes, ligaments, relief and vent capacity) |
-| 12 | First partner and site for co-design | Proposed, awaiting Amish. No recommendation was made; portfolio rule: partners are chosen per area later |
+| 5 | Mounting the gauge, relief valve and probe gland: (i) drill the maker's lid with reinforcing washers, or (ii) a cooker with factory ports, or an adapter plate on the regulator stem | Decided by Amish, 2026-10-02 (recommendation approved, SCL-DEC-001): the maker's lid is not drilled; a pressure canner sold with a factory gauge and relief valve is used, and the probe gland goes on an adapter plate on the vent stem that keeps a bore of 3 mm or more and leaves the overpressure plug untouched; a lid is drilled only with the maker's written approval. |
+| 12 | First partner and site for co-design | Decided by Amish, 2026-10-02 (recommendation approved, SCL-DEC-001): first partner to approach is a university biomedical or global health engineering group with an established rural clinic partner in a sunny region below 2,400 m, for example through an Engineering World Health university chapter. |
 | 13 | R14 tracking: power stays within 10 % of on-target for about 13 min of sun motion, not 15 min | Options: (a) relax R14 to retargeting every 12 min, with a logger reminder; (b) widen the black band on the wall to catch more of the drifting spot, at the cost of more heat loss; (c) hold the petals to a tighter slope error. Recommendation: (a). **Decided by Amish, 2026-09-25: go with recommendation** (SCL-DDR-002) |
 | 14 | R16 mass: about 41.0 kg against 40 kg, because of the decided timber stand | Options: (a) relax the total to 45 kg and keep the 20 kg piece limit (met at 19.4 kg); (b) lighter timber sections; (c) return to a steel stand (about $15 more). Recommendation: (a). **Decided by Amish, 2026-09-25: go with recommendation** (SCL-DDR-002) |
 | 15 | R11 guard and hot surfaces: no focal-zone guard is defined, and the black base and band (above 60 °C) are within reach | Options: (a) restate R11 so the whole pressure vessel and its fittings count as a hot zone like the lid, and rely on turning the dish off the sun before reaching in (R9), the parking cover, goggles and a marked keep-out on the ground; (b) design a physical guard at a later revision. A guard cannot close the converging light cone without shading the dish. Recommendation: (a). **Decided by Amish, 2026-09-25: go with recommendation** (SCL-DDR-002) |

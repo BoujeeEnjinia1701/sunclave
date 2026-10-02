@@ -3,9 +3,9 @@ doc_id: SCL-DDR-003
 title: SunClave design for construction
 project: SunClave
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Accepted by Amish; A1 accepted and A2 decided with a back-up drop pin (changed recommendation)
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** draft. The changes in Tables 1 and 2 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 are proposed, awaiting Amish.
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2 and the recommendations for A1 and A2 in Table 3 as written for the register on 2026-10-01 (SCL-DEC-001); A2 was changed to add a back-up drop pin. The changes were made under Amish's 2026-09-30 instruction to make the design physically buildable.
 
 > **Safety:** SunClave is a research and educational prototype, not a medical device. Nothing in this record changes the pressure vessel, its regulator, the relief valve, the lid fittings or the hot-zone rules. The tilt lock and the pivots carry the dish's weight; they are pinch points and are covered by the safety stops in the build plan (SCL-BLD-001).
 
@@ -55,16 +59,17 @@ The changes keep what SunClave does: the same 1.4 m dish with a 500 mm focal len
 | Cost | Estimated cost of the constructable design USD 497 against the USD 450 value-engineering target (USD 47 over). BOM lines 1 to 5, 14, 16 and 17 respecified and repriced; no new lines. | Parts added for construction. |
 | Drawings and documents | SCL-DWG-001 Rev P3; making sketches SCL-DWG-101 to 118 added; SCL-CAL-001 v0.3, SCL-REQ-001 v0.5 and SCL-PRC-001 v0.5 updated; build plan SCL-BLD-001 and register SCL-DEC-001 added. | Follows the model. |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Proposed for Amish; decided on 2026-10-02 as shown under each recommendation.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | The R16 mass margin is now 0.6 kg (44.4 kg against 45 kg), on modelled parts and catalogue masses. | (a) accept and weigh the prototype at TRL 4; (b) take mass out now, for example 5 mm yoke plates and 20 x 20 mm holder arms (about 0.9 kg). | (a), with (b) ready if the weighed prototype is over. |
-| A2 | The tilt lock is a friction clamp (two star knobs), like the concept's lever on a slotted quadrant. A positive lock (a pin through holes at fixed elevations) would not slip, but sets the aim in steps. | (a) friction locks as modelled; (b) add a drop pin through a row of holes in the fan as a back-up. | (a) for the prototype, and check the slip torque at TRL 4; this is a pinch-point safety trade-off, so it is Amish's call. |
+| A1 | The R16 mass margin is now 0.6 kg (44.4 kg against 45 kg), on modelled parts and catalogue masses. | (a) accept and weigh the prototype at TRL 4; (b) take mass out now, for example 5 mm yoke plates and 20 x 20 mm holder arms (about 0.9 kg). | (a), with (b) ready if the weighed prototype is over. Accepted by Amish, 2026-10-02. |
+| A2 | The tilt lock is a friction clamp (two star knobs), like the concept's lever on a slotted quadrant. A positive lock (a pin through holes at fixed elevations) would not slip, but sets the aim in steps. | (a) friction locks as modelled; (b) add a drop pin through a row of holes in the fan as a back-up. | (a) for the prototype, and check the slip torque at TRL 4; this is a pinch-point safety trade-off, so it is Amish's call. Changed in the recommendation to Amish and decided on 2026-10-02: (a) for aiming plus (b), a drop pin through a row of holes in the fan as a back-up stop, so a slip is limited to one hole; the pin is removed only if the TRL 4 slip test shows the locks holding at least twice the 45 N·m worst torque. |
 
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan SCL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
 - Requirement status: 14 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1); R17 is reported against the value-engineering target (USD 47 over), not as met or not met (SCL-CAL-001 v0.3).
 - The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept's tube yoke, quadrant, bearing blocks, holder and stand; they need updating on Amish's Mac.
-- The lid-fitting method (SCL-DDR-001 open item 5) is unchanged and still open; the model shows the fittings on the lid without choosing.
+- The lid-fitting method (SCL-DDR-001 item 5) was decided on 2026-10-02: the maker's lid is not drilled; a pressure canner sold with a factory gauge and relief valve is used, and the probe gland goes on an adapter plate on the vent stem that keeps a bore of 3 mm or more and leaves the overpressure plug untouched; a lid is drilled only with the maker's written approval. The model still shows the fittings on the lid and must be updated (`docs/REVIEW.md`, 2026-10-02).
+- With A2 decided, a back-up drop pin is to be added to the yoke plates and stand; with A1 accepted, the prototype is weighed at TRL 4.

@@ -3,9 +3,9 @@ doc_id: SCL-BLD-001
 title: SunClave prototype build plan
 project: SunClave
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: First build plan, with pictures by component and step; design made constructable (SCL-DDR-003)
+  - version: "0.2"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Safety stop S6: lid fittings as decided on 2026-10-02 (SCL-DEC-001)"
 ---
 
 # SunClave prototype build plan
@@ -33,7 +37,7 @@ The prototype is a 1.4 m dish of twelve polished aluminium petals that turns on 
 
 ## 2. What changed to make it buildable
 
-The concept showed what SunClave does; some of its parts could not be made, fixed or assembled as drawn. Each change below keeps what SunClave does, and all of them are recorded in decision record SCL-DDR-003, open for Amish's review.
+The concept showed what SunClave does; some of its parts could not be made, fixed or assembled as drawn. Each change below keeps what SunClave does, and all of them are recorded in decision record SCL-DDR-003, accepted by Amish on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
@@ -638,7 +642,7 @@ Stop at each point. Carry on only when everything listed is true.
 - **S3. Before the dish ever faces the sun.** The parking cover is at hand; everyone near wears the shade 5 goggles; the 2 m keep-out is pegged; nothing that can burn is under or near the dish; aiming is by the gnomon's shadow only, never by looking at the sun or the focus; the timber is checked for scorch marks after every session.
 - **S4. Before the cooker is at the focus in sun.** At least 1.5 L of water is in it; the thermocouple and logger are working and the 140 °C alarm sounds when tested; the dish is turned at least 15 degrees off the sun before anyone reaches toward the cooker; heat-resistant gloves on.
 - **S5. Before the power bank goes outside.** It sits in the shaded logger box, closed on its gasket; it is never charged above 45 °C.
-- **S6. Before the cooker is ever pressurised (outside this plan).** The way the fittings pass through the lid has been decided in the design decisions register; the cooker maker's rating for 103.4 kPa is confirmed; the relief valve is fitted, set at 125 kPa gauge or less and preferably certified; the overpressure plug is in place; and a hydrostatic check of the vessel as fitted has passed (TRL 4 work).
+- **S6. Before the cooker is ever pressurised (outside this plan).** The lid has not been drilled (unless its maker has approved it in writing): the vessel is a pressure canner with its factory gauge and relief valve, and the probe gland sits on an adapter plate on the vent stem with a bore of 3 mm or more, leaving the overpressure plug untouched (decided 2026-10-02); the cooker maker's rating for 103.4 kPa is confirmed; the relief valve is fitted, set at 125 kPa gauge or less and preferably certified; the overpressure plug is in place; and a hydrostatic check of the vessel as fitted has passed (TRL 4 work).
 
 ## 7. Tools, skills and workspace
 

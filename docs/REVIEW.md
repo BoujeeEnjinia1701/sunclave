@@ -284,3 +284,49 @@ Review this note and the media, then decide items 1 to 3 (altitude, budget, pitc
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-02: open decisions decided
+
+On 2026-10-02 Amish approved every recommendation written for the open decisions: "i approve your recommendations for all 555 open decisions." Nothing was built or tested; TRL 4 remains on hold.
+
+### Decisions recorded
+
+5 decisions moved from "Open decisions" to "Decisions made" in the design decisions register, dated 2026-10-02. Lid fittings decided (no drilling; a pressure canner with a factory gauge and relief valve, the probe gland on a vent-stem adapter plate); design for construction (SCL-DDR-003) accepted with A1 and with A2 changed to add a back-up drop pin; a university biomedical or global health engineering group named as the first partner to approach. Nothing is to be pressurised until the follow-ups for decision 1 are carried into the design.
+
+### Documents changed
+
+- `docs/01-problem.md` (SCL-PRB-001 v0.4)
+- `docs/02-concept.md` (SCL-PRC-001 v0.6)
+- `docs/03-requirements.md` (SCL-REQ-001 v0.6)
+- `docs/05-build-plan.md` (SCL-BLD-001 v0.2)
+- `docs/06-design-decisions.md` (SCL-DEC-001 v0.2)
+- `docs/decisions/0001-trl2-review-decisions.md` (SCL-DDR-001 v0.3)
+- `docs/decisions/0002-recommendations-accepted.md` (SCL-DDR-002 v0.2)
+- `docs/decisions/0003-design-for-construction.md` (SCL-DDR-003 v0.2)
+- `README.md` (not a controlled document)
+- `bom/bom-notes.md` (not a controlled document)
+- `docs/pdf/`: every controlled document re-rendered.
+
+### Follow-up actions to carry approved decisions into the design
+
+The model, drawings, build plan pictures, BOM quantities and prices, and calculations were not changed in this session. These actions carry the approved decisions into them:
+
+1. Decision 1 (bom): Respecify BOM line 6 as a pressure canner of about 12 L sold with a factory gauge and relief valve; lines 8 and 9 become the factory-fitted parts or are removed; line 10 gains the vent-stem adapter plate with a bore of 3 mm or more; reprice.
+2. Decision 1 (model): Model the pressure canner with its factory gauge and relief valve and the vent-stem adapter plate carrying the probe gland; check the canner fits the holder ring and the focus.
+3. Decision 1 (calcs): SCL-CAL-001 section 8: restate the relief and vent capacity for the factory relief valve and the 3 mm vent-stem bore, and replace the "open for Amish" wording on item 5 and SCL-DDR-003 with the decisions of 2026-10-02; check the canner's volume, mass and dimensions against R16 and the holder.
+4. Decision 1 (pictures): Build plan step 19 and the cooker pictures: show the canner, its factory fittings and the adapter plate.
+5. Decision 4 (model): Add a row of pin holes in each yoke plate fan and a drop pin with a lanyard on the stand; re-run the constructability checks.
+6. Decision 4 (drawings): Yoke plate making sketch: add the pin hole row; making sketch for the drop pin.
+7. Decision 4 (pictures): Build plan: joint 6 (tilt lock) and steps 13 and 14 pictures to show the drop pin; add the pin to the "Tilt lock holds" check.
+8. Decision 4 (bom): BOM line 3: add the drop pins and lanyards and price them.
+9. Decision 4 (docs): TRL 4 test plan: slip test of the friction locks against twice the 45 N·m worst torque.
+10. Decision 3 (docs): TRL 4 test plan: weigh the prototype against R16 (45 kg), with the 5 mm yoke plates and lighter holder arms ready.
+11. Decision 2 (pictures): At the next render session on Amish's Mac, redraw the photoreal renders, card and social preview to the constructable design (yoke plates, axle plates, holder and stand).
+
+### Points found in the review
+
+Raised when the recommendations were written (2026-10-01) and not yet acted on:
+
+- Item 1 is a precondition for the whole pressure system: nothing should be pressurised until it is decided, as the register says.
+- The value-engineering figure (USD 497 against USD 450) excludes USD 45 of validation consumables; that is consistent with the target, but the consumables are a recurring cost per batch of tests.
+- Renders still show the concept tube yoke, quadrant, bearing blocks, holder and stand.
