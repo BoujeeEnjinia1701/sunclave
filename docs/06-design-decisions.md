@@ -3,9 +3,9 @@ doc_id: SCL-DEC-001
 title: SunClave design decisions register
 project: SunClave
 doc_type: Design decisions register
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-03'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Canner, adapter plate and drop pins priced and carried into the design; value engineering and items to confirm updated"
+- version: "0.4"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: "Amish accepted the R16 mass margin of 0.2 kg on 2026-10-03, to be weighed at TRL 4 with a canner of 5.0 kg or less; row added to decisions made"
 ---
 
 # SunClave design decisions register
@@ -69,3 +73,4 @@ Value-engineering target: USD 450 (a hypothetical control target, not a limit). 
 | 2026-10-02 | R16 mass margin of 0.6 kg accepted; the prototype is weighed at TRL 4, with the 5 mm yoke plates and lighter holder arms ready | Amish: "i approve your recommendations for all 555 open decisions." | SCL-DDR-003, A1 |
 | 2026-10-02 | Tilt lock: the two friction locks are kept for aiming and a drop pin through a row of holes in the fan is added as a back-up stop; the pin is removed only if the TRL 4 slip test shows the locks holding at least twice the 45 N·m worst torque | Amish: "i approve your recommendations for all 555 open decisions." | SCL-DDR-003, A2 |
 | 2026-10-02 | First partner to approach: a university biomedical or global health engineering group with an established rural clinic partner in a sunny region below 2,400 m, for example through an Engineering World Health university chapter | Amish: "i approve your recommendations for all 555 open decisions." | SCL-DDR-001, item 12 |
+| 2026-10-03 | R16 mass margin of 0.2 kg accepted (about 44.8 kg against 45 kg); the prototype is weighed at TRL 4 with a canner of 5.0 kg or less | Amish: "TIght Margins - i accept the margins" | SCL-REQ-001, R16; SCL-DDR-003, A1; [REVIEW.md](REVIEW.md), session 2026-10-03 |

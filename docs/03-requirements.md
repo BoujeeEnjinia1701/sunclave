@@ -3,9 +3,9 @@ doc_id: SCL-REQ-001
 title: SunClave requirements
 project: SunClave
 doc_type: Requirements
-version: "0.7"
+version: "0.8"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-03'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -37,6 +37,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Status from SCL-CAL-001 v0.4 (canner, adapter plate and drop pins carried into the design); R8 wording for the factory relief valve; no requirement changed status"
+- version: "0.8"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: "R16 mass margin of 0.2 kg accepted by Amish on 2026-10-03; weighed at TRL 4 with a canner of 5.0 kg or less"
 ---
 
 # SunClave requirements
@@ -64,7 +68,7 @@ The **design case** is a clear day with 700 W/m² direct normal irradiance (DNI)
 | R13 | Off-grid logger power (redefined 2026-09-25, SCL-DDR-001 item 2) | Logger runs 3 or more days on its own USB power bank without recharging; the bank recharges from any USB source and does not switch off at the logger's low current | Power budget | Met: about 8.7 days |
 | R14 | Tracking effort (relaxed 2026-09-25, SCL-DDR-002 item 13) | Retarget no more often than every 12 min, with a logger reminder at each interval; aim by a shadow gnomon without looking at the sun or the focus | Optics calculation | Met: power stays within 10 % of on-target for about 13 min |
 | R15 | Stability | Does not tip in a 10 m/s wind with the dish at any tilt and the cooker loaded | Moment calculation | **At risk:** tipping factor 1.40 at 15° elevation. Four locking castors (SCL-DDR-002 item 16) grip 237 N against 153 N of wind; park the dish face-up in high wind. A back-up drop pin through the yoke plate fans stops a slipping tilt lock (decided 2026-10-02) |
-| R16 | Portability and build (relaxed 2026-09-25, SCL-DDR-002 item 14) | Total mass 45 kg or less; separates into pieces of 20 kg or less; built with hand tools, a drill and bolted joints | Mass estimate; model check | Met: about 44.8 kg empty (0.2 kg margin; weighed at TRL 4, SCL-DDR-003 A1); the bolted stand comes apart, largest piece 15.3 kg |
+| R16 | Portability and build (relaxed 2026-09-25, SCL-DDR-002 item 14) | Total mass 45 kg or less; separates into pieces of 20 kg or less; built with hand tools, a drill and bolted joints | Mass estimate; model check | Met: about 44.8 kg empty (0.2 kg margin; accepted by Amish on 2026-10-03; weighed at TRL 4 with a canner of 5.0 kg or less, SCL-DDR-003 A1); the bolted stand comes apart, largest piece 15.3 kg |
 | R17 | Cost (redefined 2026-09-25, SCL-DDR-001 item 2; a value-engineering target, 2026-10-01) | Parts for one prototype against a value-engineering target of USD 450, validation consumables excluded | Priced BOM (`bom/bom.csv`) | Value-engineering target: USD 450. Estimated cost of the constructable design: USD 528 (USD 78 over the target) |
 
 ## Requirements not met or at risk
@@ -73,7 +77,7 @@ No requirement is now not met. Before SCL-DDR-002, R11, R14 and R16 were not met
 
 - **R4 cycle time (at risk).** Met in the central case (81 min), missed in the unfavourable one (111 min).
 - **R15 stability (at risk).** Thin tipping margin at low sun (factor 1.40); the four locking castors now stop the stand rolling.
-- **R16 mass (met, thin margin).** 44.8 kg against 45 kg after the constructable design added clips, plates, brackets and bolts, and the canner, adapter plate and drop pins added 0.4 kg; Amish accepted the margin on 2026-10-02, to be checked by weighing at TRL 4.
+- **R16 mass (met, thin margin).** 44.8 kg against 45 kg after the constructable design added clips, plates, brackets and bolts, and the canner, adapter plate and drop pins added 0.4 kg; Amish accepted the margin on 2026-10-02 and again on 2026-10-03 ("TIght Margins - i accept the margins"), to be checked by weighing at TRL 4 with a canner of 5.0 kg or less.
 - **R17 cost.** USD 78 over the value-engineering target; the cost drivers and savings worth trying are in the design decisions register (SCL-DEC-001).
 - **R1 sterilizing condition (not verifiable at TRL 3).** The equivalent-exposure method needs biological indicators.
 
