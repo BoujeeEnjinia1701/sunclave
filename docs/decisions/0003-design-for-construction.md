@@ -3,7 +3,7 @@ doc_id: SCL-DDR-003
 title: SunClave design for construction
 project: SunClave
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: Accepted by Amish; A1 accepted and A2 decided with a back-up drop pin (changed recommendation)
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Consequences updated: the canner, adapter plate and drop pins are in the model (SCL-CAL-001 v0.4); appearance model updated"
 ---
 
 # 0003: Design for construction
@@ -70,6 +74,6 @@ The changes keep what SunClave does: the same 1.4 m dish with a 500 mm focal len
 
 - `design_state: constructable` in `project.yaml`. The build plan SCL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
 - Requirement status: 14 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1); R17 is reported against the value-engineering target (USD 47 over), not as met or not met (SCL-CAL-001 v0.3).
-- The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept's tube yoke, quadrant, bearing blocks, holder and stand; they need updating on Amish's Mac.
-- The lid-fitting method (SCL-DDR-001 item 5) was decided on 2026-10-02: the maker's lid is not drilled; a pressure canner sold with a factory gauge and relief valve is used, and the probe gland goes on an adapter plate on the vent stem that keeps a bore of 3 mm or more and leaves the overpressure plug untouched; a lid is drilled only with the maker's written approval. The model still shows the fittings on the lid and must be updated (`docs/REVIEW.md`, 2026-10-02).
-- With A2 decided, a back-up drop pin is to be added to the yoke plates and stand; with A1 accepted, the prototype is weighed at TRL 4.
+- The appearance model `cad/src/product_model.py` was rebuilt on the constructable design on 2026-10-02 and its render scenes exported; the photoreal renders (`media/render-*.png`), `media/card.png` and `media/social-preview.png` still show the concept and are to be redrawn on Amish's Mac.
+- The lid-fitting method (SCL-DDR-001 item 5) was decided on 2026-10-02: the maker's lid is not drilled; a pressure canner sold with a factory gauge and relief valve is used, and the probe gland goes on an adapter plate on the vent stem that keeps a bore of 3 mm or more and leaves the overpressure plug untouched; a lid is drilled only with the maker's written approval. It was carried into the model, BOM, calculations and build plan on 2026-10-02 (SCL-CAL-001 v0.4, SCL-BLD-001 v0.3).
+- With A2 decided, a drop pin on a lanyard each side now passes through the upright, a short slot in the axle plate and one of a row of holes in the yoke plate's fan; the lock slot moved from a 150 mm to a 140 mm radius to make room. With A1 accepted, the prototype is weighed at TRL 4; the margin is now 0.2 kg (44.8 kg).

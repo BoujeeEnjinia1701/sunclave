@@ -3,7 +3,7 @@ doc_id: SCL-PRC-001
 title: SunClave design precis
 project: SunClave
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -33,11 +33,15 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Decisions of 2026-10-02 carried in: lid fittings (no drilling; pressure canner with factory gauge and relief valve), back-up drop pin, first partner to approach"
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Canner, vent-stem adapter plate and drop pins carried into the model, BOM and calculations (SCL-CAL-001 v0.4); components and headline results updated"
 ---
 
 # SunClave design precis
 
-SunClave is a 1.4 m parabolic dish of aluminum petals that focuses sunlight onto the blackened base of a 12 L household pressure cooker held level at the focus, with a cycle logger that measures temperature in the load zone and chamber pressure and flags each cycle as pass or fail. The TRL 3 calculations (SCL-CAL-001) put about 660 W into the cooker on a clear day, enough to go from cold to the end of a 30 min hold in about 80 min and to run about four cycles between 09:00 and 15:00. On 2026-09-25 Amish accepted the recommendations on the TRL 3 findings (SCL-DDR-002): the dish is retargeted every 12 min, the mass limit is 45 kg, the whole vessel is treated as a marked hot zone instead of guarding the focus, all four castors lock, a trimming rule protects the water at altitude and the pressure transducer spans 0 to 300 kPa. On paper no requirement is now missed; cycle time (R4) and wind stability (R15) remain at risk. On 2026-10-01 the design was made constructable (SCL-DDR-003, accepted by Amish on 2026-10-02): every part can be cut, bent, drilled or bought and every joint is bolted or riveted, and the prototype build plan (SCL-BLD-001) shows how. Value-engineering target: USD 450. Estimated cost of the constructable design: USD 497 (USD 47 over the target).
+SunClave is a 1.4 m parabolic dish of aluminum petals that focuses sunlight onto the blackened base of a pressure canner of about 12 L held level at the focus, with a cycle logger that measures temperature in the load zone and chamber pressure and flags each cycle as pass or fail. The TRL 3 calculations (SCL-CAL-001) put about 660 W into the canner on a clear day, enough to go from cold to the end of a 30 min hold in about 81 min and to run about four cycles between 09:00 and 15:00. On 2026-09-25 Amish accepted the recommendations on the TRL 3 findings (SCL-DDR-002): the dish is retargeted every 12 min, the mass limit is 45 kg, the whole vessel is treated as a marked hot zone instead of guarding the focus, all four castors lock, a trimming rule protects the water at altitude and the pressure transducer spans 0 to 300 kPa. On paper no requirement is now missed; cycle time (R4) and wind stability (R15) remain at risk. On 2026-10-01 the design was made constructable (SCL-DDR-003, accepted by Amish on 2026-10-02): every part can be cut, bent, drilled or bought and every joint is bolted or riveted, and the prototype build plan (SCL-BLD-001) shows how. On 2026-10-02 Amish decided the lid fittings (a canner with its own gauge and relief valve, the lid never drilled, the probe and pressure sensor on a vent-stem adapter plate) and a back-up drop pin for the tilt locks; both are now in the model. Value-engineering target: USD 450. Estimated cost of the constructable design: USD 528 (USD 78 over the target).
 
 > **Safety:** SunClave is a research and educational prototype, not a medical device. It has not been cleared or approved by any regulator and must not be relied on to sterilize instruments used on patients. It combines concentrated sunlight that can burn skin, blind and start fires, with a pressure vessel holding steam at about 121 °C (250 °F). See the safety section before building or operating anything.
 
@@ -68,14 +72,14 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`. The general arrang
 | --- | --- | --- | --- |
 | 1 | Reflector | 12 petals of polished aluminum sheet 0.5 mm, 1.4 m aperture, focal length 500 mm | SK14-style petal layout (decided) |
 | 2 | Dish ribs, rim, hub and clips | Twelve 20 x 3 mm steel flat-bar ribs bent on edge, 25 x 4 mm rim band, 200 mm hub plate, 24 angle clips; petals riveted through their folded flanges | Holds the petal shape (SCL-DDR-003) |
-| 3 | Tilt yoke and locks | A 6 mm steel yoke plate each side turning on a fixed 20 mm axle, joined to the rim band by a tube stand-off; a fan on each plate with a slot that a star knob clamps | Dish-axis elevation 15 to 90 degrees; the two locks hold up to about 45 N·m of gravity torque (SCL-DDR-003) |
+| 3 | Tilt yoke and locks | A 6 mm steel yoke plate each side turning on a fixed 20 mm axle, joined to the rim band by a tube stand-off; a fan on each plate with a slot that a star knob clamps; a drop pin on a lanyard through a row of holes in each fan as a back-up stop | Dish-axis elevation 15 to 90 degrees; the two locks hold up to about 45 N·m of gravity torque (SCL-DDR-003); if a lock slips the pin stops the dish within 7.5 degrees (decided 2026-10-02) |
 | 4 | Stand with castors | Bolted treated timber: cross rails, side rails on edge, uprights to 1.10 m and lapped braces; steel axle plates and axles; four locking castors | Timber decided to save cost (SCL-DDR-001 item 2); all four castors lock (SCL-DDR-002 item 16); azimuth by turning the whole stand |
-| 5 | Level pot holder | Flat steel ring the body handles rest on, on two tube arms carried on the upright tops | Fixed to the stand: the loaded cooker's centre of mass is about 98 mm above the axis, so a swinging holder would be top-heavy |
-| 6 | Pressure cooker | 12 L aluminum household cooker, 280 mm inside diameter x 200 mm deep, 103.4 kPa weighted regulator, overpressure plug; base and lowest 80 mm of wall painted matte black | Decided (SCL-DDR-001 item 4); since 2026-10-02 a pressure canner sold with a factory gauge and relief valve (item 5) |
-| 7 | Lid with regulator | Supplied with item 6; carries items 8 to 10 | The lid is not drilled: the factory gauge and relief valve stay as supplied, and the probe gland goes on an adapter plate on the vent stem with a bore of 3 mm or more, overpressure plug untouched (decided 2026-10-02, item 5) |
-| 8 | Pressure gauge | 0 to 250 kPa, 100 mm dial with siphon | Reads without power, independent of the logger |
-| 9 | Independent relief valve | Spring valve, set 125 kPa gauge or less, seat 4 mm or more | Passes 5.1 times the worst steam generation |
-| 10 | Lid gland, Pt100 probe and tee | 3 mm class A Pt100 through a compression gland into the load zone; tee to the transducer | Measures where the instruments are |
+| 5 | Level pot holder | Flat steel ring the body handles rest on, on two tube arms carried on the upright tops | Fixed to the stand: the loaded canner's centre of mass is about 96 mm above the axis, so a swinging holder would be top-heavy |
+| 6 | Pressure canner | Aluminum pressure canner of about 12 L sold with a factory gauge and relief valve, about 280 mm inside diameter x 200 mm deep, 103.4 kPa weighted regulator, overpressure plug; base and lowest 80 mm of wall painted matte black | Vessel decided (SCL-DDR-001 item 4); a canner with factory fittings since 2026-10-02 (item 5) |
+| 7 | Lid with regulator | Supplied with item 6; carries items 8 and 9 as supplied and the adapter plate (item 10) in its vent-pipe hole | The lid is not drilled: the factory gauge and relief valve stay as supplied, and the probe gland goes on an adapter plate on the vent stem with a bore of 3 mm or more, overpressure plug untouched (decided 2026-10-02, item 5) |
+| 8 | Pressure gauge (factory-fitted) | The canner maker's dial gauge, as supplied | Reads without power, independent of the logger; checked against a reference before use |
+| 9 | Relief valve (factory-fitted) | The canner maker's relief valve; set 125 kPa gauge or less and seat 4 mm or more to confirm | Passes 5.2 times the worst steam generation if its seat is 4 mm or more |
+| 10 | Vent-stem adapter plate, gland and Pt100 probe | Stainless plate in the lid's vent-pipe hole carrying the maker's vent pipe, the transducer and a compression gland for a 3 mm class A Pt100 into the load zone; 6 mm bore round the probe | Measures where the instruments are; the vent stays as open as a 5.2 mm hole; no new hole in the lid |
 | 11 | Insulated jacket | 25 mm mineral wool with aluminized skin on the upper wall | Black band and base stay bare to take the focus |
 | 12 | Water charge | 1.5 L per cycle | About 1.26 L left after a central sea-level cycle |
 | 13 | Instrument basket and trivet | Stainless basket 250 mm diameter x 150 mm deep on a 40 mm trivet | Resized from 270 x 180 mm, which did not fit a 12 L cooker |
@@ -103,10 +107,10 @@ All values are paper estimates from SCL-CAL-001 (`python docs/04-calcs/sizing.py
 | Quantity | Value | Requirement |
 | --- | --- | --- |
 | Sun on the aperture | 1,078 W (1.539 m²) | |
-| Absorbed by the cooker | 663 W on target (575 to 716 W across scenarios); 555 W at 15° sun, 733 W overhead | |
+| Absorbed by the canner | 663 W on target (575 to 716 W across scenarios); 555 W at 15° sun, 733 W overhead | |
 | Peak flux on the base | about 270 kW/m² in the hottest 20 mm cell; mean 11 kW/m² | |
 | Heat loss at 121 °C | 395 W (black base and band 245 W, lid 101 W) | |
-| Cold start to end of 30 min hold | 80 min (71 to 109 min) | R4 at risk |
+| Cold start to end of 30 min hold | 81 min (72 to 111 min) | R4 at risk |
 | Cycles, 09:00 to 15:00 | 4 | R5 met |
 | Water left after a 30 min hold | 1.26 L; with the trimming rule 1.31 L at 1,800 m in strong sun (0.15 L untrimmed) | R10 met (restated) |
 | Steam temperature at 103.4 kPa gauge | 120.95 °C at sea level; 117.7 °C at 1,800 m (hold 63 min) | R1 not verifiable at TRL 3 |
@@ -114,10 +118,10 @@ All values are paper estimates from SCL-CAL-001 (`python docs/04-calcs/sizing.py
 | Air-removal check uncertainty | 0.64 °C against a 2 °C threshold (0 to 300 kPa transducer) | R12 met, narrowly |
 | Retarget interval for 90 % of on-target power | about 13 min, against a 12 min target | R14 met (relaxed) |
 | Relief valve capacity | 5.2 times the worst steam generation | R8 met |
-| Tipping factor at 10 m/s | 1.38 at 15° sun; four locked castors grip 235 N against 153 N | R15 at risk |
-| Mass, empty | 44.4 kg against 45 kg; largest piece 15.4 kg | R16 met (relaxed), thin margin |
+| Tipping factor at 10 m/s | 1.40 at 15° sun; four locked castors grip 237 N against 153 N | R15 at risk |
+| Mass, empty | 44.8 kg against 45 kg; largest piece 15.3 kg | R16 met (relaxed), thin margin |
 | Logger autonomy | 8.7 days | R13 met |
-| Parts cost | USD 497 against a USD 450 value-engineering target (USD 47 over) | R17 reported against the target |
+| Parts cost | USD 528 against a USD 450 value-engineering target (USD 78 over) | R17 reported against the target |
 
 ### Altitude and sterilizing temperature
 
@@ -154,10 +158,10 @@ Decided by Amish on 2026-10-02 (SCL-DEC-001):
 
 - **Concentrated sunlight.** The focal spot reaches about 270 kW/m² in its hottest part and can burn skin within about a second, ignite paper, cloth and dry grass, and cause permanent eye damage. Never look at the focus or into the dish when it faces the sun; wear the shade 5 goggles near the focus; aim only by the gnomon shadow; turn the dish at least 15° away from the sun before reaching toward the cooker; fit the parking cover whenever the dish is idle; keep the ground below clear of anything that can burn; never leave the dish facing the sun unattended or with children nearby.
 - **Timber stand.** The stand is timber (decided). It is outside the converging light cone, but a mis-aimed dish or stray reflections can scorch it; keep the steel axle plates and holder between the focus and the timber, and inspect for scorching.
-- **Pressure and steam.** Use only a commercially made cooker rated for the working pressure, keep its overpressure plug, fit the independent relief valve, and check that the vent is clear before every cycle. Never force the lid open; wait until the gauge reads zero and the regulator has been lifted with a tool. Steam from the regulator and relief valve can scald, so point vents away from people. Do not modify the regulator weight. Do not drill the maker's lid: use the factory gauge and relief valve of a pressure canner, and put the probe gland on an adapter plate on the vent stem with a bore of 3 mm or more, leaving the overpressure plug untouched (decided 2026-10-02, item 5). Drill a lid only with the maker's written approval.
+- **Pressure and steam.** Use only a commercially made pressure canner rated for the working pressure, keep its overpressure plug and its factory relief valve, and check that the vent is clear before every cycle. Never force the lid open; wait until the gauge reads zero and the regulator has been lifted with a tool. Steam from the regulator and relief valve can scald, so point vents away from people. Do not modify the regulator weight. Do not drill the maker's lid: use the factory gauge and relief valve of a pressure canner, and put the probe gland on an adapter plate on the vent stem with a bore of 3 mm or more, leaving the overpressure plug untouched (decided 2026-10-02, item 5). Drill a lid only with the maker's written approval.
 - **Boil-dry.** A dry base under concentrated sun would pass 200 °C, where aluminum loses much of its strength. Fill 1.5 L before every cycle and trim the dish during long holds; the base-edge thermocouple alarm at 140 °C prompts the operator to turn the dish away.
 - **Hot surfaces.** The lid, handles, fittings, black lower wall, base and instruments reach 121 °C or more. The whole vessel is treated as a hot zone (decided, SCL-DDR-002 item 15): mark a 2 m keep-out on the ground with the barrier tape, use heat-resistant gloves and handle the cooker only when the dish is turned at least 15° away.
-- **Tipping, rolling and pinch points.** Lock all four castors and both tilt locks, and put the back-up drop pin in (decided 2026-10-02): if a friction lock slips, a 15.4 kg dish swings and its focus can sweep off the pot; the pin limits a slip to one hole. In high wind park the dish face-up. The tipping margin at low sun is thin (factor 1.38 at 10 m/s, SCL-CAL-001 section 10). Keep hands clear of the yoke plates' fans and slots when tilting; they close like scissors.
+- **Tipping, rolling and pinch points.** Lock all four castors and both tilt locks, and put the back-up drop pin in (decided 2026-10-02): if a friction lock slips, a 15.3 kg dish swings and its focus can sweep off the pot; the pin limits a slip to one hole. In high wind park the dish face-up. The tipping margin at low sun is thin (factor 1.38 at 10 m/s, SCL-CAL-001 section 10). Keep hands clear of the yoke plates' fans and slots when tilting; they close like scissors.
 - **Lithium cells.** The power bank contains lithium cells; keep it shaded inside the logger box and do not charge it above 45 °C.
 - **Medical claims.** A PASS on the logger shows the recorded conditions, not that the load is sterile. A cycle below 121 °C is recorded at its real temperature. Biological and chemical indicators remain the reference, and no load from this prototype should be used on a patient.
 

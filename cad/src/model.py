@@ -15,9 +15,15 @@ Design for construction (SCL-DDR-003, 2026-10-01): every part below can be cut, 
 or bought, and every joint is a bolt, rivet or screw through faces that touch. The changes from
 the concept model are listed in docs/decisions/0003-design-for-construction.md.
 
-Lid fittings (items 8 to 10) are shown at the positions they would take on the lid. The model
-does not decide how they are mounted: drilling the maker's lid, a cooker with factory ports, or
-an adapter plate is open for Amish (design decisions register, SCL-DEC-001).
+Vessel (decided 2026-10-02, SCL-DDR-001 item 5): a pressure canner of about 12 L sold with a
+factory gauge and relief valve; the maker's lid is not drilled. The Pt100 gland and the pressure
+transducer sit on a vent-stem adapter plate screwed into the lid's vent port; the probe passes down
+through the port, which keeps a free bore equal to 3 mm or more, and the weighted regulator sits on
+the vent pipe at the end of the adapter. The overpressure plug is left untouched.
+
+Tilt lock (decided 2026-10-02, SCL-DDR-003 A2): the two friction locks are kept, and a drop pin on a
+lanyard goes through one of a row of holes in each yoke plate fan and a short arc slot in the axle
+plate. If a lock slips, the dish can turn only until the pin reaches the end of the slot.
 
 Sizes are checked in SCL-CAL-001 (docs/04-calcs/sizing.py), which imports this file.
 """
@@ -54,14 +60,19 @@ PARAMS = {
     "F_Z": 950.0,
     # 3 yoke: a 6 mm steel plate each side turning on a fixed axle, with a fan carrying the lock slot
     "YOKE_T": 6.0, "YOKE_W": 60.0, "YOKE_HUB_R": 40.0,
-    "FAN_R": (125.0, 175.0), "SLOT_R": 150.0, "SLOT_W": 11.0,
+    "FAN_R": (125.0, 175.0), "SLOT_R": 140.0, "SLOT_W": 11.0,
+    # back-up drop pin (SCL-DDR-003 A2, 2026-10-02): a row of holes in the fan, a short arc slot in the axle plate
+    "PIN_R": 163.0, "PIN_D": 8.0, "PIN_HOLE": 8.5, "PIN_PITCH": 7.5,   # radius, pin, hole, hole pitch (degrees)
+    "PIN_UPR_SLOT": (32.0, 10.0),      # clearance slot through the upright for the pin (length along Y x height)
+    "PIN_EYE": (25.0, -105.0),         # lanyard eye screw on the upright's outer face (Y, Z from the axis)
     "STANDOFF": (50.0, 25.0, 2.5),     # rectangular tube: tangential x axial x wall
     "STANDOFF_BOLT_Y": 15.0,
-    "LOCK_Z": -150.0,                  # lock stud below the axis
+    "LOCK_Z": -140.0,                  # lock stud below the axis (on the slot radius)
     "PLATE_BOLT_Z": 80.0,              # upper bolt of the axle plate above the axis
     "AXLE_D": 20.0, "COLLAR": (40.0, 12.0),
     "THRUST_T": 2.0,                   # PTFE thrust washer between the yoke plate and the axle plate
-    "AXLE_PLATE": (6.0, 70.0, 270.0),  # thickness x width (Y) x height (Z), centred 30 mm below the axis
+    "AXLE_PLATE": (6.0, 70.0, 285.0),  # thickness x width (Y) x height (Z)
+    "AXLE_PLATE_ZC": -37.5,            # plate centre below the axis (top 105 mm above, bottom 180 mm below)
     # legacy names kept for product_model.py (appearance model, updated on Amish's Mac)
     "YOKE_R": 10.0, "QUAD_R": 175.0, "QUAD_T": 6.0,
     # 4 stand: timber frame, steel axle plates, castors
@@ -77,12 +88,20 @@ PARAMS = {
     "CASTOR_D": 75.0, "CASTOR_H": 102.0,   # wheel diameter and mounting height of a 75 mm castor
     "CASTOR_X": 790.0,                 # castor centres, inboard of the side rails
     "CASTOR_LOCKS": 4,                 # locking castors (all four, SCL-DDR-002 item 16)
-    # 6 cooker: 12 L household aluminum pressure cooker (decided vessel, SCL-DDR-001 item 4)
+    # 6 vessel: pressure canner of about 12 L with a factory gauge and relief valve (SCL-DDR-001 items 4 and 5)
     "POT_ID": 280.0, "POT_IH": 200.0,  # inside diameter and depth
     "POT_WALL": 4.0, "POT_BASE": 6.0,
     "LID_D": 300.0, "LID_T": 5.0,
     "HANDLE": (229.0, 40.0, 16.0, 28.0),   # handle reach from the axis, width, thickness, underside below the rim
     "BARE_BAND": 80.0,                 # blackened wall band above the base left uninsulated to catch spill
+    "CANNER_KG": 4.8,                  # canner body and lid with regulator, factory gauge and relief valve (indicative)
+    # 8, 9 factory gauge and relief valve, as supplied; 10 vent-stem adapter plate on the lid's vent port
+    "GAUGE_POS": (75.0, -55.0), "GAUGE_DIAL": 80.0,
+    "RELIEF_POS": (-80.0, 40.0), "PLUG_POS": (-60.0, -85.0),
+    "ADAPTER": (84.0, 40.0, 20.0),     # length (X) x width (Y) x height, on the lid boss over the vent port
+    "LID_PORT_D": 10.0,                # the maker's vent-pipe hole in the lid (to be confirmed for the chosen canner)
+    "PORT_D": 6.0,                     # bore of the adapter's spigot in that hole, shared by the probe and the steam
+    "VENT_X": 30.0, "TRANSDUCER_X": -30.0,   # vent pipe and transducer on the adapter, either side of the gland
     # 5 level pot holder, fixed to the stand: a flat steel ring under the handles on two tube arms
     "RING_R": (174.0, 204.0), "HOLDER_T": 4.0,   # ring inner and outer radius, plate thickness
     "HOLDER_W": 25.0, "ARM_WALL": 2.0,           # square tube arm size and wall
@@ -94,9 +113,9 @@ PARAMS = {
     "TRIVET_H": 40.0,
     "BASKET_D": 250.0, "BASKET_H": 150.0,
     # 10 Pt100 probe: tip height above the cooker floor and radius from the axis
-    "PROBE_TIP_Z": 110.0, "PROBE_X": 30.0, "PROBE_Y": 70.0,
+    "PROBE_TIP_Z": 110.0, "PROBE_X": 0.0, "PROBE_Y": 0.0,   # through the vent port
     # 14 logger box (bought IP65 box) on the +X upright's outer face, power bank inside
-    "LOGGER": (65.0, 80.0, 180.0), "LOGGER_Z": 600.0,
+    "LOGGER": (65.0, 80.0, 180.0), "LOGGER_Z": 580.0,   # lowered 20 mm (2026-10-02) to clear the drop pin head
 }
 P = PARAMS
 
@@ -393,7 +412,46 @@ def yoke_plate_2d(p=PARAMS):
         face = face - Pos(p["SLOT_R"] * math.cos(math.radians(a)), p["SLOT_R"] * math.sin(math.radians(a))) * C_(p["SLOT_W"] / 2)
     for s in (-1, 1):
         face = face - Pos(s * p["STANDOFF_BOLT_Y"], -L) * C_(4.5)
+    for a in pin_hole_angles(p):                     # drop pin holes, one row on the fan
+        face = face - Pos(p["PIN_R"] * math.cos(math.radians(a)), p["PIN_R"] * math.sin(math.radians(a))) * C_(p["PIN_HOLE"] / 2)
     return face
+
+
+def pin_hole_angles(p=PARAMS):
+    """Angles (degrees, yoke plate frame) of the drop pin holes: the same span as the lock slot,
+    from the arm line (-90, dish pointing straight up) round to -165 (15 degree sun), every PIN_PITCH."""
+    n = int(round((tilt_of(p["ELEV_MIN"]) - tilt_of(p["ELEV_MAX"])) / p["PIN_PITCH"]))
+    return [-90.0 - p["PIN_PITCH"] * k for k in range(n + 1)]
+
+
+def pin_slot_half(p=PARAMS):
+    """Half the angular length (degrees, centre to centre) of the arc slot in the axle plate."""
+    return p["PIN_PITCH"] / 2
+
+
+def pin_world_angle(p=PARAMS, elev=None):
+    """World angle (degrees from +Y toward +Z, about the tilt axis) of the fan hole that lies in the
+    axle plate slot at this elevation; the slot is centred straight below the axle (-90)."""
+    elev = p["SUN_ELEV"] if elev is None else elev
+    t = tilt_of(elev)
+    best = min(pin_hole_angles(p), key=lambda a: abs(a + t + 90.0))
+    return best + t
+
+
+def _arc_slot(r, a0, a1, w, n=24):
+    """2D arc slot (build123d Face) of width w on radius r from angle a0 to a1 (degrees), round ends."""
+    from build123d import Circle as C_
+    pts = []
+    for i in range(n + 1):
+        a = math.radians(a0 + (a1 - a0) * i / n)
+        pts.append(((r + w / 2) * math.cos(a), (r + w / 2) * math.sin(a)))
+    for i in range(n + 1):
+        a = math.radians(a1 - (a1 - a0) * i / n)
+        pts.append(((r - w / 2) * math.cos(a), (r - w / 2) * math.sin(a)))
+    f = Polygon(*pts, align=None)
+    for a in (a0, a1):
+        f = f + Pos(r * math.cos(math.radians(a)), r * math.sin(math.radians(a))) * C_(w / 2)
+    return f
 
 
 def yoke_components(p=PARAMS):
@@ -447,6 +505,11 @@ def stand_components(p=PARAMS):
     for z, d in ((FZ, p["AXLE_D"] + 0.5), (FZ + p["LOCK_Z"], 10.5), (FZ + p["PLATE_BOLT_Z"], 10.5), (p["BRACE_Z"], 10.5),
                  (D["arm_top"] - p["HOLDER_W"] - 20, 8.5)):
         up = up - xcyl(xi - 1, xo + 1, 0, z, d / 2)
+    sl, sh_ = p["PIN_UPR_SLOT"]                       # drop pin slot: two drilled holes, chiselled between
+    zp = FZ - p["PIN_R"]
+    up = up - bx(xi - 1, xo + 1, -(sl - sh_) / 2, (sl - sh_) / 2, zp - sh_ / 2, zp + sh_ / 2)
+    for yy in (-(sl - sh_) / 2, (sl - sh_) / 2):
+        up = up - xcyl(xi - 1, xo + 1, yy, zp, sh_ / 2)
     out["uprights"] = ("Uprights (2)", Compound(both(up)), 4)
     # braces: front brace on the outer face, back brace on the inner face, one bolt through both at the top
     braces = []
@@ -483,11 +546,25 @@ def stand_components(p=PARAMS):
     out["foot_brackets"] = ("Foot brackets (4)", Compound(fb), 4)
     # axle plates (6 mm steel) on the inner face of each upright, with the axle and its collars
     t, w, h = p["AXLE_PLATE"]
-    zc = FZ - 30
+    zc = FZ + p["AXLE_PLATE_ZC"]
     ap = bx(xp, xi, -w / 2, w / 2, zc - h / 2, zc + h / 2)
     for z, d in ((FZ, p["AXLE_D"] + 0.5), (FZ + p["LOCK_Z"], 11.0), (FZ + p["PLATE_BOLT_Z"], 11.0)):
         ap = ap - xcyl(xp - 1, xi + 1, 0, z, d / 2)
+    hs = pin_slot_half(p)
+    slot = _arc_slot(p["PIN_R"], -90.0 - hs, -90.0 + hs, p["PIN_HOLE"])
+    ap = ap - extrude(Plane(origin=(xp - 1, 0, FZ), x_dir=(0, 1, 0), z_dir=(1, 0, 0)) * slot, amount=t + 2)
     out["axle_plates"] = ("Axle plates (2)", Compound(both(ap)), 4)
+    # drop pins: an 8 mm pin pushed in from outside the stand, through the clearance slot in the upright,
+    # the arc slot in the axle plate and the fan hole that sits in the slot, its tip flush with the fan's
+    # inner face; a lanyard to an eye screw on the upright (the pin is pulled out while the dish is re-aimed)
+    a = math.radians(pin_world_angle(p))
+    py_, pz_ = p["PIN_R"] * math.cos(a), FZ + p["PIN_R"] * math.sin(a)
+    pin = xcyl(xy, xo, py_, pz_, p["PIN_D"] / 2) + xcyl(xo, xo + 8, py_, pz_, 9)
+    ey, ez = p["PIN_EYE"]
+    lan = [(xo + 4, py_, pz_), (xo + 4, ey, pz_), (xo + 4, ey, FZ + ez - 4)]
+    pin = pin + fuse([_tube(a_, b_, 1.2) for a_, b_ in zip(lan[:-1], lan[1:])])
+    pin = pin + xcyl(xo, xo + 10, ey, FZ + ez, 2.5) + (xcyl(xo + 4, xo + 7, ey, FZ + ez, 6) - xcyl(xo + 3, xo + 8, ey, FZ + ez, 3.5))
+    out["drop_pins"] = ("Drop pins on lanyards (2)", Compound(both(pin)), 3)
     cd, cw = p["COLLAR"]
     ax = xcyl(xy - cw, xo + cw + 2, 0, FZ, p["AXLE_D"] / 2)
     out["axles"] = ("Axles (2)", Compound(both(ax)), 4)
@@ -575,22 +652,36 @@ def vessel_components(p=PARAMS):
         hdl = bx(ro - 2, hx, -hw / 2, hw / 2, FZ + oh - hd, FZ + oh - hd + ht) if s > 0 else \
             bx(-hx, -(ro - 2), -hw / 2, hw / 2, FZ + oh - hd, FZ + oh - hd + ht)
         body = body + (hdl - _zcyl(p["POT_ID"] / 2, ih + 1, FZ + bt))
-    out["body"] = ("Pressure cooker body, 12 L", body, 6)
+    out["body"] = ("Pressure canner body, about 12 L", body, 6)
     zl = FZ + oh
-    lid = (_zcyl(p["LID_D"] / 2, p["LID_T"], zl) + _zcyl(40, 12, zl + p["LID_T"])
-           + _zcyl(5, 40, zl + p["LID_T"])
-           + _zcyl(16, 22, zl + p["LID_T"] + 22)
-           + Pos(0, ro + 60, zl + p["LID_T"] + 8) * Box(40, 110, 16))
-    out["lid"] = ("Lid with weighted regulator", lid, 7)
     zt = zl + p["LID_T"]
-    out["gauge"] = ("Pressure gauge", _zcyl(7, 45, zt, 75, -55) + Pos(75, -55, zt + 95) * Rot(90, 0, 0) * Cylinder(50, 30), 8)
-    out["relief"] = ("Independent relief valve", _zcyl(11, 40, zt, -80, 40) + _zcyl(17, 14, zt + 40, -80, 40), 9)
+    zb0 = zt + 12                                                    # top of the lid boss
+    al, aw_, ah = p["ADAPTER"]
+    za = zb0 + ah                                                    # top of the adapter plate
+    vx = p["VENT_X"]
+    lid = (_zcyl(p["LID_D"] / 2, p["LID_T"], zl) + _zcyl(40, 12, zt)
+           + Pos(0, ro + 60, zl + p["LID_T"] + 8) * Box(40, 110, 16))
+    lid = lid - _zcyl(p["LID_PORT_D"] / 2, p["LID_T"] + 14, zl - 1)  # the maker's vent-pipe hole, not drilled
+    lid = lid + _zcyl(7, 4, zt, *p["PLUG_POS"])                       # overpressure plug, untouched
+    lid = lid + _zcyl(5, 30, za, vx, 0) + _zcyl(16, 22, za + 12, vx, 0)   # vent pipe and weighted regulator, moved up onto the adapter
+    out["lid"] = ("Canner lid with weighted regulator and overpressure plug", lid, 7)
+    gx, gy = p["GAUGE_POS"]
+    gr = p["GAUGE_DIAL"] / 2
+    out["gauge"] = ("Factory pressure gauge", _zcyl(6, 35, zt, gx, gy) + Pos(gx, gy, zt + 35 + gr) * Rot(90, 0, 0) * Cylinder(gr, 25), 8)
+    rx, ry = p["RELIEF_POS"]
+    out["relief"] = ("Factory relief valve", _zcyl(8, 22, zt, rx, ry) + _zcyl(11, 8, zt + 22, rx, ry), 9)
+    # vent-stem adapter plate: screwed into the vent port in place of the maker's vent pipe, sealed on the boss;
+    # a 6 mm bore up from the port to the gland, a side channel to the vent pipe and to the transducer
+    ad = bx(-al / 2, al / 2, -aw_ / 2, aw_ / 2, zb0, za) - _zcyl(p["PORT_D"] / 2, ah + 2, zb0 - 1)
+    ad = ad + (_zcyl(p["LID_PORT_D"] / 2 - 0.4, zb0 - zl + 4, zl - 4) - _zcyl(p["PORT_D"] / 2, zb0 - zl + 6, zl - 5))   # threaded spigot through the hole
+    ad = ad + (_zcyl(8, 3, zl - 3) - _zcyl(p["PORT_D"] / 2, 5, zl - 4))                          # nut under the lid
+    out["adapter"] = ("Vent-stem adapter plate", ad, 10)
     tip = FZ + bt + p["PROBE_TIP_Z"]
     px, py = p["PROBE_X"], p["PROBE_Y"]
-    gl = (_zcyl(9, 30, zt, px, py) + _zcyl(1.5, zt - tip, tip, px, py)
-          + _tube((px + 9, py, zt + 22), (px + 60, py, zt + 22), 5))
-    out["gland"] = ("Lid gland, Pt100 probe and tee", gl, 10)
-    out["transducer"] = ("Pressure transducer on the tee", zcyl(px + 60, py, zt + 27, zt + 87, 11) + zcyl(px + 60, py, zt + 87, zt + 102, 7), 14)
+    gl = _zcyl(9, 30, za, px, py) + _zcyl(1.5, za + 38 - tip, tip, px, py)
+    out["gland"] = ("Pt100 probe in its gland", gl, 10)
+    tx = p["TRANSDUCER_X"]
+    out["transducer"] = ("Pressure transducer on the adapter", zcyl(tx, 0, za, za + 60, 11) + zcyl(tx, 0, za + 60, za + 75, 7), 14)
     zj = FZ + p["BARE_BAND"]
     hj = oh - p["BARE_BAND"] - 30
     jk = _zcyl(D["jkt_or"], hj, zj) - _zcyl(ro, hj + 2, zj - 1)
@@ -629,8 +720,9 @@ def logger_components(p=PARAMS):
     zt = FZ + D["pot_oh"] + p["LID_T"]
     xc = xo + lx / 2
     at = D["arm_top"]
-    tx, ty = p["PROBE_X"] + 60, p["PROBE_Y"]
-    pts = [(xc, 0, z0 + lz + 14), (xc, 0, at + 3), (240, 0, at + 3), (240, 0, zt + 130), (tx, ty, zt + 130), (tx, ty, zt + 102)]
+    tx, ty = p["TRANSDUCER_X"], 0.0
+    zc_top = zt + 12 + p["ADAPTER"][2] + 75                          # top of the transducer connector
+    pts = [(xc, 0, z0 + lz + 14), (xc, 0, at + 3), (240, 0, at + 3), (240, 0, zt + 130), (tx, ty, zt + 130), (tx, ty, zc_top)]
     cab = [_tube(a, b, 3) for a, b in zip(pts[:-1], pts[1:])]
     out["cable"] = ("Sensor cable", Compound(cab), 14)
     return out
@@ -672,9 +764,9 @@ def build_components(p=PARAMS, elev=None):
 
 
 BOM_NAMES = {1: "Reflector, 12 aluminum petals", 2: "Dish ribs, rim, hub and clips", 3: "Tilt yoke and locks",
-             4: "Timber stand with castors", 5: "Level pot holder (fixed to stand)", 6: "Pressure cooker body, 12 L",
-             7: "Lid with weighted regulator", 8: "Pressure gauge", 9: "Independent relief valve",
-             10: "Lid gland, Pt100 probe and tee", 11: "Insulated jacket", 12: "Water charge, 1.5 L",
+             4: "Timber stand with castors", 5: "Level pot holder (fixed to stand)", 6: "Pressure canner body, about 12 L",
+             7: "Canner lid with weighted regulator", 8: "Factory pressure gauge", 9: "Factory relief valve",
+             10: "Vent-stem adapter plate, gland and Pt100 probe", 11: "Insulated jacket", 12: "Water charge, 1.5 L",
              13: "Instrument basket and trivet", 14: "Cycle logger", 15: "USB power bank, in the logger box",
              16: "Sighting gnomon", 0: "Instrument load (not in BOM)"}
 
@@ -712,7 +804,7 @@ MATERIAL = {   # key: (material, factor applied to the modelled volume, or a fix
     "yoke_plates": ("steel", 1.0), "standoffs": ("steel", 1.0), "standoff_screws": ("steel", 1.0),
     "cross_rails": ("timber", 1.0), "side_rails": ("timber", 1.0), "uprights": ("timber", 1.0), "braces": ("timber", 1.0),
     "castors": (None, 4 * 0.45), "foot_brackets": ("steel", 1.0), "axle_plates": ("steel", 1.0), "axles": ("steel", 1.0),
-    "collars": ("steel", 1.0), "thrust_washers": (None, 0.02), "lock_studs": (None, 2 * 0.12), "plate_bolts": ("steel", 1.0), "stand_bolts": ("steel", 1.0),
+    "collars": ("steel", 1.0), "thrust_washers": (None, 0.02), "lock_studs": (None, 2 * 0.12), "drop_pins": (None, 2 * 0.06), "plate_bolts": ("steel", 1.0), "stand_bolts": ("steel", 1.0),
     "ring": ("steel", 1.0), "arms": ("steel", 1.0), "arm_brackets": ("steel", 1.0), "holder_bolts": ("steel", 1.0),
 }
 
@@ -781,6 +873,7 @@ def checks(p=PARAMS):
     """Pairs that must touch, and pairs that must stay apart. Returns (description, overlap mm3, gap mm,
     expectation, ok)."""
     C = build_components(p)
+    D = derived(p)
     S = lambda k: C[k].shape  # noqa: E731
     rows = []
 
@@ -842,8 +935,31 @@ def checks(p=PARAMS):
     chk("Jacket on the cooker", S("jacket"), S("body"), "touch")
     chk("Lid on the cooker", S("lid"), S("body"), "touch")
     chk("Thermocouple clamp on the cooker", S("thermocouple"), S("body"), "touch")
-    chk("Transducer on the tee", S("transducer"), S("gland"), "touch")
+    chk("Adapter plate on the lid boss", S("adapter"), S("lid"), "touch")
+    chk("Gland on the adapter plate", S("gland"), S("adapter"), "touch")
+    chk("Transducer on the adapter plate", S("transducer"), S("adapter"), "touch")
+    chk("Probe clear of the adapter bore (steam passes round it)", S("gland") - _zcyl(10, 40, D["pot_oh"] + p["F_Z"] + p["LID_T"] + 12 + p["ADAPTER"][2]),
+        S("adapter"), 1.0)
+    chk("Adapter plate clear of the factory gauge and relief valve", S("adapter") + S("transducer") + S("gland"), S("gauge") + S("relief"), 5.0)
+    chk("Probe tip clear of the instrument load", S("gland"), S("load"), 5.0)
+    chk("Factory gauge on the lid", S("gauge"), S("lid"), "touch")
+    chk("Factory relief valve on the lid", S("relief"), S("lid"), "touch")
     chk("Basket clear of the cooker wall", S("basket"), S("body") - _zcyl(200, 10, p["F_Z"] - 1), 2.0)
+    # drop pins (removed while the dish is re-aimed, so not in the tilt sweep)
+    chk("Drop pins through a fan hole", S("drop_pins"), S("yoke_plates"), "touch")
+    chk("Drop pins in the axle plate slots", S("drop_pins"), S("axle_plates"), "touch")
+    chk("Drop pins through the upright clearance slots; eye screws on the uprights", S("drop_pins"), S("uprights"), "touch")
+    chk("Drop pins clear of the lock studs and knobs", S("drop_pins"), S("lock_studs"), 1.5)
+    chk("Drop pins clear of the logger box", S("drop_pins"), S("logger_box"), 5.0)
+    chk("Drop pins and lanyards clear of the dish", S("drop_pins"), S("rim") + S("ribs") + S("standoffs") + S("petals"), 10.0)
+    worst = 0.0
+    for i in range(301):                       # a fan hole lies within the slot at every elevation
+        el = p["ELEV_MIN"] + (p["ELEV_MAX"] - p["ELEV_MIN"]) * i / 300
+        worst = max(worst, abs(pin_world_angle(p, el) + 90.0))
+    rows.append(("Drop pin: a fan hole inside the plate slot from 15 to 90 deg (largest offset, deg)", 0.0, worst,
+                 pin_slot_half(p), worst <= pin_slot_half(p) + 1e-6))
+    eq = math.sqrt(p["PORT_D"] ** 2 - (2 * 1.5) ** 2)
+    rows.append(("Adapter bore round the probe, equivalent bore (mm), 3 mm or more", 0.0, eq, 3.0, eq >= 3.0))
     # logger
     chk("Logger box on the upright", S("logger_box"), S("uprights"), "touch")
     chk("Power bank inside the logger box", S("power_bank"), S("logger_box"), "touch", tol=2.6)
@@ -855,7 +971,7 @@ def checks(p=PARAMS):
     # tilt sweep: every moving part clear of every fixed part from 15 to 90 degrees
     fixed = ["cross_rails", "side_rails", "uprights", "braces", "castors", "axle_plates", "collars", "plate_bolts",
              "thrust_washers", "lock_studs", "ring", "arms", "arm_brackets", "holder_bolts", "body", "lid", "gauge", "relief",
-             "gland", "transducer", "jacket", "logger_box", "cable", "thermocouple", "foot_brackets", "stand_bolts"]
+             "gland", "adapter", "transducer", "jacket", "logger_box", "cable", "thermocouple", "foot_brackets", "stand_bolts"]
     allow = {("yoke_plates", "thrust_washers"): 0.0, ("yoke_plates", "collars"): 0.0, ("yoke_plates", "lock_studs"): 0.0,
              ("yoke_plates", "axle_plates"): 1.9}
     for el in (15, 30, 45, 60, 75, 90):

@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386352844.svg)](https://zenodo.org/badge/latestdoi/1386352844) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/sunclave/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/sunclave/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/sunclave/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/sunclave)
 
-**Area:** BioMedical · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** USD 450 (estimated cost USD 497) · **Difficulty:** 3 of 5
+**Area:** BioMedical · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** USD 450 (estimated cost USD 528) · **Difficulty:** 3 of 5
 
 Solar concentrator that heats a modified pressure-cooker autoclave, with a calibrated temperature, pressure and time logger that records every cycle.
 
@@ -57,16 +57,15 @@ Rural clinics lack power to sterilize instruments in an autoclave. Close to 1 bi
 
 ## Concept
 
-A 1.4 m parabolic dish of aluminum petals focuses sunlight onto the blackened base of a 12 L pressure cooker held level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. The TRL 3 calculation note puts about 660 W into the cooker at 700 W/m² of direct sun, about 80 min from a cold start to the end of a 30 min hold, and about four cycles on a clear day. Value-engineering target: USD 450. Estimated cost of the constructable design: USD 497 (USD 47 over the target). A 103.4 kPa (15 psi) cooker reaches 121 °C only at sea level, so above it the logger extends the hold, records the real temperature and reminds the operator to trim the dish to save water. With Amish's decisions of 2026-09-25 (retarget every 12 min, a 45 kg limit, the whole vessel treated as a marked hot zone, four locking castors and a 0 to 300 kPa transducer), no requirement is missed on paper; cycle time and wind stability remain at risk. Details are in the [review note](docs/REVIEW.md).
+A 1.4 m parabolic dish of aluminum petals focuses sunlight onto the blackened base of a pressure canner of about 12 L held level at the focus while the dish tilts around it. A cycle logger reads a Pt100 probe in the load zone and an absolute pressure transducer, checks that the chamber holds saturated steam, times the hold and shows PASS or FAIL for each cycle. The TRL 3 calculation note puts about 660 W into the canner at 700 W/m² of direct sun, about 81 min from a cold start to the end of a 30 min hold, and about four cycles on a clear day. Value-engineering target: USD 450. Estimated cost of the constructable design: USD 528 (USD 78 over the target). A 103.4 kPa (15 psi) canner reaches 121 °C only at sea level, so above it the logger extends the hold, records the real temperature and reminds the operator to trim the dish to save water. With Amish's decisions of 2026-09-25 (retarget every 12 min, a 45 kg limit, the whole vessel treated as a marked hot zone, four locking castors and a 0 to 300 kPa transducer), no requirement is missed on paper; cycle time and wind stability remain at risk. Details are in the [review note](docs/REVIEW.md).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md)
 
 ## Key components
 
 - 1.4 m petal dish on two yoke plates turning on fixed axles, with two tilt locks and a back-up drop pin, in a bolted timber stand on four locking castors
-- 12 L aluminum pressure cooker hanging by its handles from a fixed holder ring, with weighted regulator and insulated jacket
-- Pressure gauge and independent relief valve
-- Pt100 load-zone probe and absolute pressure transducer through a lid gland
+- Aluminium pressure canner of about 12 L hanging by its handles from a fixed holder ring, with its weighted regulator, factory gauge and relief valve and an insulated jacket; its lid is never drilled
+- Pt100 load-zone probe and absolute pressure transducer on a small adapter plate in the lid's vent-pipe hole
 - Cycle logger on a USB power bank with pass or fail per cycle, and retarget and trim reminders
 - Shadow gnomon for aiming without looking at the sun
 - Goggles, a parking cover and keep-out marking for the hot zone

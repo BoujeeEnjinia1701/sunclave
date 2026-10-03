@@ -3,9 +3,9 @@ doc_id: SCL-CAL-001
 title: SunClave sizing and first-principles checks
 project: SunClave
 doc_type: Calculation note
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,13 +21,17 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Constructable design (SCL-DDR-003); masses taken from the model's parts; holder ring and handles in the ray trace; tilt lock force; cost against the value-engineering target
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Decisions of 2026-10-02 carried in: pressure canner with factory gauge and relief valve and the vent-stem adapter plate (section 8 restated, canner checked against R16 and the holder); drop pins and the 140 mm lock slot; cost USD 528"
 ---
 
 # SunClave sizing and first-principles checks
 
-On paper SunClave works, but it is slower, heavier and less forgiving to aim than the TRL 2 estimates said. The ray trace puts about 660 W into the cooker at 700 W/m² direct sun (not 710 W), the vessel loses about 395 W at 121 °C (not 200 W), and a cold start reaches the end of a 30 min hold in about 80 min in the central case and about 109 min in the unfavourable one. Version 0.2 applies Amish's acceptance of the recommendations on items 13 to 18 (SCL-DDR-002): retargeting every 12 min (R14 relaxed), a 45 kg total (R16 relaxed), the whole vessel treated as a marked hot zone (R11 restated), four locking castors (R15), a trimming rule with a logger reminder (R10) and a 0 to 300 kPa transducer (R12). In v0.2, of the 17 requirements, 14 were met, 2 were at risk (R4 cycle time and R15 stability) and 1 could not be verified at TRL 3 (R1); no requirement was left not met, although three of the changes (R11, R14, R16) are restated or relaxed targets. The regulator gives 120.95 °C at sea level, so the "121 °C below about 300 m" claim of TRL 2 was optimistic; the decided altitude strategy (option B) extends the hold instead. Version 0.3 follows the constructable design of SCL-DDR-003: the masses now come from the model's parts (44.4 kg empty), the wider holder ring and the handles are in the ray trace (663 W absorbed, 80 min cycle), and the cost (USD 497) is reported against the USD 450 value-engineering target (USD 47 over) instead of as met or not met. No other requirement changes status: 13 met, 2 at risk (R4, R15) and 1 not verifiable at TRL 3 (R1).
+On paper SunClave works, but it is slower, heavier and less forgiving to aim than the TRL 2 estimates said. The ray trace puts about 660 W into the canner at 700 W/m² direct sun (not 710 W), the vessel loses about 395 W at 121 °C (not 200 W), and a cold start reaches the end of a 30 min hold in about 81 min in the central case and about 111 min in the unfavourable one. Version 0.2 applies Amish's acceptance of the recommendations on items 13 to 18 (SCL-DDR-002): retargeting every 12 min (R14 relaxed), a 45 kg total (R16 relaxed), the whole vessel treated as a marked hot zone (R11 restated), four locking castors (R15), a trimming rule with a logger reminder (R10) and a 0 to 300 kPa transducer (R12). In v0.2, of the 17 requirements, 14 were met, 2 were at risk (R4 cycle time and R15 stability) and 1 could not be verified at TRL 3 (R1); no requirement was left not met, although three of the changes (R11, R14, R16) are restated or relaxed targets. The regulator gives 120.95 °C at sea level, so the "121 °C below about 300 m" claim of TRL 2 was optimistic; the decided altitude strategy (option B) extends the hold instead. Version 0.3 follows the constructable design of SCL-DDR-003: the masses now come from the model's parts (44.4 kg empty), the wider holder ring and the handles are in the ray trace (663 W absorbed, 80 min cycle), and the cost (USD 497) is reported against the USD 450 value-engineering target (USD 47 over) instead of as met or not met. No other requirement changes status: 13 met, 2 at risk (R4, R15) and 1 not verifiable at TRL 3 (R1). Version 0.4 carries in Amish's decisions of 2026-10-02: the vessel is a pressure canner of about 12 L sold with its own gauge and relief valve (taken as 4.8 kg as bought, an indicative figure), the maker's lid is not drilled, and the probe and pressure sensor sit on a vent-stem adapter plate; a drop pin backs up each tilt lock, and the lock slot moves to a 140 mm radius to make room for the pin holes. The empty mass rises to 44.8 kg (R16 still met, 0.2 kg of margin), the central cycle to 81 min and the tipping factor to 1.40; the cost is USD 528, USD 78 over the target. No requirement changes status.
 
-> **Safety:** SunClave is a research and educational prototype, not a medical device. Nothing in this note shows that a load is sterile. The design concentrates sunlight to a few hundred times normal intensity at the focus and holds steam at about 121 °C (250 °F) in a pressure vessel. The numbers here are paper estimates and do not replace the maker's rating of the cooker, a certified relief valve or biological indicators.
+> **Safety:** SunClave is a research and educational prototype, not a medical device. Nothing in this note shows that a load is sterile. The design concentrates sunlight to a few hundred times normal intensity at the focus and holds steam at about 121 °C (250 °F) in a pressure vessel. The numbers here are paper estimates and do not replace the maker's rating of the canner and its relief valve or biological indicators.
 
 Every number in this note is printed by `docs/04-calcs/sizing.py` (run from the repo root: `python docs/04-calcs/sizing.py`), which also writes `docs/04-calcs/results.csv`. The script reads the geometry from `PARAMS` in `cad/src/model.py` and the prices from `bom/bom.csv`, so the model, the drawing SCL-DWG-001 and this note agree. Nothing here is measured.
 
@@ -39,17 +43,17 @@ Every number in this note is printed by `docs/04-calcs/sizing.py` (run from the 
 | --- | --- | --- |
 | Vessel, dish, aiming, load limits, altitude strategy, budget | As decided | SCL-DDR-001 items 1 to 4 and 6 to 11 |
 | Retargeting, mass limit, hot zone, castors, trimming rule, transducer span | As decided | SCL-DDR-002 items 13 to 18 |
-| Lid fittings | Shown on the lid; mounting method not decided | SCL-DDR-001 open item 5; section 8 covers both options |
-| Construction | Stand, pivots, locks, holder, dish frame and fixings as in the constructable model | SCL-DDR-003 (draft, open for Amish's review) |
+| Lid fittings | Pressure canner with its factory gauge and relief valve; the maker's lid not drilled; probe gland and transducer on a vent-stem adapter plate with a 6 mm bore; overpressure plug untouched | SCL-DDR-001 item 5, decided by Amish on 2026-10-02 |
+| Construction | Stand, pivots, locks, drop pins, holder, dish frame and fixings as in the constructable model | SCL-DDR-003, accepted by Amish on 2026-10-02 with a back-up drop pin (A2) |
 | Design case | 700 W/m² direct normal irradiance (DNI), sun 60° above the horizon, 25 °C, wind 2 m/s, sea level, 2.0 kg of stainless instruments in a 0.5 kg basket, 1.5 L of water | SCL-REQ-001 v0.5 |
 | Dish | 1.4 m aperture (1.539 m²), focal length 500 mm, depth 245 mm, rim angle 70.0° | `cad/src/model.py` |
 | Reflector | Reflectance 0.85; slope error 10 mrad (one standard deviation per axis) | Polished aluminum sheet bent into gores by hand |
 | Sun | Pillbox sunshape of 4.65 mrad half-angle; apparent motion up to 15° per hour | Solar disc; worst case at low declination |
 | Absorber paint | Absorptance 0.92 up to 60° incidence, falling linearly to half that at 90° | High-temperature matte black; angle fall-off assumed |
-| Cooker | 280 mm inside diameter x 200 mm deep (12.3 L), 4 mm wall, 6 mm base, 5 mm lid, aluminum 2,700 kg/m³ | Typical 12 L household cooker; brand to be confirmed |
+| Canner | 280 mm inside diameter x 200 mm deep (12.3 L), 4 mm wall, 6 mm base, 5 mm lid; 4.8 kg as bought with its regulator, gauge and relief valve, split between body and lid in proportion to the modelled aluminium | Indicative for a 12 L aluminium canner; model and dimensions to be confirmed |
 | Water and steam | IAPWS-IF97 saturation line; latent heat 2,256 kJ/kg at 100 °C and 2,188 kJ/kg at 125 °C | Steam tables |
 | Ambient pressure | ICAO standard atmosphere | |
-| Regulator and relief | 103.4 kPa (15 psi) gauge; relief set at 125 kPa gauge | SCL-REQ-001 R8 |
+| Regulator and relief | 103.4 kPa (15 psi) gauge; the canner's factory relief valve set at 125 kPa gauge or less, seat 4 mm or more (to confirm) | SCL-REQ-001 R8 |
 | Equivalent exposure | z-value 10 °C, reference 121 °C | Common engineering assumption, **not validated** |
 | Wind convection | h = 2.8 + 3.0 v W/(m² K) | Watmuff, Charters and Proctor (1977), as used in solar collector texts |
 | Jacket | 25 mm mineral wool, k = 0.040 W/(m K) at 50 °C rising 0.0002 per K; aluminized skin emissivity 0.3 | Supplier data typical |
@@ -79,9 +83,9 @@ Under the decided option B, R1 is restated as an exposure equivalent to 20 or 30
 
 ## 3. Optics (R4, R9, R14)
 
-A Monte Carlo ray trace (60,000 rays) follows sunlight from the aperture to the reflector and on to the level cooker. It includes the shadow of the vessel, the holder ring, the cooker handles and the holder arms, the pillbox sun, slope errors, pointing error and the true receiver shape: the black base on the focal plane, the 80 mm black band of wall above it, and the jacket, which is aluminized and counted as lost. Because the cooker stays level while the dish tilts, the light arrives at the base from one side, and at low sun a quarter of it lands on the wall band instead.
+A Monte Carlo ray trace (60,000 rays) follows sunlight from the aperture to the reflector and on to the level canner. It includes the shadow of the vessel, the holder ring, the canner handles and the holder arms, the pillbox sun, slope errors, pointing error and the true receiver shape: the black base on the focal plane, the 80 mm black band of wall above it, and the jacket, which is aluminized and counted as lost. Because the canner stays level while the dish tilts, the light arrives at the base from one side, and at low sun a quarter of it lands on the wall band instead.
 
-*Table 3. Share of the sun on the aperture absorbed by the cooker, central case, on target.*
+*Table 3. Share of the sun on the aperture absorbed by the canner, central case, on target.*
 
 | Sun elevation | Unshaded | Onto the vessel | Onto black surfaces | Absorbed | Absorbed at 700 W/m² | Share on the base |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -112,17 +116,17 @@ The base must stay bare and black to absorb the focus, and it radiates and conve
 
 ## 5. Heat-up, hold and water (R4, R10)
 
-The vessel's heat capacity without water is 5.16 kJ/K (body 3.01 kg, lid 0.95 kg, fittings 0.90 kg, instruments 2.0 kg, basket 0.5 kg). The simulation steps in 5 s: heat with the vent open to the local boiling point, 5 min of free steaming to purge air, fit the regulator and heat to the regulated temperature, then hold with the surplus venting through the regulator.
+The vessel's heat capacity without water is 5.55 kJ/K (canner body 3.42 kg, lid 1.08 kg, regulator, gauge and relief valve 0.30 kg, adapter plate with gland and probe 0.35 kg, instruments 2.0 kg, basket 0.5 kg). The simulation steps in 5 s: heat with the vent open to the local boiling point, 5 min of free steaming to purge air, fit the regulator and heat to the regulated temperature, then hold with the surplus venting through the regulator.
 
 *Table 5. Design cycle at sea level with a 30 min hold (wrapped instruments).*
 
 | Scenario | Mean absorbed | To boiling | Cold start to 121 °C | Cold start to end of hold | Water left of 1.5 L | Cool-down to zero gauge |
 | --- | --- | --- | --- | --- | --- | --- |
-| Favourable | 679 W | 25.8 min | 40.5 min | 70.9 min | 1.14 kg | 13 min |
-| Central | 632 W | 30.4 min | 49.3 min | **79.8 min** | 1.26 kg | 11 min |
-| Unfavourable | 550 W | 41.8 min | 78.2 min | **108.7 min** | 1.41 kg | 9 min |
+| Favourable | 679 W | 26.6 min | 41.7 min | 72.1 min | 1.14 kg | 13 min |
+| Central | 632 W | 31.4 min | 50.8 min | **81.2 min** | 1.26 kg | 11 min |
+| Unfavourable | 550 W | 43.2 min | 80.8 min | **111.2 min** | 1.41 kg | 10 min |
 
-R4 (90 min or less in the design case) is met in the central case and **at risk** overall: a dusty dish with a rougher surface misses it by about 19 min, and the only measured precedent (Kaseman et al., 93 to 183 min of heat-up with 14 to 24 L vessels, cited in SCL-PRB-001) is slower still. With a 20 min hold (unwrapped) the central cycle is 69.6 min; at 600 W/m² it is 94.1 min.
+R4 (90 min or less in the design case) is met in the central case and **at risk** overall: a dusty dish with a rougher surface misses it by about 21 min, and the only measured precedent (Kaseman et al., 93 to 183 min of heat-up with 14 to 24 L vessels, cited in SCL-PRB-001) is slower still. With a 20 min hold (unwrapped) the central cycle is 71.1 min; at 600 W/m² it is 96.0 min.
 
 **Water.** In the central case the purge uses 0.044 kg and the hold 0.197 kg, leaving 1.26 kg, well above the 0.5 L of R10. The worst sea-level case, favourable optics at 1,000 W/m² with no trimming, leaves 0.81 kg. Under option B, however, holds grow with altitude and strong sun is common at altitude:
 
@@ -130,10 +134,10 @@ R4 (90 min or less in the design case) is met in the central case and **at risk*
 
 | Altitude | Steam | Hold | Cycle, central | Water left, central | Water left, 1,000 W/m² favourable, no trimming |
 | --- | --- | --- | --- | --- | --- |
-| 0 m | 121.0 °C | 30 min | 80 min | 1.26 kg | 0.81 kg |
-| 1,000 m | 119.1 °C | 46 min | 94 min | 1.15 kg | 0.50 kg |
-| 1,800 m | 117.7 °C | 63 min | 110 min | 1.02 kg | 0.15 kg |
-| 2,400 m | 116.7 °C | 80 min | 126 min | 0.89 kg | boils dry before the end of the hold |
+| 0 m | 121.0 °C | 30 min | 81 min | 1.26 kg | 0.81 kg |
+| 1,000 m | 119.1 °C | 46 min | 96 min | 1.15 kg | 0.50 kg |
+| 1,800 m | 117.7 °C | 63 min | 112 min | 1.02 kg | 0.15 kg |
+| 2,400 m | 116.7 °C | 80 min | 127 min | 0.89 kg | boils dry before the end of the hold |
 
 If the operator trims the dish off the sun so that only about 50 W vents during the hold, 1.31 kg is left at 1,800 m and 1.28 kg at 2,400 m, both at 1,000 W/m². Amish accepted the recommended trimming rule (SCL-DDR-002 item 17): the logger shows a trim reminder whenever the computed hold exceeds 40 min, which covers every site at 1,000 m and above, where an untrimmed hold in strong sun leaves 0.50 kg or less. With the rule, R10 (restated to include it) is **met**; it depends on the operator acting on the reminder, and the 140 °C base alarm stays as the backstop. Cycle time at altitude also exceeds 90 min at 1,000 m and above; R4 is defined at sea level.
 
@@ -159,26 +163,19 @@ The field check against boiling water needs care: near 100 °C the boiling point
 
 For the air-removal check (R12), the saturation temperature changes by 0.155 K per kPa near 205 kPa absolute. With the decided 0 to 300 kPa transducer the pressure error alone is 0.47 K and the combined check uncertainty is **0.64 K** against a 2 K threshold (0.89 K on the earlier 0 to 500 kPa part). That is 32 % of the threshold, inside a 3:1 test uncertainty ratio, so R12 is **met** on calculation, narrowly. A 2 K deficit means about 6.1 % air by volume; allowing for the uncertainty, the logger is sure to flag about 8 % air and may flag from about 2 %. The highest absolute pressure is 205 kPa in normal use and 226 kPa at relief lift, inside the span; the transducer's overpressure rating must exceed the relief set point, and the BOM asks for 600 kPa or more.
 
-## 8. Pressure safety and the lid options (R8)
+## 8. Pressure safety: canner, factory relief valve and adapter plate (R8)
+
+Amish decided the lid fittings on 2026-10-02 (SCL-DDR-001 item 5): the maker's lid is not drilled; the vessel is a pressure canner sold with its own gauge and relief valve; and the Pt100 probe's gland and the pressure transducer sit on an adapter plate screwed into the lid's own vent-pipe hole, with the maker's vent pipe and weighted regulator on top of the plate and the overpressure plug left untouched. A lid is drilled only with its maker's written approval. The two options compared in v0.3 are no longer open.
 
 The worst steam generation is the favourable optics at 1,000 W/m² with the sun overhead and no heat loss: 1,119 W absorbed, **0.51 g/s** of steam. Choked-flow capacities with a discharge coefficient of 0.6 are:
 
-- the regulator vent (3 mm bore, assumed): 1.36 g/s, 2.7 times the worst generation;
-- the independent relief valve (4 mm seat, assumed) at 125 kPa gauge: 2.66 g/s, 5.2 times the worst generation. Any seat of 1.8 mm or more would pass it.
+- the regulator's own vent (3 mm bore, assumed): 1.36 g/s, 2.7 times the worst generation;
+- the vent path through the adapter plate, a 6 mm bore round the 3 mm probe, equal in area to a 5.2 mm hole: 4.08 g/s, 8.0 times the worst generation, so the plate does not narrow the vent below the 3 mm the decision requires;
+- the canner's factory relief valve, if its seat is 4 mm or more and it is set at 125 kPa gauge or less: 2.66 g/s, 5.2 times the worst generation. Any seat of 1.8 mm or more would pass it. The seat and set pressure are purchase criteria for the chosen canner (BOM line 9), not known values.
 
-The pressure on the lid is 6.4 kN at 103.4 kPa and 7.7 kN at 125 kPa, over the 280 mm bore. R8 is **met** on capacity; the vessel's own rating can only be confirmed from the maker's data for the model chosen.
+The pressure on the lid is 6.4 kN at 103.4 kPa and 7.7 kN at 125 kPa, over the 280 mm bore. The adapter plate puts no new hole in the lid; at 125 kPa the pressure lifts it with about 10 N over the 10 mm vent-pipe hole, carried by its spigot thread and the nut under the lid. R8 is **met** on capacity; the vessel's own rating, and the relief valve's seat and set pressure, can only be confirmed from the maker's data for the model chosen, and the joint of the adapter plate needs the hydrostatic check of safety stop S6 (TRL 4 work).
 
-How the gauge, relief valve and probe gland are mounted is **open for Amish** (SCL-DDR-001 open item 5). The calculation applies to both options and does not choose between them:
-
-*Table 8. Lid options compared on calculable points only.*
-
-| Point | Option (i): drill the maker's lid | Option (ii): factory ports or an adapter plate on the regulator stem |
-| --- | --- | --- |
-| New holes in the maker's lid | 3 (two 11.1 mm tap drills for 1/4 in NPT, one 8.7 mm for 1/8 in NPT) | 0 |
-| Metal removed | 30.9 mm of drilled diameter, 0.41 % of the lid area | None from the lid |
-| Spacing | Smallest ligament between holes 67 mm; smallest distance to the bore 41 mm | Set by the maker or the adapter |
-| Relief and vent capacity | As above (5.2 and 2.7 times) | Same, provided the adapter keeps a vent bore of 3 mm or more (1.36 g/s) and leaves the overpressure plug untouched |
-| What a calculation cannot show | Whether the maker's rating still holds after drilling; the lid is not a flat plate and its design data are not public | Whether a factory-ported 12 L cooker exists in the target market, and the rating of an adapter joint |
+**The canner against the holder and R16.** The modelled canner keeps the 280 x 200 mm inside (12.3 L) and the 288 mm outside diameter of the cooker it replaces. Its handles, 229 mm from the centre, rest on the 408 mm holder ring, and the 338 mm jacket passes through the ring's 348 mm hole with 5 mm all round; its base sits on the focal plane, and the model's checks pass. At 4.8 kg as bought (indicative), the vessel with its adapter plate, jacket and basket weighs 5.9 kg, 0.3 kg more than in v0.3, and the empty total is 44.8 kg (section 10). A canner heavier than about 5.0 kg, or one whose handles sit lower or reach less than 214 mm, would need the holder or R16 revisited when the model is chosen.
 
 ## 9. Boil-dry and base temperature (R10)
 
@@ -186,25 +183,25 @@ At 121 °C the surplus is about 237 W. If the operator forgot to turn the dish a
 
 ## 10. Masses, handling and wind (R15, R16)
 
-Since v0.3 the masses of the structure come from the constructable model (SCL-DDR-003): each part's volume times its density (steel 7,850, aluminium 2,700 and timber 500 kg/m³), the petals at their real 0.5 mm thickness with their flanges and tabs, and catalogue masses for the castors and lock studs.
+Since v0.3 the masses of the structure come from the constructable model (SCL-DDR-003): each part's volume times its density (steel 7,850, aluminium 2,700 and timber 500 kg/m³), the petals at their real 0.5 mm thickness with their flanges and tabs, and catalogue masses for the castors, lock studs and drop pins. The canner is taken at its indicative mass as bought (section 8).
 
-*Table 9. Mass from the model's parts.*
+*Table 8. Mass from the model's parts.*
 
 | Group | Mass |
 | --- | --- |
 | Dish: petals (2.56 kg), ribs, rim band, hub plate, clips, gnomon and rivets | 12.0 kg |
 | Yoke plates and rim stand-offs | 3.3 kg |
-| Stand: timber (12.7 kg), castors, axle plates, axles, collars, brackets, lock studs and bolts | 18.9 kg |
+| Stand: timber (12.6 kg), castors, axle plates, axles, collars, brackets, lock studs, drop pins and bolts | 19.1 kg |
 | Pot holder: ring, arms, brackets and bolts | 3.5 kg |
-| Vessel with fittings, jacket and basket | 5.6 kg |
+| Canner with its fittings, adapter plate, jacket and basket | 5.9 kg |
 | Logger, transducer, cable and power bank | 1.0 kg |
-| **Empty total** | **44.4 kg** (47.9 kg loaded) |
+| **Empty total** | **44.8 kg** (48.3 kg loaded) |
 
-The total is 44.4 kg against the 45 kg of R16 (relaxed by SCL-DDR-002 item 14), so R16 is **met** with 0.6 kg of margin; v0.2 estimated 41.0 kg before the clips, plates, brackets and bolts of the constructable design were counted. The stand now bolts together and comes apart, so the handling pieces are the dish with its yoke plates (15.4 kg), each stand side frame (6.0 kg), each cross rail with its castors (3.4 kg), the bolted-on holder and logger (4.5 kg) and the empty vessel (5.6 kg), all within 20 kg.
+The total is 44.8 kg against the 45 kg of R16 (relaxed by SCL-DDR-002 item 14), so R16 is **met** with 0.2 kg of margin (0.6 kg in v0.3; the canner, its adapter plate, the drop pins and the longer axle plates add 0.4 kg); v0.2 estimated 41.0 kg before the clips, plates, brackets and bolts of the constructable design were counted. Amish accepted the thin margin on 2026-10-02 (SCL-DDR-003 A1): the prototype is weighed at TRL 4, with 5 mm yoke plates and lighter holder arms ready if it is over. The stand bolts together and comes apart, so the handling pieces are the dish with its yoke plates (15.3 kg), each stand side frame (6.1 kg), each cross rail with its castors (3.4 kg), the bolted-on holder and logger (4.5 kg) and the empty vessel (5.9 kg), all within 20 kg.
 
-The loaded vessel's centre of mass sits about 98 mm above its base, which lies on the tilt axis. A holder free to swing on that axis would be top-heavy, so the holder ring is fixed to the uprights and only the dish and yoke plates turn on the axles. The tilting group (15.4 kg) has its centre of mass 321 mm from the axis, so the locks carry up to 45.4 N·m of gravity torque at 15° elevation (v0.2: 37.9 N·m for the dish alone). Each of the two star-knob locks clamps the yoke plate's fan on both faces at a 150 mm radius; with a steel-on-steel friction coefficient of 0.3 each needs a clamp force of about 252 N, against about 2,000 N from a hand-tight M10.
+The loaded vessel's centre of mass sits about 96 mm above its base, which lies on the tilt axis. A holder free to swing on that axis would be top-heavy, so the holder ring is fixed to the uprights and only the dish and yoke plates turn on the axles. The tilting group (15.3 kg) has its centre of mass 322 mm from the axis, so the locks carry up to 45.4 N·m of gravity torque at 15° elevation (v0.2: 37.9 N·m for the dish alone). Each of the two star-knob locks clamps the yoke plate's fan on both faces at a 140 mm radius (150 mm until 2026-10-02, moved inward to make room for the drop pin holes); with a steel-on-steel friction coefficient of 0.3 each needs a clamp force of about 270 N, against about 2,000 N from a hand-tight M10. As a back-up stop (SCL-DDR-003 A2, decided 2026-10-02), a drop pin each side passes through one of eleven holes on a 163 mm radius in the fan and a 7.5° slot in the axle plate: if a lock slips, the dish turns at most 7.5° before the pin stops it, and a pin then carries at most 45.4 / 0.163 = 279 N in shear, far below what an 8 mm steel pin carries. Whether the pins can later be removed depends on the TRL 4 slip test (the locks must hold at least twice the 45 N·m worst torque).
 
-**Wind at 10 m/s** (60 Pa): the dish is taken as a plate with a drag coefficient of 1.4 when the wind blows onto the reflector and 1.2 onto the back, acting at the aperture centre, with the vessel and uprights added. The worst case is a low sun (15° elevation) with the wind blowing onto the reflector, because the dish then leans over the lee castor line: 153 N, 134 N·m overturning against 185 N·m restoring, a factor of **1.38** (1.30 in v0.2, before the heavier tilting group and the wider castor line of the constructable stand). Every other case is 1.61 or better. The tipping line is taken at the castor centres, 515 mm from the middle, less 25 mm for the swivel offset. R15 (does not tip) is met on this estimate, but with a thin margin it is recorded as **at risk**. The same 153 N exceeded the 109 N of grip from the two locked castors of v0.1 (friction coefficient 0.5), so the stand would have rolled before it tipped. With the decided four locking castors (SCL-DDR-002 item 16) the grip is 235 N, 1.5 times the wind force. The tipping factor is unchanged, so R15 stays **at risk**, and the decided rule is to park the dish face-up in high wind.
+**Wind at 10 m/s** (60 Pa): the dish is taken as a plate with a drag coefficient of 1.4 when the wind blows onto the reflector and 1.2 onto the back, acting at the aperture centre, with the vessel and uprights added. The worst case is a low sun (15° elevation) with the wind blowing onto the reflector, because the dish then leans over the lee castor line: 153 N, 134 N·m overturning against 187 N·m restoring, a factor of **1.40** (1.38 in v0.3 and 1.30 in v0.2; the heavier canner adds restoring weight). Every other case is 1.62 or better. The tipping line is taken at the castor centres, 515 mm from the middle, less 25 mm for the swivel offset. R15 (does not tip) is met on this estimate, but with a thin margin it is recorded as **at risk**. The same 153 N exceeded the 109 N of grip from the two locked castors of v0.1 (friction coefficient 0.5), so the stand would have rolled before it tipped. With the decided four locking castors (SCL-DDR-002 item 16) the grip is 237 N, 1.5 times the wind force. The tipping factor is unchanged, so R15 stays **at risk**, and the decided rule is to park the dish face-up in high wind.
 
 ## 11. Logger power and record (R6, R13)
 
@@ -212,33 +209,33 @@ The logger draws about 0.31 W (ESP32, sensors, OLED and microSD), or 2.9 Wh for 
 
 ## 12. Cost (R17)
 
-Value-engineering target: USD 450 (`budget_usd`, a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 497 for parts (every line of `bom/bom.csv` except item 18), USD 47 over the target. In v0.2 the parts came to USD 440; making the design constructable (SCL-DDR-003) respecified and repriced lines 1 to 5, 14, 16 and 17 and added USD 57, mostly the yoke plates and locks (line 3), the axle plates, axles and brackets (line 4), the plate ring (line 5), the larger logger box with plug-in leads (line 14) and more bolts (line 17). Validation consumables (item 18, USD 45) are excluded, as R17 states. All prices are indicative estimates by supplier type, not quotes. The main cost drivers and the savings worth trying are in the design decisions register (SCL-DEC-001, Value engineering).
+Value-engineering target: USD 450. Estimated cost of the constructable design: USD 528 (USD 78 over the target). The target is `budget_usd`, a hypothetical control target, not a limit; the cost is for parts (every line of `bom/bom.csv` except item 18). In v0.3 it was USD 497: the decisions of 2026-10-02 add USD 31, from the pressure canner sold with its gauge and relief valve (line 6, USD 55 to 100) in place of the household cooker and the separate gauge and relief valve (lines 8 and 9, USD 35, now supplied with the canner), the vent-stem adapter plate (line 10, USD 30 to 45) and the drop pins and lanyards (line 3, USD 30 to 36). In v0.2 the parts came to USD 440; making the design constructable (SCL-DDR-003) respecified and repriced lines 1 to 5, 14, 16 and 17 and added USD 57, mostly the yoke plates and locks (line 3), the axle plates, axles and brackets (line 4), the plate ring (line 5), the larger logger box with plug-in leads (line 14) and more bolts (line 17). Validation consumables (item 18, USD 45) are excluded, as R17 states. All prices are indicative estimates by supplier type, not quotes. The main cost drivers and the savings worth trying are in the design decisions register (SCL-DEC-001, Value engineering).
 
 ## 13. Results against every requirement
 
-*Table 10. Requirement status at TRL 3 (also in `docs/04-calcs/results.csv`).*
+*Table 9. Requirement status at TRL 3 (also in `docs/04-calcs/results.csv`).*
 
 | ID | Requirement | Value (central unless stated) | Target (SCL-REQ-001 v0.5) | Status |
 | --- | --- | --- | --- | --- |
 | R1 | Sterilizing condition (redefined) | 120.95 °C and 30.3 min at 0 m; 117.7 °C and 63 min at 1,800 m | Exposure equal to 20 or 30 min at 121 °C (z = 10 °C), 115 to 124 °C, real temperature recorded | Not verifiable at TRL 3 |
-| R2 | Load capacity | Basket 250 x 150 mm in a 12.3 L cooker, 16 mm above the water | Basket 250 x 150 mm or more; 2.0 kg | Met |
+| R2 | Load capacity | Basket 250 x 150 mm in a 12.3 L canner, 16 mm above the water | Basket 250 x 150 mm or more; 2.0 kg | Met |
 | R3 | Load type | Solid instruments, unwrapped or single-wrapped | No lumened, hollow or textile loads | Met |
-| R4 | Cycle time | 80 min (71 to 109 min) | 90 min or less | At risk |
+| R4 | Cycle time | 81 min (72 to 111 min) | 90 min or less | At risk |
 | R5 | Daily throughput | 4 cycles in every case of Table 7 | 3 or more | Met |
 | R6 | Cycle record | 173 kB per cycle; about 23,000 cycles on 4 GB | 1 s logging; 1,000 cycles | Met |
 | R7 | Measurement accuracy | 0.44 K (0.05 % reference); 3 kPa (0 to 300 kPa) | 0.5 K; 5 kPa | Met |
-| R8 | Pressure safety | Relief 5.2 times, vent 2.7 times the worst steam generation | Relief 125 kPa gauge or less; vessel rated by its maker | Met |
+| R8 | Pressure safety | Factory relief valve 5.2 times, vent 2.7 times the worst steam generation; adapter bore equal to a 5.2 mm hole; lid not drilled | Relief 125 kPa gauge or less; vessel rated by its maker | Met |
 | R9 | Heat input control | Below 5 % of power at 15° off the sun; parking cover | Stop within 10 s; dish shaded when parked | Met |
 | R10 | Boil-dry protection (restated) | 1.26 kg left (design); with the trimming rule 1.31 kg at 1,800 m and 1.28 kg at 2,400 m, 1,000 W/m² (0.15 kg at 1,800 m untrimmed) | 0.5 L left in the design case and, with the trimming rule, at altitude; trim reminder; alarm at 140 °C | Met |
 | R11 | Burn and glare protection (restated) | Whole vessel and fittings a marked hot zone, reached only with the dish 15° off the sun; parking cover, goggles and keep-out marking in the BOM | Vessel and fittings a marked hot zone; focus reachable only through the dish; eye protection; keep-out marked | Met (design review) |
 | R12 | Air-removal check | Check uncertainty 0.64 K (0 to 300 kPa transducer); sure to flag 8 % air | Flag a hold more than 2 K below saturation | Met |
 | R13 | Logger power (redefined) | 8.7 days on a 10,000 mAh bank | 3 days without charging; USB recharge | Met |
 | R14 | Tracking effort (relaxed) | 90 % of on-target power held for about 13 min | Retarget no more often than every 12 min; logger reminder | Met |
-| R15 | Stability | Tipping factor 1.38 (15° elevation); four locked castors grip 235 N against 153 N of wind | Does not tip at 10 m/s | At risk |
-| R16 | Portability and build (relaxed) | 44.4 kg empty; largest piece 15.4 kg | 45 kg or less; pieces 20 kg or less | Met |
-| R17 | Cost (redefined) | USD 497 | USD 450 value-engineering target for parts | Over the target by USD 47 |
+| R15 | Stability | Tipping factor 1.40 (15° elevation); four locked castors grip 237 N against 153 N of wind | Does not tip at 10 m/s | At risk |
+| R16 | Portability and build (relaxed) | 44.8 kg empty; largest piece 15.3 kg | 45 kg or less; pieces 20 kg or less | Met |
+| R17 | Cost (redefined) | USD 528 | USD 450 value-engineering target for parts | Over the target by USD 78 |
 
-Summary: 13 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1), 0 not met, and R17 reported against the value-engineering target (USD 47 over). In v0.1 the count was 9 met, 4 at risk (R4, R10, R12, R15), 1 not verifiable and 3 not met (R11, R14, R16); the change comes from the decisions in SCL-DDR-002, of which R14, R16 and R11 are relaxed or restated targets rather than design improvements.
+Summary: 13 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1), 0 not met, and R17 reported against the value-engineering target (USD 78 over). No status changed in v0.4. In v0.1 the count was 9 met, 4 at risk (R4, R10, R12, R15), 1 not verifiable and 3 not met (R11, R14, R16); the change comes from the decisions in SCL-DDR-002, of which R14, R16 and R11 are relaxed or restated targets rather than design improvements.
 
 ## 14. Checks against earlier claims
 
@@ -247,11 +244,11 @@ The TRL 2 documents stated several numbers that this note corrects; SCL-PRC-001 
 - Steam at sea level: 121.1 °C claimed, **120.95 °C** calculated; 121 °C "below about 300 m" claimed, **sea level only**.
 - Absorbed power: about 710 W claimed, **663 W** (ray trace, 60° sun); shading about 11 %, not 5 %.
 - Loss at 121 °C: about 200 W claimed, **395 W**.
-- Cold start to 121 °C: about 35 min claimed, **49.3 min** central.
+- Cold start to 121 °C: about 35 min claimed, **50.8 min** central.
 - Peak flux on the base: 30 to 50 kW/m² claimed, **about 270 kW/m²** in the hottest 20 mm cell.
 - Pointing tolerance: about 8° claimed, **3.1°** to 90 % of on-target power.
 - Cycles per day: about 3 claimed, **4** (faster warm restarts).
-- Wind: 110 N·m against 180 N·m claimed, **134 N·m against 185 N·m** at the worst tilt.
-- Mass: about 32 to 33 kg claimed, **44.4 kg** with the decided timber stand and the constructable design.
+- Wind: 110 N·m against 180 N·m claimed, **134 N·m against 187 N·m** at the worst tilt.
+- Mass: about 32 to 33 kg claimed, **44.8 kg** with the decided timber stand, the constructable design and the canner.
 - Basket: 270 x 180 mm claimed; it does not fit a 12 L cooker, so it is now **250 x 150 mm**, the R2 minimum.
 - Logger autonomy: about 5 days on the panel and cell, now **8.7 days** on the decided power bank.

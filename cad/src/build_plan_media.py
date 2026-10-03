@@ -4,7 +4,7 @@ Run from the repo root:  python cad/src/build_plan_media.py [overview|sheets|lay
 With no argument it draws everything; `sheets 107` draws one making sketch. Every picture is drawn
 from cad/src/model.py, so the pictures and the model never disagree:
     docs/05-build-plan/overview.png        every component pulled apart, numbered in build order
-    cad/drawings/SCL-DWG-101 to 118        making sketches for the made components
+    cad/drawings/SCL-DWG-101 to 120        making sketches for the made components
     docs/05-build-plan/petal-pattern.png   flat pattern of one petal
     docs/05-build-plan/yoke-layout.png     hole and slot positions on the yoke plate
     docs/05-build-plan/joint-NN.png        close-ups of the joints that need explaining
@@ -25,6 +25,7 @@ from model import PARAMS as P  # noqa: E402
 OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
 DATE = "2026-10-01"
+DATE2 = "2026-10-02"          # sheets changed for the decisions of 2026-10-02 (drop pin, adapter plate)
 D = M.derived(P)
 ELEV = 50.0
 C = M.build_components(P, elev=ELEV)
@@ -40,7 +41,8 @@ COL = {"cross_rails": "#92400E", "side_rails": "#A16207", "uprights": "#B45309",
        "arms": "#155E75", "arm_brackets": "#0369A1", "holder_bolts": "#111827", "body": "#4B5563", "lid": "#9CA3AF",
        "gauge": "#64748B", "relief": "#DC2626", "gland": "#7C3AED", "transducer": "#7C3AED", "jacket": "#FDE68A",
        "water": "#38BDF8", "basket": "#0F766E", "load": "#E5E7EB", "thermocouple": "#B91C1C",
-       "logger_box": "#115E59", "power_bank": "#1E3A8A", "logger_board": "#16A34A", "cable": "#111827"}
+       "logger_box": "#115E59", "power_bank": "#1E3A8A", "logger_board": "#16A34A", "cable": "#111827",
+       "drop_pins": "#DB2777", "adapter": "#0891B2"}
 
 
 def part(name, shape, color, explode=(0, 0, 0), alpha=1.0):
@@ -109,13 +111,13 @@ def overview():
         ("gnomon", "Gnomon on its bracket", ("gnomon",), (dx, -150, 1050)),
         ("standoffs", "Rim stand-offs", ("standoffs", "standoff_screws"), (dx, 0, 820)),
         ("yoke_plates", "Yoke plates", ("yoke_plates",), (dx, 0, 1050)),
-        ("lock_studs", "Lock studs and star knobs", ("lock_studs",), (0, 0, 920)),
+        ("lock_studs", "Lock studs, star knobs and drop pins", ("lock_studs", "drop_pins"), (0, 0, 920)),
         ("arms", "Holder arms and brackets", ("arms", "arm_brackets"), (0, 0, 1000)),
         ("ring", "Holder ring", ("ring",), (0, 0, 1250)),
-        ("body", "Cooker, painted, with thermocouple", ("body", "thermocouple"), (1500, 0, 0)),
+        ("body", "Canner, painted, with thermocouple", ("body", "thermocouple"), (1500, 0, 0)),
         ("jacket", "Insulated jacket", ("jacket",), (1500, 0, 380)),
         ("basket", "Basket and trivet", ("basket",), (1500, 0, -560)),
-        ("lid", "Lid, fittings, sensors", ("lid", "gauge", "relief", "gland", "transducer"), (1500, 0, 640)),
+        ("lid", "Lid, factory gauge and relief valve, adapter plate, sensors", ("lid", "gauge", "relief", "adapter", "gland", "transducer"), (1500, 0, 640)),
         ("logger_box", "Logger box, power bank, cable", ("logger_box", "power_bank", "logger_board"), (450, -450, -250)),
     ]
     parts = [part(n, SS(*ks), COL[k], off) for k, n, ks, off in items]
@@ -135,9 +137,9 @@ def sheet(no):
     return deco
 
 
-def _cs(key_part, neighbours, no, title, material, notes, view_shape=None, inset=(24, -58)):
+def _cs(key_part, neighbours, no, title, material, notes, view_shape=None, inset=(24, -58), date=DATE):
     return bv.component_sheet(key_part, neighbours, project="SunClave", dwg_no=f"SCL-DWG-{no}", title=title,
-                              material=material, notes=notes, date=DATE, view_shape=view_shape, inset_view=inset)
+                              material=material, notes=notes, date=date, view_shape=view_shape, inset_view=inset)
 
 
 def _g(key):
@@ -190,13 +192,15 @@ def s103():
                 "  square to the face, on the centre line of the 70 mm face:",
                 f"  brace bolt 10.5 mm at {P['BRACE_Z'] - D['z_sr'][1]:.0f}; lock stud 10.5 mm at {FZ + P['LOCK_Z'] - D['z_sr'][1]:.0f};",
                 f"  axle 20.5 mm at {FZ - D['z_sr'][1]:.0f}; plate bolt 10.5 mm at {FZ + P['PLATE_BOLT_Z'] - D['z_sr'][1]:.0f};",
-                f"  arm bracket bolt 8.5 mm at {D['upr_top'] - 20 - D['z_sr'][1]:.0f}.",
+                f"  arm bracket bolt 8.5 mm at {D['upr_top'] - 20 - D['z_sr'][1]:.0f}; drop pin slot 10 x 32 mm at",
+                f"  {FZ - P['PIN_R'] - D['z_sr'][1]:.0f} (two 10 mm holes 22 mm apart, chisel between).",
                 "Foot bracket bolt: 8.5 mm through the 70 mm way, 28 mm up.",
+                f"Lanyard eye screw: outer face, {P['PIN_EYE'][0]:.0f} mm off centre, at {FZ + P['PIN_EYE'][1] - D['z_sr'][1]:.0f}.",
                 "The axle hole sets the focus height: drill it from both faces",
                 "  with a long bit after a 6 mm pilot, so it stays square.",
                 "Fit: stands on the middle of a side rail; the axle plate goes on",
                 "  the inner face, the logger box on the outer face of one upright.",
-                "Check: the axle holes of both uprights are at the same height."], inset=(22, -55))
+                "Check: the axle holes of both uprights are at the same height."], inset=(22, -55), date=DATE2)
 
 
 @sheet(104)
@@ -226,9 +230,13 @@ def s105():
     ap = kids("axle_plates")[0]
     return _cs(part("Axle plate", ap, COL["axle_plates"]), [_g("uprights"), _g("axles"), _g("yoke_plates")], 105,
                "SunClave axle plate (make 2): making sketch", "Steel flat bar 70 x 6 mm", inset=(20, -40),
-               notes=["Make two. Cut 270 mm of 70 x 6 mm steel flat bar; deburr.",
+               date=DATE2,
+               notes=[f"Make two. Cut {P['AXLE_PLATE'][2]:.0f} mm of 70 x 6 mm steel flat bar; deburr.",
                       "Three holes on the centre line, measured from the top end:",
-                      "  bolt 11 mm at 25; axle 20.5 mm at 105; lock stud 11 mm at 255.",
+                      f"  bolt 11 mm at 25; axle 20.5 mm at 105; lock stud 11 mm at {105 - P['LOCK_Z']:.0f}.",
+                      f"Drop pin slot: 8.5 mm wide on a {P['PIN_R']:.0f} mm radius from the axle",
+                      f"  hole, centred {105 + P['PIN_R']:.0f} from the top, {P['PIN_PITCH']:.1f} degrees long (21 mm",
+                      "  between the end centres): drill both ends, saw and file between.",
                       "Drill the axle hole in steps (6, 12, 18, 20.5 mm) on a drill",
                       "  press, the plate clamped flat.",
                       "Paint or galvanise; leave the face around the axle bare and",
@@ -392,15 +400,17 @@ def s114():
     yp_flat = b.extrude(M.yoke_plate_2d(P), amount=P["YOKE_T"])
     return _cs(part("Yoke plate", kids("yoke_plates")[0], COL["yoke_plates"]),
                [_g("axle_plates"), _g("uprights"), _g("standoffs"), _g("rim")], 114,
-               "SunClave yoke plate (make 2): making sketch", "Steel plate 6 mm", view_shape=yp_flat, inset=(15, -30),
+               "SunClave yoke plate (make 2): making sketch", "Steel plate 6 mm", view_shape=yp_flat, inset=(15, -30), date=DATE2,
                notes=["Make two, a left and a right: the same outline, countersunk on",
                       "  opposite faces. Cut from 6 mm steel plate by jigsaw or a",
                       "  local cutting shop to the yoke layout picture: a 40 mm radius",
                       f"  hub, a 60 mm wide arm {D['standoff_r']:.1f} mm to the stand-off holes,",
                       "  and a fan from 125 to 175 mm radius.",
                       "Axle hole 20.5 mm at the hub centre, reamed smooth.",
-                      "Lock slot 11 mm wide on a 150 mm radius, from the arm's line",
+                      f"Lock slot 11 mm wide on a {P['SLOT_R']:.0f} mm radius, from the arm's line",
                       "  round 75 degrees toward the fan's far edge.",
+                      f"Drop pin holes: eleven 8.5 mm on a {P['PIN_R']:.0f} mm radius, the first",
+                      f"  on the arm's line, then every {P['PIN_PITCH']:.1f} degrees along the slot.",
                       "Stand-off holes: two 9 mm, 30 mm apart, countersunk 90 degrees",
                       "  on the outer face so the M8 heads sit flush.",
                       "Fit: the outer face runs on the PTFE washer by the axle plate.",
@@ -445,9 +455,9 @@ def s117():
                       "Two 9 mm holes on a 378 mm diameter, opposite each other.",
                       "File the inner edge smooth; paint with heat-resistant paint.",
                       "Fit: it lies on the two holder arms, one M8 bolt into each;",
-                      "  the cooker drops through it and hangs by its two handles.",
+                      "  the canner drops through it and hangs by its two handles.",
                       "  The jacket clears the inner edge by 5 mm all round.",
-                      "Check: the cooker body and jacket pass through without touching."])
+                      "Check: the canner body and jacket pass through without touching."], date=DATE2)
 
 
 @sheet(118)
@@ -459,11 +469,53 @@ def s118():
                notes=["Cut a strip of 25 mm aluminised blanket 96 mm wide and 1,010 mm",
                       "  long, foil outward; wear gloves, a dust mask and glasses.",
                       "Bind both long edges with aluminised tape.",
-                      "Fit: wrap it round the cooker wall from 80 mm above the base to",
+                      "Fit: wrap it round the canner wall from 80 mm above the base to",
                       "  30 mm below the rim, butt the ends and tape the joint.",
                       "  Hold it with two stainless strap clamps, 12 mm from each edge.",
                       "The lowest 80 mm of wall and the base stay bare and black.",
-                      "Check: it stops below the handles and clears the ring by 5 mm."])
+                      "Check: it stops below the handles and clears the ring by 5 mm."], date=DATE2)
+
+
+@sheet(119)
+def s119():
+    import build123d as b
+    pr = [k for k in kids("drop_pins") if k.bounding_box().center().X > 0][0]
+    L_ = D["xo"] + 8 - D["x_yoke"]
+    return _cs(part("Drop pin", pr, COL["drop_pins"]), [_g("uprights"), _g("axle_plates"), _g("yoke_plates")], 119,
+               "SunClave drop pin and lanyard (make 2): making sketch", "Bright steel round bar 8 mm, steel ring, stainless wire",
+               inset=(20, -40), date=DATE2,
+               notes=[f"Make two. Cut {L_ - 8:.0f} mm of 8 mm bright steel bar; chamfer",
+                      "  one end 1 mm so it finds the hole.",
+                      "Head: a steel washer 18 mm across, 8 mm thick (or two",
+                      "  washers), pinned or glued on the other end; or buy a",
+                      f"  ready-made 8 mm locking pin about {L_:.0f} mm long.",
+                      "Lanyard: 300 mm of stainless wire rope with crimped loops,",
+                      "  from the head to an eye screw on the upright's outer face.",
+                      "Fit: push it in from outside the stand, through the slot",
+                      "  in the upright, the slot in the axle plate and the",
+                      "  fan hole that shows in the slot; its tip ends flush with",
+                      "  the fan's inner face. Pull it out to re-aim the dish.",
+                      "Check: it slides in and out by hand at every aim."])
+
+
+@sheet(120)
+def s120():
+    al, aw_, ah = P["ADAPTER"]
+    return _cs(part("Adapter plate", C["adapter"].shape, COL["adapter"]), [_g("lid"), _g("gland"), _g("transducer")], 120,
+               "SunClave vent-stem adapter plate: making sketch", "Stainless steel bar 40 x 20 mm, threaded spigot and nut",
+               inset=(30, -60), date=DATE2,
+               notes=[f"Have a machine shop make it: {al:.0f} x {aw_:.0f} x {ah:.0f} mm stainless block",
+                      "  with a threaded spigot underneath that fits the canner's",
+                      f"  own vent-pipe hole ({P['LID_PORT_D']:.0f} mm here: measure the canner) and a",
+                      "  nut and high-temperature gasket to clamp it to the lid.",
+                      f"Bore {P['PORT_D']:.0f} mm up through the spigot to the gland port on top.",
+                      f"Two side ports on top, {P['VENT_X']:.0f} mm each side of the centre: the",
+                      "  canner's own vent pipe (its thread) and 1/4 in NPT for the",
+                      "  transducer; drill a 4 mm passage from the bore to each.",
+                      "Gland port 1/8 in NPT on the centre for the probe gland.",
+                      "The lid itself is not drilled; the overpressure plug stays.",
+                      "Check: with the probe in, a 3 mm drill passes the vent",
+                      "  passage, and a 2.5 mm wire passes beside the probe."])
 
 
 def sheets(which=None):
@@ -554,21 +606,27 @@ def layouts():
     ax.plot([-200, 60], [0, 0], color=MUT, lw=0.5, ls=(0, (8, 3, 2, 3)))
     ax.annotate("axle 20.5 mm\nat the centre", (0, 0), (48, 40), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
     a_mid = math.radians(-128)
-    ax.annotate("lock slot 11 mm wide,\n150 mm radius,\nfrom the arm line\n75 degrees round", (150 * math.cos(a_mid), 150 * math.sin(a_mid)),
-                (-235, -250), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
+    sr, pr_ = P["SLOT_R"], P["PIN_R"]
+    ax.annotate(f"lock slot 11 mm wide,\n{sr:.0f} mm radius,\nfrom the arm line\n75 degrees round", (sr * math.cos(a_mid), sr * math.sin(a_mid)),
+                (-300, -250), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
+    a_p = math.radians(-157.5)
+    ax.annotate(f"drop pin holes: eleven 8.5 mm\non a {pr_:.0f} mm radius,\nevery {P['PIN_PITCH']:.1f} degrees", (pr_ * math.cos(a_p), pr_ * math.sin(a_p)),
+                (-345, -125), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
     ax.annotate(f"two 9 mm holes, 30 mm apart,\n{Ls:.1f} mm from the axle centre,\ncountersunk on the outer face", (15, -Ls), (40, -Ls + 40),
                 fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
-    ax.annotate("fan: 125 to 175 mm radius", (-175 * math.cos(math.radians(10)), -175 * math.sin(math.radians(10))), (-235, 40),
+    ax.annotate("fan: 125 to 175 mm radius", (-175 * math.cos(math.radians(10)), -175 * math.sin(math.radians(10))), (-300, 55),
                 fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
     ax.annotate("hub 40 mm radius", (28, 28), (60, 90), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
     ax.annotate("arm 60 mm wide", (30, -150), (70, -170), fontsize=7.5, color=INK, arrowprops=dict(arrowstyle="-", color=MUT, lw=0.5))
-    ax.set_xlim(-250, 160); ax.set_ylim(-Ls - 60, 120)
+    ax.set_xlim(-350, 160); ax.set_ylim(-Ls - 60, 120)
     fig.text(0.04, 0.975, "Yoke plate: layout (make 2, a left and a right)", fontsize=13, fontweight="bold", color=INK, va="top")
     fig.text(0.04, 0.945, "6 mm steel plate, the right-hand plate seen from its outer face (the face that runs on the axle plate), arm pointing down.\nThe left-hand plate is the same outline turned over. Sizes in mm, from the model.",
              fontsize=8.2, color=MUT, va="top")
     keyt = ["How the lock works", "", "The lock stud stays still in the", "upright. As the dish tilts from", "90 degrees (pointing straight up)",
             "to 15 degrees (low sun), the slot", "slides past the stud.", "", "At 90 degrees the stud sits at the", "end of the slot on the arm line;",
-            "at 15 degrees, at the far end.", "", "Tighten the star knob to clamp the", "fan; loosen it to tilt."]
+            "at 15 degrees, at the far end.", "", "Tighten the star knob to clamp the", "fan; loosen it to tilt.", "",
+            "Back-up stop: a drop pin goes", "through the upright, the short slot", "in the axle plate and whichever",
+            "hole shows in the slot. If a lock", "slips, the dish turns at most", f"{P['PIN_PITCH']:.1f} degrees before the pin stops it."]
     for i, t in enumerate(keyt):
         fig.text(0.70, 0.86 - i * 0.03, t, fontsize=8.4, color=INK, va="top", fontweight="bold" if i == 0 else "normal")
     fig.text(0.04, 0.02, "BUILD PLAN ILLUSTRATION, PLAN NOT YET BUILT", fontsize=7, color=WARN)
@@ -639,8 +697,9 @@ def joints(which=None):
     J(6, [part("Upright (timber)", win(C["uprights"].shape, *b), COL["uprights"]),
           part("Axle plate", win(C["axle_plates"].shape, *b), COL["axle_plates"]),
           part("Yoke plate fan (slot)", win(C["yoke_plates"].shape, *b), COL["yoke_plates"]),
-          part("Lock stud, spacer, washer, star knob", win(C["lock_studs"].shape, *b), COL["lock_studs"])],
-      "tilt lock (right side), cut open through the stud", "Tighten the knob: the fan is clamped between the spacer and the washer",
+          part("Lock stud, spacer, washer, star knob", win(C["lock_studs"].shape, *b), COL["lock_studs"]),
+          part("Drop pin, lanyard and eye screw (back-up stop)", win(C["drop_pins"].shape, *b), COL["drop_pins"])],
+      "tilt lock and drop pin (right side), cut open", "Knob tight: the fan is clamped. The drop pin, pushed in from outside, stops the dish if the lock slips",
       cut="+Y", elev=12, azim=-80, size=(8, 6))
     # dish joints in the dish frame (dish face up)
     a = M.rib_angles(P)[0]
@@ -693,10 +752,10 @@ def joints(which=None):
     b = (120, 260, -50, 50, at - 40, D["ring_top"] + 30)
     J(12, [part("Holder arm", win(C["arms"].shape, *b), COL["arms"]),
            part("Holder ring", win(C["ring"].shape, *b), COL["ring"]),
-           part("Cooker wall and handle", win(C["body"].shape, *b), COL["body"]),
+           part("Canner wall and handle", win(C["body"].shape, *b), COL["body"]),
            part("Jacket", win(C["jacket"].shape, *b), COL["jacket"]),
            part("M8 bolt", win(C["holder_bolts"].shape, *b), "#111827")],
-      "cooker handle on the holder ring (right side), cut open", "The handle rests on the ring; the jacket clears the ring by 5 mm",
+      "canner handle on the holder ring (right side), cut open", "The handle rests on the ring; the jacket clears the ring by 5 mm",
       cut="+Y", elev=15, azim=-70, size=(8, 6))
     # 13 gnomon bracket on the rim (dish frame)
     g = rot_z(loc("gnomon"), -270)
@@ -804,11 +863,14 @@ def steps(which=None):
        "axles, thrust washers and collars", "Each axle pushed in from outside through the upright, plate, washer and yoke plate; grease; collars set",
        elev=18, azim=-30, label_done=False)
     sl_, sr_ = sides(C["lock_studs"].shape)
+    pl2, pr2 = sides(C["drop_pins"].shape)
     st(14, frame2 + [part("Axles", piv, "#D1D5DB")], [mv(part("Left lock stud, spacer, star knob", sl_, COL["lock_studs"]), (-200, 0, 0)),
-                                                       mv(part("Right lock stud, spacer, star knob", sr_, COL["lock_studs"]), (200, 0, 0))],
-       "lock studs and star knobs", "Each stud in from outside through the upright, plate and slot; spacer behind the slot, washer and knob in front",
+                                                       mv(part("Right lock stud, spacer, star knob", sr_, COL["lock_studs"]), (200, 0, 0)),
+                                                       mv(part("Left drop pin on its lanyard", pl2, COL["drop_pins"]), (-320, 0, -60)),
+                                                       mv(part("Right drop pin on its lanyard", pr2, COL["drop_pins"]), (320, 0, -60))],
+       "lock studs, star knobs and drop pins", "Studs in from outside through upright, plate and slot; then each drop pin in from outside through the hole that shows in the plate slot",
        elev=18, azim=-30, label_done=False)
-    frame3 = frame2 + [part("Axles", piv, "#D1D5DB"), g("lock_studs")]
+    frame3 = frame2 + [part("Axles", piv, "#D1D5DB"), g("lock_studs"), g("drop_pins")]
     st(15, frame3, [mv(part("Holder arms and brackets", S("arms", "arm_brackets"), COL["arms"]), (0, 0, 220))],
        "holder arms", "Brackets on the inner faces of the uprights, then each arm on the upright's top and its bracket; M8 bolts",
        elev=22, azim=-50, label_done=False)
@@ -820,13 +882,14 @@ def steps(which=None):
        "logger box", "On the outer face of the right upright, below the lock stud; two screws through the back of the box",
        elev=18, azim=-30, label_done=False)
     frame6 = frame5 + [part("Logger", S("logger_box", "power_bank", "logger_board"), "#D1D5DB")]
-    st(18, frame6, [mv(part("Cooker with jacket, thermocouple, water and basket", S("body", "jacket", "thermocouple", "water", "basket"), COL["body"]), (0, 0, 350))],
-       "cooker into the holder ring", "Lowered straight down through the ring until both handles rest on it; dish turned away from the sun",
+    st(18, frame6, [mv(part("Canner with jacket, thermocouple, water and basket", S("body", "jacket", "thermocouple", "water", "basket"), COL["body"]), (0, 0, 350))],
+       "canner into the holder ring", "Lowered straight down through the ring until both handles rest on it; dish turned away from the sun",
        elev=25, azim=-55, label_done=False)
-    frame7 = frame6 + [part("Cooker", S("body", "jacket", "thermocouple"), "#D1D5DB")]
-    st(19, frame7, [mv(part("Lid with fittings and sensors", S("lid", "gauge", "relief", "gland", "transducer"), COL["lid"]), (0, 0, 220)),
+    frame7 = frame6 + [part("Canner", S("body", "jacket", "thermocouple"), "#D1D5DB")]
+    st(19, frame7, [mv(part("Lid with its factory gauge and relief valve", S("lid", "gauge", "relief"), COL["lid"]), (0, 0, 220)),
+                    mv(part("Adapter plate with probe gland and transducer", S("adapter", "gland", "transducer"), COL["adapter"]), (0, 0, 220)),
                     mv(g("cable", "Sensor cable"), (0, 0, 0))],
-       "lid and sensor cable", "Lid closed as the maker says; cable along the right arm, plugged in at the lid and at the logger box",
+       "lid, adapter plate and sensor cable", "Adapter plate on the lid's vent-pipe hole, maker's vent pipe on top; lid closed as the maker says; cable plugged in",
        elev=25, azim=-55, label_done=False)
     return out
 

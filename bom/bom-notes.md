@@ -2,7 +2,7 @@
 
 Prices are indicative estimates by supplier type (TRL 3), not quotes; they will be confirmed with named suppliers once a partner area is chosen. Row numbers match the exploded view (`media/exploded.png`) and the model (`cad/src/model.py`). Items 7 and 12 have no separate cost; items 17 to 21 are not modelled.
 
-Value-engineering target: USD 450 (`budget_usd` in `project.yaml`, a hypothetical control target, not a limit). Estimated cost of the constructable design (every line except 18): **USD 497**, USD 47 over the target. The total is computed from this file by `docs/04-calcs/sizing.py`.
+Value-engineering target: USD 450 (`budget_usd` in `project.yaml`, a hypothetical control target, not a limit). Estimated cost of the constructable design (every line except 18): **USD 528**, USD 78 over the target. The total is computed from this file by `docs/04-calcs/sizing.py`.
 
 Changes at TRL 3:
 
@@ -20,7 +20,7 @@ Changes from Amish's acceptance of the recommendations (SCL-DDR-002, 2026-09-25)
 - Item 14: a 0 to 300 kPa absolute transducer with an overpressure rating of 600 kPa or more instead of 0 to 500 kPa, at a similar price (item 18). The 12 min retarget reminder and the trim reminder are firmware rules for the existing buzzer and display (items 13 and 17).
 - Item 21: keep-out marking for the restated R11 ($6; item 15).
 
-These add $10, from $430 to $440. How BOM items 8 to 10 are mounted on the lid (item 5) was decided on 2026-10-02: the lid is not drilled; item 6 becomes a pressure canner sold with a factory gauge and relief valve, and the probe gland (item 10) goes on an adapter plate on the vent stem with a bore of 3 mm or more. Items 6, 8, 9 and 10 are to be respecified and repriced; the prices listed are unchanged until then.
+These add $10, from $430 to $440. How BOM items 8 to 10 are mounted on the lid (item 5) was decided on 2026-10-02: the lid is not drilled; item 6 becomes a pressure canner sold with a factory gauge and relief valve, and the probe gland (item 10) goes on an adapter plate on the vent stem with a bore of 3 mm or more. Items 6 to 10 were respecified and repriced on the same day (below).
 
 Changes for the constructable design (SCL-DDR-003, 2026-10-01, accepted by Amish on 2026-10-02, with a back-up drop pin to be added to item 3), USD 440 to USD 497:
 
@@ -29,8 +29,17 @@ Changes for the constructable design (SCL-DDR-003, 2026-10-01, accepted by Amish
 - Item 3: yoke plates with lock fans, rim stand-offs, lock studs and star knobs replace the tube arms, collars, lever and quadrant (USD 18 to 30).
 - Item 4: bolted timber stand with side rails on edge and lapped braces, steel axle plates, axles and collars, foot brackets, real 102 mm castors (USD 44 to 58).
 - Item 5: flat holder ring cut from plate, arms carried on the upright tops, arm brackets (USD 12 to 17).
-- Item 14: a box large enough for the power bank, the transducer on the tee, plug-in sensor leads and the thermocouple band clamp (USD 58 to 66).
+- Item 14: a box large enough for the power bank, the transducer on the lid fittings, plug-in sensor leads and the thermocouple band clamp (USD 58 to 66).
 - Item 16: gnomon bracket on the rim band (USD 2 to 4).
 - Item 17: more bolts for the bolted joints (USD 15 to 25).
+
+Changes carrying the decisions of 2026-10-02 into the design (SCL-DDR-001 item 5 and SCL-DDR-003 A2), USD 497 to USD 528:
+
+- Item 6: a pressure canner of about 12 L sold with a factory gauge and relief valve replaces the household cooker (USD 55 to 100, indicative for a 12 to 15 L canner sold with a gauge). Mass about 4.8 kg with its fittings (indicative; confirm when bought).
+- Item 7: the canner's lid; its vent pipe moves up onto the adapter plate; the lid is not drilled.
+- Items 8 and 9: now the canner's factory-fitted gauge and relief valve, supplied with item 6 (USD 15 and USD 20 removed).
+- Item 10: a stainless vent-stem adapter plate in the lid's vent-pipe hole, with the gland and probe, replaces the lid gland and tee (USD 30 to 45).
+- Item 3: two drop pins on stainless lanyards with eye screws, and a row of pin holes in each yoke plate fan (USD 30 to 36).
+- Item 4: axle plates 285 mm long with a short slot for the drop pin (price unchanged).
 
 The main cost drivers and the savings worth trying are in the design decisions register (`docs/06-design-decisions.md`, Value engineering).

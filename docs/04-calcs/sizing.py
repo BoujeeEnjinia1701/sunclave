@@ -69,7 +69,7 @@ def hfg(t_c):
 
 
 P_REG = 103.4       # kPa gauge, 15 psi weighted regulator
-P_RELIEF = 125.0    # kPa gauge, independent relief valve set point (R8)
+P_RELIEF = 125.0    # kPa gauge, highest acceptable set point of the canner's factory relief valve (R8)
 Z_VALUE = 10.0      # K, assumed for equivalent exposure (not validated)
 T_REF = 121.0
 
@@ -246,9 +246,16 @@ def _hits_box(Pw, Sw, xr, yr, zr):
 # ---------------------------------------------------------------- 3. Vessel masses and areas
 RHO_AL, RHO_ST, RHO_TIMBER = 2700.0, 7850.0, 500.0
 ri, ro = P["POT_ID"] / 2000, D["pot_or"] / 1000
-m_body = RHO_AL * (math.pi * ro ** 2 * P["POT_BASE"] / 1000 + 2 * math.pi * ro * P["POT_IH"] / 1000 * P["POT_WALL"] / 1000)
-m_lid = RHO_AL * math.pi * (P["LID_D"] / 2000) ** 2 * P["LID_T"] / 1000
-m_fit = 0.10 + 0.35 + 0.20 + 0.25      # regulator, gauge, relief valve, gland with probe and tee (kg, typical)
+# Pressure canner (decided 2026-10-02, SCL-DDR-001 item 5): the bought canner's mass with its regulator, factory
+# gauge and relief valve is CANNER_KG (indicative, to be confirmed); it is split between body and lid in the
+# proportion of the modelled aluminium, after the factory fittings.
+m_fac = 0.10 + 0.15 + 0.05             # regulator, factory dial gauge, factory relief valve (kg, typical)
+m_adapter = 0.20 + 0.15                # stainless adapter plate with spigot and nut; gland and Pt100 probe (kg)
+_mb = RHO_AL * (math.pi * ro ** 2 * P["POT_BASE"] / 1000 + 2 * math.pi * ro * P["POT_IH"] / 1000 * P["POT_WALL"] / 1000)
+_ml = RHO_AL * math.pi * (P["LID_D"] / 2000) ** 2 * P["LID_T"] / 1000
+m_body = (P["CANNER_KG"] - m_fac) * _mb / (_mb + _ml)
+m_lid = (P["CANNER_KG"] - m_fac) * _ml / (_mb + _ml)
+m_fit = m_fac + m_adapter              # all fittings on the lid (kg)
 M_INSTR, M_BASKET = 2.0, 0.5
 C_AL, C_SS, C_BRASS, C_W = 0.90, 0.50, 0.38, 4.19   # kJ/(kg K)
 A_LID = math.pi * (P["LID_D"] / 2000) ** 2
@@ -372,11 +379,14 @@ if __name__ == "__main__":
     A_para = 8 * math.pi * f ** 2 / 3 * ((1 + R ** 2 / (4 * f ** 2)) ** 1.5 - 1)
     say(f"  reflector surface {A_para:.2f} m2 (paraboloid); cut sheet with 5 % offcut {A_para * 1.05:.2f} m2")
     vol_in = math.pi * ri ** 2 * P["POT_IH"] / 1000 * 1000
-    say(f"  cooker inside {P['POT_ID']:.0f} x {P['POT_IH']:.0f} mm = {vol_in:.1f} L; outside diameter {2 * D['pot_or']:.0f} mm")
+    say(f"  canner inside {P['POT_ID']:.0f} x {P['POT_IH']:.0f} mm = {vol_in:.1f} L; outside diameter {2 * D['pot_or']:.0f} mm; "
+        f"handles {P['HANDLE'][0]:.0f} mm from the centre on the {2 * P['RING_R'][1]:.0f} mm holder ring; jacket {2 * D['jkt_or']:.0f} mm in the {2 * P['RING_R'][0]:.0f} mm hole "
+        f"({P['RING_R'][0] - D['jkt_or']:.0f} mm clear); base on the focal plane, {D['pot_oh']:.0f} mm tall")
     say(f"  water 1.5 L is {D['water_depth']:.1f} mm deep; trivet {P['TRIVET_H']:.0f} mm leaves {P['TRIVET_H'] - D['water_depth']:.1f} mm clearance to the basket")
     head = P["POT_IH"] - P["TRIVET_H"] - P["BASKET_H"]
     say(f"  basket {P['BASKET_D']:.0f} x {P['BASKET_H']:.0f} mm; radial clearance {(P['POT_ID'] - P['BASKET_D']) / 2:.0f} mm; headroom under the lid rim {head:.0f} mm")
-    say(f"  vessel masses: body {m_body:.2f} kg, lid {m_lid:.2f} kg, fittings {m_fit:.2f} kg; heat capacity without water {C_VESSEL:.2f} kJ/K")
+    say(f"  vessel masses: canner {P['CANNER_KG']:.2f} kg as bought (body {m_body:.2f} kg, lid {m_lid:.2f} kg, regulator, gauge and relief valve {m_fac:.2f} kg); "
+        f"adapter plate, gland and probe {m_adapter:.2f} kg; heat capacity without water {C_VESSEL:.2f} kJ/K")
 
     # ---------- saturation and altitude
     say("\n2. Steam temperature and altitude (IAPWS-IF97, ICAO standard atmosphere)")
@@ -401,7 +411,7 @@ if __name__ == "__main__":
     say(f"  relief valve at {P_RELIEF} kPa gauge: {T_relief:.1f} C at sea level (R1 upper limit 124 C)")
 
     # ---------- optics
-    say("\n3. Optics: Monte Carlo ray trace onto the level cooker (60,000 rays)")
+    say("\n3. Optics: Monte Carlo ray trace onto the level canner (60,000 rays)")
     sc = SCEN["central"]
     opt_rows = {}
     for el in (15, 30, 45, 60, 75, 90):
@@ -547,7 +557,7 @@ if __name__ == "__main__":
     say(f"  field check in boiling water: {dTdp_b:.3f} K/kPa, so a {e_p:.0f} kPa pressure error is {dTdp_b * e_p:.1f} K and a 0.2 kPa barometer {dTdp_b * 0.2:.2f} K")
 
     # ---------- pressure safety
-    say("\n8. Pressure safety (R8), both lid options")
+    say("\n8. Pressure safety (R8): canner with factory gauge and relief valve, vent-stem adapter plate")
     q_max = optics(90, SCEN["favourable"])["absorbed"] * 1000 * A_AP
     m_max = q_max / (hfg(121) * 1000)
 
@@ -558,25 +568,21 @@ if __name__ == "__main__":
     p_rel = p_amb_kpa(0) + P_RELIEF
     cap_relief = choked(p_rel, tsat_c(p_rel), 4.0, 0.6)
     cap_vent = choked(p_amb_kpa(0) + P_REG, T0, 3.0, 0.6)
+    d_eq = math.sqrt(P["PORT_D"] ** 2 - 3.0 ** 2)
+    cap_adapt = choked(p_amb_kpa(0) + P_REG, T0, d_eq, 0.6)
     say(f"  worst steam generation: {q_max:.0f} W absorbed at 1000 W/m2, no losses -> {m_max * 1000:.2f} g/s")
-    say(f"  regulator vent, 3 mm bore (assumed), Cd 0.6: {cap_vent * 1000:.2f} g/s = {cap_vent / m_max:.1f} x worst generation")
-    say(f"  relief valve, 4 mm seat (assumed), Cd 0.6, at {P_RELIEF} kPa gauge: {cap_relief * 1000:.2f} g/s = {cap_relief / m_max:.1f} x worst generation")
+    say(f"  factory relief valve, 4 mm seat or more (to confirm), Cd 0.6, at {P_RELIEF} kPa gauge or less: {cap_relief * 1000:.2f} g/s = {cap_relief / m_max:.1f} x worst generation")
     d_min = 2 * math.sqrt(m_max / (0.6 * cap_relief / (0.6 * math.pi * (0.002) ** 2)) / math.pi) * 1000
     say(f"  smallest relief seat that passes worst generation: {d_min:.1f} mm")
+    say(f"  vent path through the adapter plate: {P['PORT_D']:.0f} mm bore round the 3 mm probe = {d_eq:.1f} mm equivalent bore, {cap_adapt * 1000:.2f} g/s "
+        f"= {cap_adapt / m_max:.1f} x worst generation; the regulator's own 3 mm vent (assumed) passes {cap_vent * 1000:.2f} g/s = {cap_vent / m_max:.1f} x, "
+        "so the adapter does not narrow the vent below 3 mm")
     F_reg = P_REG * 1000 * math.pi * ri ** 2
     F_rel = P_RELIEF * 1000 * math.pi * ri ** 2
     say(f"  lid load: {F_reg / 1000:.1f} kN at {P_REG} kPa, {F_rel / 1000:.1f} kN at {P_RELIEF} kPa (over the {P['POT_ID']:.0f} mm bore)")
-    holes = {"gauge and transducer tee (1/4 NPT, 11.1 mm tap drill)": (75, -55, 11.1),
-             "relief valve (1/4 NPT, 11.1 mm tap drill)": (-80, 40, 11.1),
-             "Pt100 gland (1/8 NPT, 8.7 mm tap drill)": (P["PROBE_X"], P["PROBE_Y"], 8.7)}
-    pts = list(holes.values()) + [(0, 0, 10.0)]
-    lig = min(math.hypot(a[0] - b[0], a[1] - b[1]) - (a[2] + b[2]) / 2 for i, a in enumerate(pts) for b in pts[i + 1:])
-    edge = min(ri * 1000 - math.hypot(h[0], h[1]) - h[2] / 2 for h in holes.values())
-    area_frac = sum(math.pi * (h[2] / 2) ** 2 for h in holes.values()) / (math.pi * (ri * 1000) ** 2)
-    say(f"  option (i) drill the maker's lid: 3 new holes, {sum(h[2] for h in holes.values()):.1f} mm of drilled diameter, {area_frac * 100:.2f} % of the lid area;"
-        f" smallest ligament {lig:.0f} mm; smallest distance to the bore {edge:.0f} mm")
-    say("  option (ii) factory ports or an adapter plate on the regulator stem: 0 new holes in the maker's lid;"
-        f" the adapter must keep a vent bore of 3 mm or more ({cap_vent * 1000:.2f} g/s) and leave the overpressure plug untouched")
+    F_ad = P_RELIEF * 1000 * math.pi * (P["LID_PORT_D"] / 2000) ** 2
+    say(f"  adapter plate: 0 new holes in the maker's lid; it screws into the {P['LID_PORT_D']:.0f} mm vent-pipe hole with a nut under the lid; "
+        f"pressure lifts it with {F_ad:.0f} N at {P_RELIEF} kPa, carried by the spigot thread and nut; the overpressure plug is untouched")
 
     # ---------- boil-dry and base temperature
     say("\n9. Boil-dry (R10) and base temperature")
@@ -605,7 +611,7 @@ if __name__ == "__main__":
     tilt_keys = ("petals", "ribs", "hub", "rim", "hub_clips", "rim_clips", "gnomon")
     yoke_keys = ("yoke_plates", "standoffs", "standoff_screws")
     stand_keys = ("cross_rails", "side_rails", "uprights", "braces", "castors", "foot_brackets", "axle_plates", "axles",
-                  "collars", "lock_studs", "plate_bolts", "stand_bolts")
+                  "collars", "lock_studs", "drop_pins", "plate_bolts", "stand_bolts")
     holder_keys = ("ring", "arms", "arm_brackets", "holder_bolts")
     m_dish = sum(MM[k] for k in tilt_keys) + m_rivets
     m_yoke = sum(MM[k] for k in yoke_keys)
@@ -642,7 +648,7 @@ if __name__ == "__main__":
     z_cgv = sum(m * z for m, z in vz) / sum(m for m, _ in vz)
     say(f"  loaded vessel centre of mass {z_cgv:.0f} mm above the base, which sits on the tilt axis: a holder free to swing on that axis would be top-heavy, so it is fixed")
     side_frame = (sum(MM[k] for k in ("side_rails", "uprights", "braces", "foot_brackets", "axle_plates", "axles", "collars",
-                                      "lock_studs", "plate_bolts")) + 0.5 * MM["stand_bolts"]) / 2
+                                      "lock_studs", "drop_pins", "plate_bolts")) + 0.5 * MM["stand_bolts"]) / 2
     cross = (MM["cross_rails"] + MM["castors"] + 0.5 * MM["stand_bolts"]) / 2
     pieces = {"dish lift (dish, ribs, rim, gnomon, yoke plates)": m_tilt,
               "stand side frame, each (side rail, upright, braces, axle plate)": side_frame,
@@ -733,8 +739,8 @@ if __name__ == "__main__":
     RESULTS += [
         ("R1", "Sterilizing condition (redefined)", f"{T0:.2f} C and {cycle(lambda t: qa_c, sc['wind'])['hold']:.1f} min at 0 m; {c1800['Tr']:.1f} C and {c1800['hold']:.0f} min at 1,800 m",
          "exposure equal to 20/30 min at 121 C (z = 10 C), 115 to 124 C, real temperature recorded",
-         "Not verifiable at TRL 3", f"Temperature and hold met by calculation; a 103.4 kPa cooker gives {T0:.2f} C at sea level and less above it; equivalence needs biological indicators"),
-        ("R2", "Load capacity", f"basket {P['BASKET_D']:.0f} x {P['BASKET_H']:.0f} mm in a {vol_in:.1f} L cooker; {P['TRIVET_H'] - D['water_depth']:.0f} mm over the water",
+         "Not verifiable at TRL 3", f"Temperature and hold met by calculation; a 103.4 kPa canner gives {T0:.2f} C at sea level and less above it; equivalence needs biological indicators"),
+        ("R2", "Load capacity", f"basket {P['BASKET_D']:.0f} x {P['BASKET_H']:.0f} mm in a {vol_in:.1f} L canner; {P['TRIVET_H'] - D['water_depth']:.0f} mm over the water",
          "basket 250 x 150 mm or more; 2.0 kg", "Met", "Model check; TRL 2 basket 270 x 180 mm did not fit a 12 L cooker"),
         ("R3", "Load type", "solid instruments, unwrapped or single-wrapped", "no lumened, hollow or textile loads", "Met", "By definition"),
         ("R4", "Cycle time", f"{c['total']:.0f} min central ({fav['total']:.0f} to {unf['total']:.0f})", "90 min or less",
@@ -744,8 +750,8 @@ if __name__ == "__main__":
         ("R6", "Cycle record", f"{rec_kb:.0f} kB per cycle; about {4e6 / rec_kb:,.0f} cycles on 4 GB", "1 s logging; 1,000 cycles", "Met", "Design check"),
         ("R7", "Measurement accuracy", f"{u005:.2f} K with the 0.05 % reference ({u01:.2f} K with 0.1 %); pressure {e_p:.0f} kPa (0 to {TRANSDUCER_KPA:.0f} kPa)", "0.5 K; 5 kPa",
          "Met" if u005 <= 0.5 else "At risk", "With the 0.05 % reference now in the BOM; field check needs a barometer, not the logger's own transducer"),
-        ("R8", "Pressure safety", f"relief {cap_relief / m_max:.1f} x worst steam generation; vent {cap_vent / m_max:.1f} x", "relief 125 kPa gauge or less; vessel rated by its maker",
-         "Met", "Capacity met for both lid options; vessel rating to confirm from the maker for the chosen model"),
+        ("R8", "Pressure safety", f"factory relief valve {cap_relief / m_max:.1f} x worst steam generation; vent {cap_vent / m_max:.1f} x; adapter bore {d_eq:.1f} mm equivalent", "relief 125 kPa gauge or less; vessel rated by its maker",
+         "Met", "Canner with factory gauge and relief valve, lid not drilled (decided 2026-10-02); relief seat and set pressure and the vessel rating to confirm for the chosen model"),
         ("R9", "Heat input control", f"power below 5 % at {off:.0f} deg of tilt", "stop within 10 s; dish shaded when parked", "Met", "Parking cover added (item 20)"),
         ("R10", "Boil-dry protection (restated)", f"{c['water_left']:.2f} kg left (design); {cw['water_left']:.2f} kg at 1000 W/m2; with the trimming rule {ct['water_left']:.2f} kg at 1,800 m and {ct24['water_left']:.2f} kg at 2,400 m, 1000 W/m2",
          "0.5 L left in the design case and, with the trimming rule, at altitude; trim reminder; alarm at 140 C",

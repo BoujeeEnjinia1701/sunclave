@@ -1,5 +1,63 @@
 # Review note: SunClave
 
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish approved on 2026-10-02 that every follow-up action from the open-decision sign-off be carried out ("APPROVED CHANGES, COMPLETE THESE"). Nothing was built or tested; TRL 4 remains on hold. SunClave remains a research and educational prototype, not a medical device.
+
+### Approved follow-ups carried out
+
+Done 8 of 11:
+
+1. Done. BOM line 6 is now a pressure canner of about 12 L sold with a factory gauge and relief valve (USD 55 to 100, indicative); lines 8 and 9 are the factory-fitted gauge and relief valve at no extra cost; line 10 is the vent-stem adapter plate with gland and probe, 6 mm bore round the probe, equal to a 5.2 mm hole (USD 30 to 45). `bom/bom.csv`, `bom/bom-notes.md`.
+2. Done. `cad/src/model.py`: the canner with its factory gauge, relief valve and overpressure plug; the lid's vent-pipe hole (not drilled); the adapter plate with spigot and nut carrying the gland, probe, transducer and the maker's vent pipe and weight. New checks: adapter on the lid boss, gland and transducer on the adapter, probe clear in the bore (steam passes round it), adapter clear of the gauge and relief valve, probe tip clear of the load, factory fittings on the lid, equivalent bore 3 mm or more. The canner keeps the 288 mm outside diameter; its handles rest on the holder ring, the jacket clears the ring by 5 mm and its base is on the focal plane. STEP and STL regenerated; `python cad/src/model.py --check`: 81 of 81 checks pass (was 66), including the 15 to 90 degree tilt sweep.
+3. Done. SCL-CAL-001 v0.4 section 8 restated for the factory relief valve (5.2 times the worst steam generation if its seat is 4 mm or more and it is set at 125 kPa gauge or less) and the adapter's vent path (8.0 times; the regulator's own 3 mm vent 2.7 times); the "open for Amish" rows for item 5 and SCL-DDR-003 replaced by the decisions of 2026-10-02; the canner checked against the holder and R16 (4.8 kg as bought, indicative; vessel 5.9 kg; empty total 44.8 kg).
+4. Done. Build plan step 19 and the canner pictures (overview, steps 18 and 19, joint 12, sketches 117 and 118) show the canner, its factory gauge and relief valve and the adapter plate; new making sketch SCL-DWG-120 for the adapter plate.
+5. Done. A row of eleven 8.5 mm holes on a 163 mm radius, 7.5 degrees apart, in each yoke plate fan; a 7.5 degree arc slot in each axle plate (now 285 mm long); a 10 x 32 mm slot through each upright; an 8 mm drop pin pushed in from outside on a lanyard to an eye screw on the upright. To make room the lock slot moved from a 150 mm to a 140 mm radius (clamp force needed 270 N per knob, was 252 N) and the logger box moved down 20 mm. New checks for the pins (through a fan hole, in the plate slot, through the upright slot, clear of the lock knobs and logger box, clear of the dish, a fan hole in the slot at every elevation from 15 to 90 degrees). The pins are pulled out to re-aim, so they are not in the tilt sweep.
+6. Done. Yoke plate making sketch SCL-DWG-114 and the yoke layout picture show the pin hole row; new making sketch SCL-DWG-119 for the drop pin; upright (SCL-DWG-103) and axle plate (SCL-DWG-105) sketches show the slots.
+7. Done. Joint 6 shows the drop pin; step 14 fits the pins; step 13 regenerated (longer axle plates and the slot in the uprights; the pins go in at step 14, once the lock studs are in); the "Tilt lock holds" check now includes the pins.
+8. Done. BOM line 3 includes two drop pins with lanyards and eye screws (USD 30 to 36).
+9. Not done: TRL 4 work (slip test plan), on hold.
+10. Not done: TRL 4 work (weighing plan), on hold.
+11. Not done here: the photoreal renders, card and social preview are made on Amish's Mac. Prepared for it: `cad/src/product_model.py` rebuilt on the constructable design and render scenes exported to `/home/claude/renders/sunclave` (hero, exploded, detail).
+
+### Documents changed and new versions
+
+- `docs/04-calcs/01-sizing.md` (SCL-CAL-001 v0.4), `docs/04-calcs/sizing.py`, `docs/04-calcs/results.csv`
+- `docs/05-build-plan.md` (SCL-BLD-001 v0.3): new sections 3.20 (drop pins) and 3.21 (adapter plate); bought components, steps 14 and 17 to 19, first checks and safety stop S6 updated
+- `docs/02-concept.md` (SCL-PRC-001 v0.7), `docs/03-requirements.md` (SCL-REQ-001 v0.7), `docs/06-design-decisions.md` (SCL-DEC-001 v0.3), `docs/decisions/0003-design-for-construction.md` (SCL-DDR-003 v0.3)
+- `cad/src/model.py`, `cad/step/*.step`, `cad/stl/*.stl`; `cad/src/sheets.py` and SCL-DWG-001 Rev P4
+- `cad/src/build_plan_media.py`: making sketches SCL-DWG-103, 105, 114, 117 and 118 regenerated, SCL-DWG-119 and 120 new; overview, yoke layout, all joint and step pictures regenerated
+- `cad/src/concept_media.py` and the concept media in `media/`
+- `cad/src/product_model.py` (appearance model)
+- `bom/bom.csv`, `bom/bom-notes.md`, `README.md` (not controlled documents)
+- `docs/pdf/`: every controlled document re-rendered
+
+### Key results (SCL-CAL-001 v0.4)
+
+- No requirement changed status: 13 met, 2 at risk (R4, R15), 1 not verifiable at TRL 3 (R1); R17 reported against the target.
+- R16 mass: 44.8 kg against 45 kg (was 44.4 kg), so the margin is now 0.2 kg. Met, but thinner than the 0.6 kg Amish accepted; a canner heavier than about 5.0 kg would take it over.
+- R4: 81 min central, 72 to 111 min (was 80, 71 to 109): the canner's heavier body takes longer to heat.
+- R15: tipping factor 1.40 (was 1.38).
+- R8: met on capacity; the factory relief valve's seat and set pressure are purchase criteria, not known values.
+- Value-engineering target: USD 450. Estimated cost of the constructable design: USD 528 (USD 78 over the target; was USD 497).
+
+### Proposed, awaiting Amish
+
+1. **R16 margin of 0.2 kg.** Options: (a) keep the accepted plan and weigh at TRL 4; (b) adopt the 5 mm yoke plates and lighter holder arms now. Recommendation: (a), and choose a canner of 5.0 kg or less with its fittings.
+2. **Appearance model.** `cad/src/product_model.py` now takes every part from the constructable model; the appearance details (petal rivets, hub cap, canner rim, handle grips, jacket seams, gauge face, logger display and labels) add no BOM lines. The 2026-09-26 differences (taller logger enclosure, transducer on the tee, handles, petal seams) no longer apply. Recommendation: accept.
+
+### Cross-repo actions
+
+None.
+
+### Safety
+
+The canner's lid is never drilled; the factory relief valve and overpressure plug are untouched; the adapter plate's joint has no rating until the hydrostatic check of safety stop S6 (TRL 4 work). The drop pins are pinch points and must be pulled out before the knobs are loosened to re-aim; both are in the build plan.
+
+### Recommended next step
+
+Render session on Amish's Mac from the exported scenes, then `python .kit/cards.py .`. TRL 4 remains on hold.
+
 ## Session 2026-10-01: kit 1.7.0, constructable design and prototype build plan
 
 Following Amish's 2026-09-30 approval of the build plan format ("this is the correct build plan ... Extend this across all the other repos"), his instruction to make each design physically buildable, and his 2026-10-01 note that budgets are value-engineering targets.
@@ -330,3 +388,7 @@ Raised when the recommendations were written (2026-10-01) and not yet acted on:
 - Item 1 is a precondition for the whole pressure system: nothing should be pressurised until it is decided, as the register says.
 - The value-engineering figure (USD 497 against USD 450) excludes USD 45 of validation consumables; that is consistent with the target, but the consumables are a recurring cost per batch of tests.
 - Renders still show the concept tube yoke, quadrant, bearing blocks, holder and stand.
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.

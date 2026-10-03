@@ -3,7 +3,7 @@ doc_id: SCL-BLD-001
 title: SunClave prototype build plan
 project: SunClave
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,13 +17,17 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Safety stop S6: lid fittings as decided on 2026-10-02 (SCL-DEC-001)"
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Decisions of 2026-10-02 carried into the design: pressure canner with factory gauge and relief valve, vent-stem adapter plate (new section 3.21, SCL-DWG-120), back-up drop pins (new section 3.20, SCL-DWG-119; uprights, axle plates and yoke plates changed); pictures regenerated"
 ---
 
 # SunClave prototype build plan
 
 **Plan, not yet built.** How to build the first proof-of-concept prototype, component by component. Building and testing to it is TRL 4 work. Decisions still to be made are kept in the design decisions register ([docs/06-design-decisions.md](06-design-decisions.md)), not here.
 
-SunClave is a research and educational prototype, not a medical device. This plan builds the dish, stand, holder, cooker set-up and logger; it stops before the cooker is ever put under pressure (safety stop S6).
+SunClave is a research and educational prototype, not a medical device. This plan builds the dish, stand, holder, canner set-up and logger; it stops before the canner is ever put under pressure (safety stop S6).
 
 ## 1. What you are building
 
@@ -31,25 +35,26 @@ SunClave is a research and educational prototype, not a medical device. This pla
 
 *Figure 1. Every component pulled apart and numbered in build order; the dish is shown face up, as it is built.*
 
-The prototype is a 1.4 m dish of twelve polished aluminium petals that turns on two axles between the uprights of a bolted timber stand on four locking castors, with a 12 L household pressure cooker hanging level at the focus by its handles from a steel ring, and a small logger in a box on one upright. Figure 1 shows the 20 component groups in the order you make or fit them. The made parts are the timber rails, uprights and braces; the steel axle plates, axles, ribs, hub plate, clips, rim band, stand-offs, yoke plates, holder arms, brackets and ring; the aluminium petals; the gnomon; and the insulated jacket. The castors, cooker and its lid fittings, basket, logger modules, power bank and fixings are bought. The work is sawing and drilling timber; cutting, drilling, bending and filing steel bar and plate; cutting, folding and riveting thin aluminium sheet; and plugging bought electronic modules together. Nothing is welded. The parts cost about USD 497 from the bill of materials.
+The prototype is a 1.4 m dish of twelve polished aluminium petals that turns on two axles between the uprights of a bolted timber stand on four locking castors, with a pressure canner of about 12 L hanging level at the focus by its handles from a steel ring, and a small logger in a box on one upright. Figure 1 shows the 20 component groups in the order you make or fit them. The made parts are the timber rails, uprights and braces; the steel axle plates, axles, ribs, hub plate, clips, rim band, stand-offs, yoke plates, holder arms, brackets and ring; the aluminium petals; the gnomon; the drop pins; and the insulated jacket. A local machine shop makes the small adapter plate that carries the temperature probe and pressure sensor on the canner's lid. The castors, the canner with its factory gauge and relief valve, the basket, logger modules, power bank and fixings are bought. The work is sawing and drilling timber; cutting, drilling, bending and filing steel bar and plate; cutting, folding and riveting thin aluminium sheet; and plugging bought electronic modules together. Nothing is welded, and the canner's lid is never drilled. The parts cost about USD 528 from the bill of materials.
 
-> **Safety:** The finished dish concentrates sunlight to about 270 times normal at the focus: it burns skin in about a second, sets fire to paper, cloth and dry grass, and can blind. Keep the dish face down or covered whenever it is outdoors until section 6 says otherwise. The dish and yoke weigh about 16 kg and swing about the axles: two people lift it, and the tilt locks are pinch points. Cut aluminium sheet and steel edges are sharp; deburr everything and wear cut-resistant gloves. Mineral wool sheds fibres; wear a dust mask and glasses when cutting the jacket. The cooker is a pressure vessel; this plan never pressurises it.
+> **Safety:** The finished dish concentrates sunlight to about 270 times normal at the focus: it burns skin in about a second, sets fire to paper, cloth and dry grass, and can blind. Keep the dish face down or covered whenever it is outdoors until section 6 says otherwise. The dish and yoke weigh about 16 kg and swing about the axles: two people lift it, and the tilt locks and drop pins are pinch points. Cut aluminium sheet and steel edges are sharp; deburr everything and wear cut-resistant gloves. Mineral wool sheds fibres; wear a dust mask and glasses when cutting the jacket. The canner is a pressure vessel; this plan never pressurises it.
 
 ## 2. What changed to make it buildable
 
-The concept showed what SunClave does; some of its parts could not be made, fixed or assembled as drawn. Each change below keeps what SunClave does, and all of them are recorded in decision record SCL-DDR-003, accepted by Amish on 2026-10-02.
+The concept showed what SunClave does; some of its parts could not be made, fixed or assembled as drawn. Each change below keeps what SunClave does. They are recorded in decision record SCL-DDR-003, accepted by Amish on 2026-10-02 with the drop pin added, and, for the lid fittings, in SCL-DDR-001 item 5, decided on the same day.
 
 *Table 1. Changes from the concept.*
 
 | Component | The concept had | The buildable design has | Why |
 | --- | --- | --- | --- |
-| Pivots and tilt lock | Steel bearing blocks with stub axles, a quadrant plate and a lock lever, all drawn through each other | A steel axle plate on each upright, a fixed 20 mm axle, a PTFE washer and a 6 mm yoke plate that turns on the axle; a fan on each yoke plate with a slot that a star knob clamps (Figures 26, 27 and 28) | A plain greased pivot is enough for a few degrees every 12 minutes; every part is cut, drilled and bolted |
+| Pivots and tilt lock | Steel bearing blocks with stub axles, a quadrant plate and a lock lever, all drawn through each other | A steel axle plate on each upright, a fixed 20 mm axle, a PTFE washer and a 6 mm yoke plate that turns on the axle; a fan on each yoke plate with a slot that a star knob clamps, and a drop pin through a row of holes in the fan as a back-up stop (Figures 26, 27, 28 and 36) | A plain greased pivot is enough for a few degrees every 12 minutes; every part is cut, drilled and bolted; the pin holds the dish if a friction lock slips |
 | Yoke to dish | Tube arms that stopped short of the rim | A short rectangular tube between the rim band and each yoke plate, clamped by two countersunk screws (Figure 24) | Two screws per side make the dish and yoke one rigid unit |
-| Pot holder | A ring that ran through the jacket and sat below the handles | A flat steel ring the handles rest on, on two tube arms that sit on the upright tops and on brackets (Figures 31 and 33) | The cooker hangs by its handles and lifts out without tools |
+| Pot holder | A ring that ran through the jacket and sat below the handles | A flat steel ring the handles rest on, on two tube arms that sit on the upright tops and on brackets (Figures 31 and 33) | The canner hangs by its handles and lifts out without tools |
 | Stand | Rails, uprights and braces butted together with no fixings; castors drawn shorter than real ones | Side rails on edge across the cross rails, uprights on angle brackets, braces lapped flat and bolted, real 102 mm castors (Figures 3, 6, 8 and 9) | Every timber joint is face to face and bolted; the stand comes apart in pieces of 6 kg or less |
 | Dish frame | Ribs drawn into the sheet and not reaching the hub or rim; nothing for the petals to be riveted to | Petals with flanges folded down either side of each rib and riveted through it; clips at the hub and the rim; tabs riveted inside the rim band (Figures 14, 17, 18 and 20) | Rivets need a face to grip; clips are the simplest bolted joint for a bar standing on edge |
 | Gnomon | On the reflector face, with no fixing | On a bracket bolted outside the rim band (Figure 22) | Shades no reflector and bolts to steel |
-| Logger | Power bank hanging outside the box; no transducer on the tee | A box big enough for the bank, below the lock stud; the transducer on the tee; plug-in sensor leads (Figure 35) | Matches the bill of materials; the lid comes off without cutting wires |
+| Logger | Power bank hanging outside the box; no transducer on the tee | A box big enough for the bank, below the drop pin; the transducer on the adapter plate; plug-in sensor leads (Figure 35) | Matches the bill of materials; the lid comes off without cutting wires |
+| Lid fittings | A household cooker with a gauge, relief valve and probe gland drawn on its lid and no way to fit them | A pressure canner sold with its own gauge and relief valve; the probe gland and pressure sensor on a small adapter plate in the lid's vent-pipe hole, with the maker's vent pipe and weight on top (Figure 37) | The maker's lid is never drilled, and the steam path stays at least as open as the maker's own vent |
 | Build order | No order let the dish go between the uprights | A 2 mm gap at each pivot; one axle plate fitted after the dish is in (steps 11 to 13) | Two people can assemble it without lifting gear |
 
 ## 3. Making the components
@@ -111,9 +116,11 @@ The castor's top plate sits flat on the underside, held by four M8 bolts with th
 
 1. Cut 892 mm and square both ends. Choose straight timber with no knots near the holes.
 2. Mark a centre line on one 70 mm face. Measure every height from the bottom end.
-3. Drill across the 45 mm way, square to the face, on the centre line: brace bolt 10.5 mm at 313; lock stud 10.5 mm at 593; axle 20.5 mm at 743; axle plate bolt 10.5 mm at 823; arm bracket bolt 8.5 mm at 872.
+3. Drill across the 45 mm way, square to the face, on the centre line: brace bolt 10.5 mm at 313; lock stud 10.5 mm at 603; axle 20.5 mm at 743; axle plate bolt 10.5 mm at 823; arm bracket bolt 8.5 mm at 872.
 4. Drill the axle hole with a 6 mm pilot first, from both faces, then open it to 20.5 mm from both faces so it stays square.
 5. Foot bracket bolt: 8.5 mm through the 70 mm way, 28 mm up from the bottom.
+6. Drop pin slot: 10 mm high and 32 mm long across the 70 mm face, centred on the centre line at 580. Drill two 10 mm holes 22 mm apart, then chisel out between them.
+7. Screw a small eye screw into the outer face 25 mm to one side of the centre line at 638, for the drop pin's lanyard.
 
 **How it fits the parts next to it.**
 
@@ -162,13 +169,14 @@ The 45 mm face of each brace lies flat on the upright and on the side rail. The 
 
 **How to make it.**
 
-1. Cut 270 mm and deburr.
-2. On the centre line, measured from the top end: 11 mm hole at 25 (plate bolt), 20.5 mm hole at 105 (axle), 11 mm hole at 255 (lock stud). Drill the axle hole in steps (6, 12, 18, 20.5 mm) with the plate clamped flat.
-3. Paint the plate, but leave the inner face bare where the yoke plate and the lock spacer run, and grease it there.
+1. Cut 285 mm and deburr.
+2. On the centre line, measured from the top end: 11 mm hole at 25 (plate bolt), 20.5 mm hole at 105 (axle), 11 mm hole at 245 (lock stud). Drill the axle hole in steps (6, 12, 18, 20.5 mm) with the plate clamped flat.
+3. Drop pin slot: 8.5 mm wide, curved on a 163 mm radius about the axle hole, centred 268 from the top and 21 mm long between its end centres (7.5 degrees). Drill 8.5 mm at both ends, saw between and file smooth.
+4. Paint the plate, but leave the inner face bare where the yoke plate and the lock spacer run, and grease it there.
 
-**How it fits the parts next to it.** It lies flat on the upright's inner face with its holes on the upright's holes, the top of the plate 44 mm below the top of the upright. An M10 bolt at the top holds it, with the nut on the inside; the axle and the lock stud pass through the other two holes (Figures 27 and 28).
+**How it fits the parts next to it.** It lies flat on the upright's inner face with its holes on the upright's holes, the top of the plate 44 mm below the top of the upright. An M10 bolt at the top holds it, with the nut on the inside; the axle and the lock stud pass through the other two holes, and the drop pin through the slot (Figures 27 and 28).
 
-**Check before moving on.** A 20 mm bar passes through the plate and the upright together.
+**Check before moving on.** A 20 mm bar passes through the plate and the upright together, and an 8 mm bar slides the full length of the plate's slot through the slot in the upright.
 
 ### 3.6 Axles (make 2)
 
@@ -356,17 +364,18 @@ The 25 mm sides run with the height of the rim band. One end bears on the outsid
 
 ![Figure 26. Yoke plate layout](05-build-plan/yoke-layout.png)
 
-*Figure 26. Yoke plate layout, with the lock slot.*
+*Figure 26. Yoke plate layout, with the lock slot and the row of drop pin holes.*
 
-**What it is and what it is made from.** The plate each side that carries the dish on its axle: a hub round the axle, an arm down to the stand-off, and a fan with the lock slot. Steel plate 6 mm.
+**What it is and what it is made from.** The plate each side that carries the dish on its axle: a hub round the axle, an arm down to the stand-off, and a fan with the lock slot and the drop pin holes. Steel plate 6 mm.
 
 **How to make it.**
 
 1. Cut the outline of Figure 26 from 6 mm plate with a jigsaw and metal blade, or have a local cutting shop cut both: a 40 mm radius hub, a 60 mm wide arm with a round end, and a fan from 125 to 175 mm radius.
 2. Drill the axle hole 20.5 mm at the hub centre and smooth it with a round file or reamer.
-3. Cut the lock slot, 11 mm wide on a 150 mm radius, from the arm's centre line 75 degrees round toward the fan's far edge: drill 11 mm at each end and chain-drill between, then file smooth.
-4. Drill the two stand-off holes, 9 mm, 30 mm apart across the arm, 267.5 mm from the axle centre. Countersink them 90 degrees on the outer face (the face toward the upright). The two plates are mirror images: the outer face of one is the face that is down when the other's is up.
-5. Deburr and paint, leaving the outer face bare round the hub and over the fan.
+3. Cut the lock slot, 11 mm wide on a 140 mm radius, from the arm's centre line 75 degrees round toward the fan's far edge: drill 11 mm at each end and chain-drill between, then file smooth.
+4. Drill the drop pin holes: eleven holes of 8.5 mm on a 163 mm radius, the first on the arm's centre line and then every 7.5 degrees along the slot. Mark them with a protractor from the axle hole, or drill the two plates clamped together.
+5. Drill the two stand-off holes, 9 mm, 30 mm apart across the arm, 267.5 mm from the axle centre. Countersink them 90 degrees on the outer face (the face toward the upright). The two plates are mirror images: the outer face of one is the face that is down when the other's is up.
+6. Deburr and paint, leaving the outer face bare round the hub and over the fan.
 
 **How it fits the parts next to it.**
 
@@ -376,9 +385,9 @@ The 25 mm sides run with the height of the rim band. One end bears on the outsid
 
 ![Figure 28. Joint 6: tilt lock, cut open](05-build-plan/joint-06.png)
 
-*Figure 28. The tilt lock: the fixed stud passes through the slot in the yoke plate's fan; tightening the star knob clamps the fan.*
+*Figure 28. The tilt lock and drop pin: the fixed stud passes through the slot in the yoke plate's fan, and tightening the star knob clamps the fan; the drop pin, pushed in from outside the upright, passes through the axle plate's short slot and one hole of the fan.*
 
-The outer face runs against the PTFE washer on the axle plate, 2 mm from it; the axle passes through the hub; the lock stud passes through the slot (Figures 27 and 28). The arm's end carries the rim stand-off (Figure 24).
+The outer face runs against the PTFE washer on the axle plate, 2 mm from it; the axle passes through the hub; the lock stud passes through the slot, and the drop pin through whichever hole shows in the axle plate's slot (Figures 27 and 28). The arm's end carries the rim stand-off (Figure 24).
 
 **Check before moving on.** Laid back to back, the two plates match all round, and each turns freely on a 20 mm bar.
 
@@ -428,7 +437,7 @@ The upright leg lies on the upright's inner face with its top level with the upr
 
 *Figure 32. Holder ring making sketch (SCL-DWG-117).*
 
-**What it is and what it is made from.** The flat ring the cooker hangs from by its two handles. Steel plate 4 mm.
+**What it is and what it is made from.** The flat ring the canner hangs from by its two handles. Steel plate 4 mm.
 
 **How to make it.**
 
@@ -438,25 +447,25 @@ The upright leg lies on the upright's inner face with its top level with the upr
 
 **How it fits the parts next to it.**
 
-![Figure 33. Joint 12: cooker handle on the holder ring](05-build-plan/joint-12.png)
+![Figure 33. Joint 12: canner handle on the holder ring](05-build-plan/joint-12.png)
 
-*Figure 33. The cooker's handle rests on the ring; the ring is bolted to the arm; the jacket clears the ring's inner edge by 5 mm.*
+*Figure 33. The canner's handle rests on the ring; the ring is bolted to the arm; the jacket clears the ring's inner edge by 5 mm.*
 
-It lies on the inner ends of the two arms, one M8 bolt into each. The cooker drops through it and hangs by its handles, so the cooker's base sits on the focal plane.
+It lies on the inner ends of the two arms, one M8 bolt into each. The canner drops through it and hangs by its handles, so the canner's base sits on the focal plane.
 
-**Check before moving on.** The cooker body and jacket pass through without touching, and both handles rest on the ring.
+**Check before moving on.** The canner body and jacket pass through without touching, and both handles rest on the ring.
 
-### 3.18 Cooker, jacket and base thermocouple
+### 3.18 Canner, jacket and base thermocouple
 
 ![Figure 34. Making sketch of the jacket](../cad/drawings/SCL-DWG-118.png)
 
 *Figure 34. Jacket making sketch (SCL-DWG-118).*
 
-**What it is and what it is made from.** The bought 12 L aluminium household pressure cooker, painted black where the sunlight lands, with an insulating jacket on its upper wall and a thermocouple at the edge of its base. The jacket is 25 mm mineral wool blanket with an aluminised glass-cloth skin.
+**What it is and what it is made from.** The bought aluminium pressure canner of about 12 L, sold with its own gauge and relief valve, painted black where the sunlight lands, with an insulating jacket on its upper wall and a thermocouple at the edge of its base. The jacket is 25 mm mineral wool blanket with an aluminised glass-cloth skin.
 
 **How to make it.**
 
-1. Cooker: clean the outside with detergent. Mask the rest and paint the base and the lowest 80 mm of the wall with high-temperature matt black paint; cure it as the paint maker says. Do not drill, weld or change the cooker body, its regulator weight or its overpressure plug.
+1. Canner: clean the outside with detergent. Mask the rest and paint the base and the lowest 80 mm of the wall with high-temperature matt black paint; cure it as the paint maker says. Do not drill, weld or change the canner body, its lid, its regulator weight, gauge, relief valve or overpressure plug.
 2. Jacket: cut a strip 96 mm wide and 1,010 mm long, foil outward, wearing gloves, a dust mask and glasses. Bind both long edges with aluminised tape.
 3. Wrap the jacket round the wall from 80 mm above the base to 30 mm below the rim, butt and tape the joint, and hold it with two stainless strap clamps, 12 mm from each edge.
 4. Thermocouple: hold its tip against the bare black wall 10 mm above the base with a stainless band clamp, on the side away from the logger, and lead the wire up beside the jacket.
@@ -479,23 +488,59 @@ It lies on the inner ends of the two arms, one M8 bolt into each. The cooker dro
 2. Fit the board and modules on standoffs in front, and the power bank in a strap at the back.
 3. Make up the sensor cable: Pt100 leads, transducer leads and thermocouple lead in one sheath, with a plug at the lid end so the lid comes off, and a plug at the box.
 
-**How it fits the parts next to it.** Two stainless wood screws through the moulded holes in the back of the box go into the outer face of the right upright, the box's top about 10 mm below the lock stud's head and its bottom 600 mm above the ground. The cable runs up beside the upright, along the top of the right holder arm with cable ties, and up to the lid.
+**How it fits the parts next to it.** Two stainless wood screws through the moulded holes in the back of the box go into the outer face of the right upright, the box's top about 18 mm below the drop pin's head and its bottom 580 mm above the ground. The cable runs up beside the upright, along the top of the right holder arm with cable ties, and up to the lid.
 
 **Check before moving on.** The box closes on its gasket with the cable through the gland, and the display shows readings with the sensors plugged in.
 
-### 3.20 Bought components
+### 3.20 Drop pins (make 2)
+
+![Figure 36. Making sketch of the drop pin](../cad/drawings/SCL-DWG-119.png)
+
+*Figure 36. Drop pin and lanyard making sketch (SCL-DWG-119).*
+
+**What it is and what it is made from.** A back-up stop for each tilt lock: a short steel pin that goes through the upright, the axle plate and one hole of the yoke plate's fan. Bright steel round bar 8 mm, a steel washer head, and stainless wire rope for the lanyard. A ready-made 8 mm locking pin of the same length will do.
+
+**How to make it.**
+
+1. Cut 59 mm of 8 mm bright steel bar and chamfer one end by 1 mm (67 mm long with its head).
+2. Fix a steel washer about 18 mm across and 8 mm thick to the other end as a head (a cross pin or high-strength adhesive).
+3. Crimp a loop at each end of 300 mm of stainless wire rope; thread one loop under the head.
+
+**How it fits the parts next to it.** With the dish aimed and the star knob tight, look through the slot in the upright: one hole of the fan shows in the axle plate's short slot. Push the pin in from outside until its head touches the upright; its tip ends flush with the fan's inner face (Figure 28). The other end of the lanyard goes on the eye screw on the upright, so the pin cannot be lost. If a lock slips, the dish turns at most 7.5 degrees before the pin reaches the end of the slot. Pull the pin out before loosening the knob to re-aim.
+
+**Check before moving on.** At every aim from face up to 15 degrees above the horizon, a fan hole shows in the slot and the pin slides in and out by hand.
+
+### 3.21 Vent-stem adapter plate
+
+![Figure 37. Making sketch of the vent-stem adapter plate](../cad/drawings/SCL-DWG-120.png)
+
+*Figure 37. Vent-stem adapter plate making sketch (SCL-DWG-120).*
+
+**What it is and what it is made from.** A small stainless block that screws into the canner lid's own vent-pipe hole and carries the temperature probe's gland, the pressure sensor and, on top, the canner maker's own vent pipe and weight. Stainless steel bar 40 x 20 mm, made by a local machine shop.
+
+**How to make it.**
+
+1. Unscrew the canner maker's vent pipe and measure its thread and the hole it came out of. Take the canner lid, the vent pipe, the gland and the sensor to the machine shop.
+2. Have the shop make the block 84 x 40 x 20 mm with a threaded spigot underneath that fits the lid's hole, a nut and a high-temperature gasket; a 6 mm bore up through the spigot to a gland port on top; and two ports on top, 30 mm each side of the centre, one for the maker's vent pipe (its own thread) and one for the pressure sensor, each joined to the bore by a 4 mm passage.
+3. Do not drill or enlarge any hole in the lid, and do not touch the overpressure plug.
+
+**How it fits the parts next to it.** The spigot goes down through the lid's vent-pipe hole and the nut clamps it from inside, on its gasket. The probe passes down through the gland and the 6 mm bore into the canner, and steam passes round it; the bore round the probe is as open as a 5.2 mm hole, more than the maker's own vent. The maker's vent pipe and weight go on top at one end, the pressure sensor at the other (Step 19).
+
+**Check before moving on.** With the probe in its gland, a 3 mm drill passes along the vent passage, and a 2.5 mm wire passes down the bore beside the probe.
+
+### 3.22 Bought components
 
 Buy to specification, not brand. Line numbers are those of the bill of materials.
 
 - **Castors (line 4).** Four 75 mm swivel castors with brakes, 102 mm mounting height, top plate with holes on a 42 mm square.
 - **Pivot parts (line 4).** Four 20 mm shaft collars with set screws; two PTFE thrust washers 2 mm thick, 20.5 mm bore, about 50 mm outside diameter; four galvanised 50 x 50 mm angle brackets, 40 mm wide.
-- **Lock parts (line 3).** Two M10 x 80 hex bolts, two 2 mm steel spacer washers (24 mm outside diameter), two M10 washers and two M10 star knobs.
-- **Pressure cooker (line 6, with its lid, line 7).** 12 L aluminium household cooker, inside about 280 mm across and 200 mm deep, 103.4 kPa (15 psi) weighted regulator, overpressure plug, two handles on the body whose undersides are about 28 mm below the rim and reach at least 214 mm from the centre; maker's rating published.
-- **Lid fittings (lines 8 to 10, and the transducer of line 14).** Pressure gauge 0 to 250 kPa with siphon; spring relief valve set at 125 kPa gauge or less, seat 4 mm or more; 1/8 in compression gland, 3 mm class A Pt100 probe and brass tee; 0 to 300 kPa absolute transducer rated to 600 kPa or more. How they pass through the lid is set in the design decisions register; fit them only that way.
+- **Lock parts (line 3).** Two M10 x 80 hex bolts, two 2 mm steel spacer washers (24 mm outside diameter), two M10 washers and two M10 star knobs; two eye screws and the drop pin lanyards.
+- **Pressure canner (line 6, with its lid, line 7, and its own gauge and relief valve, lines 8 and 9).** Aluminium pressure canner of about 12 L sold with a dial gauge, a relief (safety) valve, a 103.4 kPa (15 psi) weighted regulator on a vent pipe and an overpressure plug; inside about 280 mm across and 200 mm deep; two handles on the body whose undersides are about 28 mm below the rim and reach at least 214 mm from the centre; maker's rating for 103.4 kPa published; relief valve set at 125 kPa gauge or less with a seat of 4 mm or more.
+- **Probe and sensor (lines 10 and 14).** 1/8 in compression gland, 3 mm class A Pt100 probe with PTFE leads; 0 to 300 kPa absolute transducer rated to 600 kPa or more. They go on the adapter plate (section 3.21), never through the lid.
 - **Basket (line 13).** Stainless wire basket 250 mm across and 150 mm deep on a 40 mm trivet.
 - **Logger (line 14) and power bank (line 15).** As the bill of materials: ESP32-class board, Pt100 interface with a 0.05 % reference, 16-bit converter, real-time clock, microSD, 1.3 in OLED display, buzzer, K-type thermocouple with its interface; a 10,000 mAh power bank with a low-current mode.
 - **Safety items (lines 19 to 21).** Two pairs of shade 5 goggles, an opaque parking cover for the dish, barrier tape and four pegs.
-- **Fixings (line 17).** Stainless or galvanised: 16 M8 x 50 (castors); 8 M8 x 120 (crossings); 2 M8 x 90 horizontal and 4 M8 x 90 vertical (foot brackets); 2 M10 x 140 and 4 M10 x 100 (braces); 2 M10 x 70 (axle plates); 2 M8 x 70 and 4 M8 x 40 (arms and ring); 4 M8 x 120 countersunk (stand-offs); about 52 M5 x 16 (clips and rim joint); 2 M6 x 16 and 2 M5 x 12 (gnomon); nyloc nuts and washers for all; about 300 aluminium rivets 3.2 mm; two 5 x 40 stainless wood screws; cable ties; high-temperature paint; grease.
+- **Fixings (line 17).** Stainless or galvanised: 16 M8 x 50 (castors); 8 M8 x 120 (crossings); 2 M8 x 90 horizontal and 4 M8 x 90 vertical (foot brackets); 2 M10 x 140 and 4 M10 x 100 (braces); 2 M10 x 70 (axle plates); 2 M8 x 70 and 4 M8 x 40 (arms and ring); two small eye screws (drop pin lanyards); 4 M8 x 120 countersunk (stand-offs); about 52 M5 x 16 (clips and rim joint); 2 M6 x 16 and 2 M5 x 12 (gnomon); nyloc nuts and washers for all; about 300 aluminium rivets 3.2 mm; two 5 x 40 stainless wood screws; cable ties; high-temperature paint; grease.
 
 ## 4. Putting it together
 
@@ -579,11 +624,11 @@ Slide the right axle plate down between the right yoke plate and the right uprig
 
 Grease each axle. Hold a PTFE washer between the axle plate and the yoke plate and push the axle in from outside, through the upright, plate, washer and yoke plate, into the inner collar; set the outer collar against the upright and both set screws on their flats, leaving the yoke plate free to turn. **Hold point:** safety stop S2.
 
-### Step 14: lock studs and star knobs
+### Step 14: lock studs, star knobs and drop pins
 
 ![Step 14](05-build-plan/step-14.png)
 
-Each M10 x 80 stud in from outside through the upright and the axle plate, the 2 mm spacer behind the yoke plate's slot, then through the slot; washer and star knob in front. Tilt the dish through its whole range by hand with the knobs loose, then lock it face up.
+Each M10 x 80 stud in from outside through the upright and the axle plate, the 2 mm spacer behind the yoke plate's slot, then through the slot; washer and star knob in front. Tilt the dish through its whole range by hand with the knobs loose, then lock it face up. Hang each drop pin's lanyard on its eye screw and push the pin in from outside through the slot in the upright and the fan hole that shows in the axle plate's slot.
 
 ### Step 15: holder arms
 
@@ -601,19 +646,19 @@ On the inner ends of both arms, one M8 x 40 into each.
 
 ![Step 17](05-build-plan/step-17.png)
 
-On the outer face of the right upright, below the lock stud, two stainless wood screws. Cable along the right arm with cable ties.
+On the outer face of the right upright, below the drop pin, two stainless wood screws. Cable along the right arm with cable ties.
 
-### Step 18: cooker into the holder ring
+### Step 18: canner into the holder ring
 
 ![Step 18](05-build-plan/step-18.png)
 
-With the dish turned away from the sun or covered: water and basket in, then lower the cooker straight down through the ring until both handles rest on it. **Hold point:** safety stops S3 and S4.
+With the dish turned away from the sun or covered: water and basket in, then lower the canner straight down through the ring until both handles rest on it. **Hold point:** safety stops S3 and S4.
 
-### Step 19: lid and sensor cable
+### Step 19: lid, adapter plate and sensor cable
 
 ![Step 19](05-build-plan/step-19.png)
 
-Close the lid as the cooker maker says, with its fittings as the design decisions register sets, and plug the sensor cable into the lid and the logger box. **Hold point:** safety stop S6: the cooker is not pressurised under this plan.
+The lid keeps its own gauge and relief valve as supplied. Fit the adapter plate in the lid's vent-pipe hole on its gasket and tighten the nut from inside; screw the maker's vent pipe into the plate's end port and put the weight on it; fit the probe through its gland and the pressure sensor in the other port. Close the lid as the canner maker says, and plug the sensor cable into the sensor lead at the lid and into the logger box. **Hold point:** safety stop S6: the canner is not pressurised under this plan.
 
 ## 5. First checks
 
@@ -624,14 +669,14 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Check | Requirement | How | Pass when |
 | --- | --- | --- | --- |
 | Tilt range and clearances | R9, R14 | Knobs loose, tilt the dish by hand from face up to 15 degrees above horizontal | It moves smoothly; nothing rubs or comes within 5 mm of anything except the yoke plate passing its axle plate |
-| Tilt lock holds | R9, R15 | Lock at 15 degrees; hang a 5 kg bag from the rim at the gnomon | The dish does not move; it moves freely again when the knobs are loosened |
-| Focus height | R4 | Dish face up, string across the rim; measure from the string to the cooker base along the axis | 255 mm, give or take 3 mm |
+| Tilt lock holds | R9, R15 | Lock at 15 degrees with both drop pins in; hang a 5 kg bag from the rim at the gnomon; then loosen the knobs with the pins still in | Knobs tight: the dish does not move. Knobs loose: it turns no more than 7.5 degrees before the pins stop it. Pins out: it moves freely |
+| Focus height | R4 | Dish face up, string across the rim; measure from the string to the canner base along the axis | 255 mm, give or take 3 mm |
 | Gnomon alignment | R14 | Shine a torch along the dish axis from 3 m away, or check the pin square to the rim plane | The pin's shadow falls inside the 10 mm ring |
-| Cooker seating | R2 | Lower the cooker with its basket and jacket through the ring | Both handles rest on the ring; the jacket clears the ring all round |
+| Canner seating | R2 | Lower the canner with its basket and jacket through the ring | Both handles rest on the ring; the jacket clears the ring all round |
 | Castor brakes | R15 | All four brakes on; push the stand at the top of an upright | It does not roll |
-| Mass and pieces | R16 | Weigh the parts on a bathroom scale before assembly | 45 kg or less in all (44.4 kg estimated); no piece over 20 kg |
+| Mass and pieces | R16 | Weigh the parts on a bathroom scale before assembly | 45 kg or less in all (44.8 kg estimated); no piece over 20 kg |
 | Logger on its power bank | R6, R7, R13 | Power on in the shade; read the probe in iced water and in boiling water, and the transducer against a barometer | Readings within 0.5 °C of the reference after the boiling-point correction, and within 5 kPa; a record is written to the card |
-| Parking cover and keep-out | R9, R11 | Fit the cover; peg out the 2 m keep-out | The cover closes the whole aperture; the tape marks 2 m round the dish and cooker |
+| Parking cover and keep-out | R9, R11 | Fit the cover; peg out the 2 m keep-out | The cover closes the whole aperture; the tape marks 2 m round the dish and canner |
 
 ## 6. Safety stops
 
@@ -640,9 +685,9 @@ Stop at each point. Carry on only when everything listed is true.
 - **S1. Before the dish is lifted into the stand.** Two people available; castor brakes on; the stand on level ground; cut-resistant gloves on; the dish indoors or face down, or covered, so it cannot catch the sun.
 - **S2. Before the dish is let go on its axles.** Both axles in with both collars set; both lock studs and knobs fitted; hands kept clear of the fans and slots, which close like scissors as the dish tilts.
 - **S3. Before the dish ever faces the sun.** The parking cover is at hand; everyone near wears the shade 5 goggles; the 2 m keep-out is pegged; nothing that can burn is under or near the dish; aiming is by the gnomon's shadow only, never by looking at the sun or the focus; the timber is checked for scorch marks after every session.
-- **S4. Before the cooker is at the focus in sun.** At least 1.5 L of water is in it; the thermocouple and logger are working and the 140 °C alarm sounds when tested; the dish is turned at least 15 degrees off the sun before anyone reaches toward the cooker; heat-resistant gloves on.
+- **S4. Before the canner is at the focus in sun.** At least 1.5 L of water is in it; the thermocouple and logger are working and the 140 °C alarm sounds when tested; the dish is turned at least 15 degrees off the sun before anyone reaches toward the canner; heat-resistant gloves on.
 - **S5. Before the power bank goes outside.** It sits in the shaded logger box, closed on its gasket; it is never charged above 45 °C.
-- **S6. Before the cooker is ever pressurised (outside this plan).** The lid has not been drilled (unless its maker has approved it in writing): the vessel is a pressure canner with its factory gauge and relief valve, and the probe gland sits on an adapter plate on the vent stem with a bore of 3 mm or more, leaving the overpressure plug untouched (decided 2026-10-02); the cooker maker's rating for 103.4 kPa is confirmed; the relief valve is fitted, set at 125 kPa gauge or less and preferably certified; the overpressure plug is in place; and a hydrostatic check of the vessel as fitted has passed (TRL 4 work).
+- **S6. Before the canner is ever pressurised (outside this plan).** The lid has not been drilled (unless its maker has approved it in writing); the canner's own gauge and relief valve are in place as supplied, and the gauge has been checked against a reference; the adapter plate is in the vent-pipe hole, with a 3 mm drill passing its vent passage; the overpressure plug is untouched; the canner maker's rating for 103.4 kPa is confirmed; the relief valve's set pressure (125 kPa gauge or less) and seat (4 mm or more) are confirmed; and a hydrostatic check of the vessel as fitted has passed (TRL 4 work).
 
 ## 7. Tools, skills and workspace
 
@@ -652,12 +697,12 @@ Stop at each point. Carry on only when everything listed is true.
 
 **Workspace.** A level floor about 3 x 3 m to build the dish and stand; a bench about 1.5 x 0.6 m; a ventilated, shaded place to paint; a clean area for the petals away from metal chips; a shaded place for the logger and power bank.
 
-**Personal protective equipment.** Safety glasses for sawing, drilling and riveting; cut-resistant gloves for sheet and bar; hearing protection when sawing; dust mask, gloves and glasses for the mineral wool; shade 5 goggles near the focus; heat-resistant gloves for the cooker; no gloves near a turning drill.
+**Personal protective equipment.** Safety glasses for sawing, drilling and riveting; cut-resistant gloves for sheet and bar; hearing protection when sawing; dust mask, gloves and glasses for the mineral wool; shade 5 goggles near the focus; heat-resistant gloves for the canner; no gloves near a turning drill.
 
 ## 8. Where the numbers come from
 
 - Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 66 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
-- Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/SCL-DWG-101` to `SCL-DWG-118`.
+- Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/SCL-DWG-101` to `SCL-DWG-120`.
 - General arrangement: `cad/drawings/SCL-DWG-001.pdf`, Rev P3.
 - Calculations: `docs/04-calcs/01-sizing.md` (SCL-CAL-001 v0.3) and `docs/04-calcs/sizing.py`; masses, tilt torque and lock force in section 10.
 - Bill of materials: `bom/bom.csv`.

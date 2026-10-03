@@ -46,11 +46,11 @@ if __name__ == "__main__":
     render_all(
         parts, project="SunClave", title="Solar steam sterilizer concept", dwg_no="SCL-DWG-010",
         key_figures=["1.4 m dish: about 660 W absorbed at 700 W/m² DNI, 60 deg sun (SCL-CAL-001)",
-                     "12 L cooker, 103.4 kPa gauge: 121.0 °C at sea level only",
-                     "Cold start to end of 30 min hold about 80 min (estimate)",
+                     "12 L canner, 103.4 kPa gauge: 121.0 °C at sea level only",
+                     "Cold start to end of 30 min hold about 81 min (estimate)",
                      "About 4 cycles in a 6 h clear window (estimate)",
                      "Logger: Pt100 plus pressure, checks saturated steam",
-                     "About $497 in parts; value-engineering target $450"],
+                     "About $528 in parts; value-engineering target $450"],
         cut=False,
         flow={"title": "power during heat-up at 700 W/m² DNI, W (SCL-CAL-001 central estimates)", "unit": "W",
               "stages": [("Sun on 1.54 m² dish", 1078), ("Reflected, unshaded", 812), ("Onto the vessel", 777),
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     vessel = [Part(p.name, Pos(0, 0, -P["F_Z"]) * p.shape, p.color, p.bom) for p in parts if p.bom in VESSEL]
     _render(cutaway_parts(vessel), ROOT / "media" / "cutaway.png", azim=-90, elev=18,
             title="SunClave: cutaway of the pressure vessel",
-            note="6 cooker body, 7 lid, 9 relief valve, 10 Pt100 probe, 11 jacket, 12 water, 13 basket with load")
+            note="6 canner body, 7 lid, 9 factory relief valve, 10 adapter plate and Pt100 probe, 11 jacket, 12 water, 13 basket with load")
 
     for d in ("_views", "_views_fig"):
         shutil.rmtree(ROOT_DIR / "media" / d, ignore_errors=True)

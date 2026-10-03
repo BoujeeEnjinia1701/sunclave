@@ -3,7 +3,7 @@ doc_id: SCL-DEC-001
 title: SunClave design decisions register
 project: SunClave
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: Amish approved the recommendations for open decisions 1 to 5 (lid fittings decided; SCL-DDR-003 accepted with a back-up drop pin); moved to decisions made
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Canner, adapter plate and drop pins priced and carried into the design; value engineering and items to confirm updated"
 ---
 
 # SunClave design decisions register
@@ -33,22 +37,22 @@ None. All open decisions were decided on 2026-10-02.
 
 | # | What to confirm | Why it matters | Source |
 | --- | --- | --- | --- |
-| 1 | The cooker's maker's rating for 103.4 kPa, its outside diameter (about 288 mm), and handles whose undersides are about 28 mm below the rim and reach at least 214 mm from the centre | The rating is R8; the handles must rest on the 408 mm holder ring and the jacket must clear its 348 mm hole | SCL-DDR-001 item 4, SCL-DDR-003 C3 |
+| 1 | The canner's maker's rating for 103.4 kPa, its outside diameter (about 288 mm), its mass with fittings (about 4.8 kg, 5.0 kg at most), and handles whose undersides are about 28 mm below the rim and reach at least 214 mm from the centre | The rating is R8; the handles must rest on the 408 mm holder ring and the jacket must clear its 348 mm hole; the mass margin of R16 is 0.2 kg | SCL-DDR-001 items 4 and 5, SCL-DDR-003 C3 |
 | 2 | The reflector sheet takes a 12 mm flange fold without cracking its bright layer | The petals are fixed by riveting through these flanges | SCL-DDR-003 C6 |
 | 3 | A 20 x 3 mm bar bends on edge in the plywood jig without buckling (bend one rib first) | If it buckles, the ribs need a heavier bar or a fabricator's rolls | SCL-DDR-003 C6 |
 | 4 | Castor mounting height 102 mm and a top-plate hole pattern on a 42 mm square, all four with brakes | Sets the stand height and the drilling of the cross rails | SCL-DDR-003 C5 |
 | 5 | The power bank has a low-current (always-on) mode | The logger draws about 72 mA; many banks switch off below 50 to 100 mA | SCL-CAL-001 section 11 |
-| 6 | The relief valve's seat is 4 mm or more and its set pressure is 125 kPa gauge or less, preferably certified | R8 relief capacity | SCL-CAL-001 section 8 |
+| 6 | The canner's factory relief valve has a seat of 4 mm or more and a set pressure of 125 kPa gauge or less; the lid's vent-pipe hole and thread, for the adapter plate | R8 relief capacity; the adapter plate is made to fit the canner | SCL-CAL-001 section 8 |
 | 7 | The pressure transducer's overpressure rating is 600 kPa or more | It must survive a relief lift | SCL-DDR-002 item 18 |
 
 ## Value engineering
 
-Value-engineering target: USD 450 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 497 (USD 47 over the target), validation consumables (USD 45) excluded. Main cost drivers and savings worth trying:
+Value-engineering target: USD 450 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 528 (USD 78 over the target), validation consumables (USD 45) excluded. Main cost drivers and savings worth trying:
 
-- The largest lines are the reflector petals (USD 75), the cycle logger (USD 66), the timber stand with castors, axles and plates (USD 58), the cooker (USD 55) and the lid gland, probe and tee (USD 30).
+- The largest lines are the pressure canner with its gauge and relief valve (USD 100), the reflector petals (USD 75), the cycle logger (USD 66), the timber stand with castors, axles and plates (USD 58) and the adapter plate, gland and probe (USD 45).
 - Making the design constructable added USD 57 (from USD 440): the yoke plates, stand-offs and locks (line 3, USD 18 to 30), the stand's axle plates, axles, collars and brackets (line 4, USD 44 to 58), the clips (line 2), the plate ring and brackets (line 5), the larger logger box and plug-in sensor leads (line 14) and more bolts (line 17).
-- Decided on 2026-10-02 and not yet priced: a pressure canner with a factory gauge and relief valve in place of the household cooker and separate gauge and relief valve (lines 6, 8 and 9), the vent-stem adapter plate (line 10) and the back-up drop pins (line 3).
-- Savings worth trying: have one local cutting shop cut the yoke plates, axle plates, holder ring and hub plate from one sheet of steel (likely cheaper than four separate jobs); price aluminised film on plain 0.5 mm aluminium against bright reflector sheet; buy the logger modules as one combined board; buy bolts in boxes of 50 rather than by the piece.
+- The decisions of 2026-10-02 added USD 31 (from USD 497): the pressure canner sold with its gauge and relief valve (line 6, USD 55 to 100) in place of the household cooker and the separate gauge and relief valve (lines 8 and 9, USD 35, now supplied with the canner), the vent-stem adapter plate (line 10, USD 30 to 45) and the drop pins and lanyards (line 3, USD 30 to 36).
+- Savings worth trying: compare canners sold with a gauge in the target area, since line 6 is now the largest line; have one local cutting shop cut the yoke plates, axle plates, holder ring and hub plate from one sheet of steel (likely cheaper than four separate jobs); price aluminised film on plain 0.5 mm aluminium against bright reflector sheet; buy the logger modules as one combined board; buy bolts in boxes of 50 rather than by the piece.
 
 ## Decisions made
 
